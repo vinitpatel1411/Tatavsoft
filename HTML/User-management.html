@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>User management</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/User-management-style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-info space">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand hp text-white" href="#">Helperland</a>
+        <div class="collapse navbar-collapse user_mng_usr" id="navbarTogglerDemo03">
+
+          <ul class="navbar-nav ">
+          	<li>
+          		<ul class="user_mng_head_menu mx-auto">
+		            <li class=""><a href="#" class="">Service Management</a></li>
+		            <li class=""><a href="#" class="">Role Management</a></li>
+		            <li class=""><a href="#" class="">Coupan Code Management</a></li>
+		            <li class=""><a href="#" class="">Escalation Management</a></li>
+		            <li class=""><a href="#" class="">Service Request</a></li>
+		            <li class=""><a href="#" class="">Service Providers</a></li>
+		            <li class=""><a href="#" class="">User Management</a></li>
+		            <li class=""><a href="#" class="">Finance Module</a></li>
+		            <li class=""><a href="#" class="">Zip Code Management</a></li>
+		            <li class=""><a href="#" class="">Rating Management</a></li>
+		            <li class=""><a href="#" class="">Inquiry Management</a></li>
+		            <li class=""><a href="#" class="">Newsletter Management</a></li>
+		            <li class=""><a href="#" class="">Contetnt Management</a></li>
+            	</ul>
+          	</li>
+            <li class="dropdown ">
+                  <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="asset/admin-user.png" class="user_nm">
+                    Vinit
+                    <img src="asset/logout.png" class="lgout">
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                      <a class="dropdown-item" href="#">Setting</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Logout</a>
+                    </li>
+                  </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+	</header>
+
+
+
+	<section class="user_mng_main">
+		<div class="d-flex">
+			<div class="user_mng">
+		        <ul >
+		            <li class="">
+		            	<a href="#" class="">Service Management</a>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Role Management</a>
+		            </li>
+		            <li class="dropdown">
+		            	<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            		<div class="row">
+		            			<div class="col-md-10">
+		            				Coupan Code Management
+		            			</div>
+		            			<div class="col-md-2">
+		            				<img src="asset/admin-arrow.png" class="rotate_270">
+		            			</div>
+		            		</div>
+		            	</a>
+		            	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Coupan codes</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Usage History</a>
+			                    </li>
+			            </ul>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Escalation Management</a>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Service Request</a>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Service Provider</a>
+		            </li>
+		            <li class="user_mng_active">
+		            	<a href="#" class="user_mng_active">User Management</a>
+		            </li>
+		            <li class="dropdown">
+		            	<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            		<div class="row">
+		            			<div class="col-md-10">
+		            				Finance Module
+		            			</div>
+		            			<div class="col-md-2">
+		            				<img src="asset/admin-arrow.png" class="rotate_270">
+		            			</div>
+		            		</div>
+		            	</a>
+		            	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">All Transactions</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Generate Payment</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Customer Invoices</a>
+			                    </li>
+			            </ul>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Zip Code Management</a>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Rating Management</a>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Inquiry Management</a>
+		            </li>
+		            <li class="">
+		            	<a href="#" class="">Newsletter Management</a>
+		            </li>
+		            <li class="dropdown">
+		            	<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            		<div class="row">
+		            			<div class="col-md-10">
+		            				Content Management
+		            			</div>
+		            			<div class="col-md-2">
+		            				<img src="asset/admin-arrow.png" class="rotate_270">
+		            			</div>
+		            		</div>
+		            	</a>
+		            	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Blog</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">FAQ</a>
+			                    </li>
+			            </ul>
+		            </li>
+		        </ul>
+    		</div>
+    		<div class="container-fluid user_mng_detail">
+    			<div class="row user_mng_head_row">
+    				<div class="col-md-4 sh_title" >
+						User Management
+					</div>
+					<div class="col-md-6">
+
+					</div>
+					<div class="col-md-2">
+						<button class="user_mng_add_usr"><img src="asset/add.png" class="pb-1"> Add New User</button>
+					</div>
+    			</div>
+    			<div class="row user_mng_search mt-3">
+    				<form >
+    					<div class="user_mng_search_form ">
+    							<div>
+									<input type="text" name="User name" class="form-control" id="username" placeholder="User name" >
+								</div>
+								<div >
+									<input type="text" name="User role" class="form-control" id="userrole" placeholder="User Role" >
+								</div>
+								<div>
+									<div class="input-group">
+										<span class="c_code align-items-center justify-content-center">+49</span>
+										<input type="phone" name="Phonenumber" class="form-control" id="Phone number" placeholder="Phone Number" >
+									</div>
+								</div>
+								<div>
+									<input type="text" name="pincode" class="form-control" id="pincode" placeholder="Pincode">
+								</div>
+
+								<div >
+									<button class="form-control search_btn" type="submit" name="search">search</button>
+								</div>
+								<div >
+									<button class="form-control" type="submit" name="Clear">Clear</button>
+								</div>
+    					</div>
+
+					</form>
+    			</div>
+
+
+    			<div class="row sp_detail_head_bg pt-3 mt-3">
+					<div class="col-md-2">
+						<p>User Name <img src="asset/sort.png"></p>
+					</div>
+					<div class="col-md-2">
+						<p>User Type</p>
+					</div>
+					<div class="col-md-3">
+						<p>Role</p>
+					</div>
+					<div class="col-md-1" id="medium-1">
+						<p>Postal Code <img src="asset/sort.png"></p>
+					</div>
+					<div class="col-md-1">
+						<p>City</p>
+					</div>
+					<div class="col-md-1">
+						<p>Radius <img src="asset/sort.png"></p>
+					</div>
+					<div class="col-md-1">
+						<p>User Status <img src="asset/sort.png"></p>
+					</div>
+					<div class="col-md-1">
+						<p>Actions</p>
+					</div>
+				</div>
+
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_active">
+							Active
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_inactive">
+							Inactive
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_active">
+							Active
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_inactive">
+							Inactive
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_active">
+							Active
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_inactive">
+							Inactive
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_active">
+							Active
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_inactive">
+							Inactive
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="col-md-1">
+						<div class="dropdown ">
+			                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                    <img src="asset/group-38.png">
+			                </a>
+			                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Edit</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Deactivate</a>
+			                    </li>
+			                    <li>
+			                      	<a class="dropdown-item" href="#">Service History</a>
+			                    </li>
+			                  </ul>
+			            </div>
+					</div>
+					</div>
+				</div>
+
+				<div class="row sp_details pt-3">
+					<div class="col-md-2 pt-1">
+						<p>John Smith</p>
+					</div>
+					<div class="col-md-2 pt-1">
+						<p>Call center</p>
+					</div>
+					<div class="col-md-3 pt-1">
+						<p>Inquiry Manager</p>
+					</div>
+					<div class="col-md-1 pt-1" id="medium-1">
+						<p>123456</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>Berlin</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<p>10 km</p>
+					</div>
+					<div class="col-md-1 pt-1">
+						<div class="user_status_inactive">
+							Inactive
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="col-md-1">
+							<div class="dropdown ">
+				                <a class="nav-link text-white" id="drpdwn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				                    <img src="asset/group-38.png">
+				                </a>
+				                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+				                    <li>
+				                      	<a class="dropdown-item" href="#">Edit</a>
+				                    </li>
+				                    <li>
+				                      	<a class="dropdown-item" href="#">Deactivate</a>
+				                    </li>
+				                    <li>
+				                      	<a class="dropdown-item" href="#">Service History</a>
+				                    </li>
+				                  </ul>
+				            </div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="user_mng_footer container-fluid">
+					<p>©2018 Helperland. All rights reserved.</p>
+				</div>
+    		</div>
+		</div>
+
+
+	</section>
+
+
+	<script type="text/javascript" src="js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
