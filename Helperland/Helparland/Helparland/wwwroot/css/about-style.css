@@ -1,0 +1,43 @@
+.about_img{
+	background-image: url('../asset/hero-banner-img.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 370px;
+	height: 100%;
+	margin-top: 70px;
+}
+.about_us{
+	margin-top: 32px;
+}
+.about_us_few_desc{
+	max-width: 992px;
+	width: 100%;
+}
+h4{
+	text-align: center;
+	font-size: 40px;
+	max-width: 170px;
+	margin: 100px auto;
+	position: relative;
+}
+
+h4:before{
+	content: "";
+	width: 70px;
+	height: 2px;
+	display: block;
+	background-color: #CCCCCC;
+	position: absolute;
+	top: 50%;
+	left: 0;
+}
+h4:after{
+	content: "";
+	width: 70px;
+	height: 2px;
+	display: block;
+	background-color: #CCCCCC;
+	position: absolute;
+	top: 50%;
+	right: 0;
+}

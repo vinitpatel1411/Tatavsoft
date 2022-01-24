@@ -1,0 +1,232 @@
+.user_nm{
+	margin-right: 7px;
+}
+.lgout{
+	margin-left: 13px;
+}
+.hp{
+	margin-left: 5px;
+	font-size: 36px!important;
+}
+.space .container-fluid{
+	justify-content: flex-start;
+}
+.user_mng_usr{
+	justify-content: flex-end;
+}
+.user_mng{
+	background-color: #FFFFFF;
+	border-right: 1px solid #E5E5E5;
+	min-height: 1062px;
+	min-width: 273px;
+	box-shadow: 0px 10px 10px #00000040;
+	margin-right: 20px;
+}
+
+.user_mng ul{
+	list-style-type: none;
+	margin-left: -33px;
+}
+.user_mng ul li{
+	border-bottom: 0.5px solid #E5E5E5;
+	line-height: 55px;
+}
+.user_mng ul li:hover{
+	background-color: #F4F4F4;
+}
+.user_mng ul li a{
+
+	padding-left: 15px;
+	color: #646464;
+	text-decoration: none;
+}
+.user_mng ul li ul{
+	transition: all 0.3s ease;
+	background-color: #F4F4F4;
+}
+.user_mng_active{
+	color: #1FB6FF!important;
+}
+.user_mng_head_menu{
+	display: none;
+}
+.user_mng_main{
+	background-color: #F4F4F4;
+}
+.user_mng_add_usr{
+	height: 36px;
+	width: 132px;
+	border: none;
+	background-color: #1FB6FF;
+	color: white;
+	font-size: 14px;
+	font-weight: 400;
+	border-radius: 4px;
+}
+.user_mng_detail{
+	padding-top: 24px;
+	margin-right: 20px!important;
+}
+.user_mng_search{
+	background-color: white;
+	border: 1px solid #E5E5E5;
+	height: 86px;
+	align-items: center!important;
+}
+.user_mng_search_form{
+	display: flex;
+	justify-content: center!important;
+}
+.user_mng_search_form div{
+	padding-left: 15px;
+}
+.user_mng_search_form div div{
+	padding-left: 5px!important;
+}
+.user_mng_search_form .form-control{
+	height: 46px;
+}
+.user_mng_detail .sp_detail_head_bg p{
+	font-size: 16px;
+	font-weight: 700;
+	color: #646464;
+}
+.search_btn{
+	background-color: #1FB6FF!important;
+	color: white!important;
+}
+.user_status_active{
+	background-color: #67B644;
+	font-size: 13px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 80px;
+	justify-content: center;
+	text-align: center;
+	padding-top: 3px!important;
+}
+.user_status_inactive{
+	background-color: #FF6B6B;
+	font-size: 13px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 80px;
+	justify-content: center;
+	text-align: center;
+	padding-top: 3px!important;
+}
+.user_mng_detail .sp_details{
+	background-color: white;
+}
+.user_mng_footer{
+	bottom: 0px;
+	position: sticky;
+	z-index: 100;
+	background-color: #F4F4F4;
+	margin-left: -12px!important;
+	margin-top: 20px;
+	width: auto;
+}
+.user_mng_footer p{
+	color: #A2A6A8;
+	font-size: 14px;
+	font-weight: 400;
+}
+.user_mng_search select option{
+	background-color: #F4F4F4;
+	color: #646464;
+	font-size: 12px!important;
+	font-weight: 400;
+	text-align: left;
+}
+/*--------------------------------------service request------------------------------------------------*/
+.service_request_main{
+	background-color: #F4F4F4;
+}
+.sd-container {
+  position: relative;
+  float: left;
+}
+
+.open-button {
+  position: absolute;
+  top: 7px;
+  right: 11px;
+  background: #fff;
+  pointer-events: none;
+}
+
+.open-button button {
+  border: none;
+  background: transparent;
+}
+.service_req_detail{
+	padding-top: 30px;
+}
+.service_req_detail .user_mng_search_form div{
+	padding-left: 5px;
+}
+.service_req_detail .sp_details{
+	background-color: white;
+}
+.service_req_status_completed{
+	background-color: #67B644;
+	font-size: 13px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 80px;
+	justify-content: center;
+	text-align: center;
+	padding-top: 3px!important;
+}
+.service_req_status_cancelled{
+	background-color: #FF6B6B;
+	font-size: 13px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 80px;
+	justify-content: center;
+	text-align: center;
+	padding-top: 3px!important;
+}
+.service_req_status_new{
+	background-color: #F2BB37;
+	font-size: 13px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 60px;
+	justify-content: center;
+	text-align: center;
+	padding-top: 3px!important;
+}
+.service_req_status_pending{
+	background-color: #1FB6FF;
+	font-size: 13px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 80px;
+	justify-content: center;
+	text-align: center;
+	padding-top: 3px!important;
+}
+.service_req_detail .sp_detail_head_bg p{
+	font-size: 16px;
+	font-weight: 700;
+	color: #646464;
+}
+.service_req_detail .user_mng_search_form {
+		width: auto;
+		margin:0px 2px;
+	}

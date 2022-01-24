@@ -1,0 +1,63 @@
+.sh_export_btn{
+	height: 34px;
+	width: 70px;
+	background-color: #146371;
+	color: white;
+	font-size: 14px;
+	font-weight: 400;
+	border: none;
+	border-radius: 17px;
+	margin-left: 50px;
+}
+.sh_title{
+	font-size: 22px;
+	font-weight: 700;
+	color: #646464;
+	line-height: 27px;
+}
+.sh_ratesp{
+	width: 70px;
+	height: 34px;
+	background-color: #6DA9B5;
+	color: white;
+	font-size: 14px;
+	font-weight: 400;
+	border: none;
+	border-radius: 17px;
+}
+.sh_payment{
+	color: #1D7A8C;
+	font-size: 24px;
+	font-weight: 700;
+}
+.sh_status_completed{
+	background-color: #67B644;
+	font-size: 14px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 80px;
+	justify-content: center;
+	padding: 2px 5px;
+}
+.sh_status_cancelled{
+	background-color: #FF6B6B;
+	font-size: 14px;
+	font-weight: 400;
+	color: white;
+	border: none;
+	height: 24px;
+	width: 80px;
+	justify-content: center;
+	padding: 2px 7px;
+}
+.sh_cap_border{
+	width: 40px!important;
+	height: 40px!important;
+	border: 1px solid #b0c9ce;
+	opacity: 1;
+	border-radius: 50%;
+	padding-left: 5px!important;
+	padding-top: 5px!important;
+}
