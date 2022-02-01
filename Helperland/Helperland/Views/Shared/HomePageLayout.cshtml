@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="/asset/favicon_img.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet" />
+    <!--<link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>-->
+
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg align-items-center navbar-dark home_nav_bg">
+        <div class="container-fluid">
+            <img src="/asset/logo-large.png" id="logo-img">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="mx-auto"></div>
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a href="#" class="nav-item text-white head_item home_active">Book a Cleaner</a>
+                    </li>
+                    <li class="nav-item no_active">
+                        <a asp-action="Price" asp-controller="Home" class="nav-item text-white head_item none_active">Prices</a>
+                    </li>
+                    <li class="nav-item no_active">
+                        <a href="#" class="nav-item text-white head_item none_active">Our Guarantee</a>
+                    </li>
+                    <li class="nav-item no_active">
+                        <a href="#" class="nav-item text-white head_item none_active">Blog</a>
+                    </li>
+                    <li class="nav-item no_active">
+                        <a asp-action="Contact" asp-controller="Home" class="nav-item text-white head_item none_active">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item text-white head_item home_active" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item text-white head_item home_active">Become a Helper</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Modal Start -->
+    <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login to your account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3">
+                        <div class="col-12 emailModal">
+                            <input type="email" class="form-control" id="" placeholder="Email">
+                            <i class="far fa-user"></i>
+                        </div>
+                        <div class="col-12 pswModal">
+                            <input type="password" class="form-control" id="" placeholder="Password">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12 login-btn">
+                            <button type="button">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <div class="forgotpsw">
+                        <a id="frgLink" href="#" data-bs-toggle="modal" data-bs-target="#frgPsw">
+                            Forgot
+                            Password?
+                        </a>
+                    </div>
+                    <div class="accoutReg text-center">
+                        <p>Don't have an account? <a href="#">Create an account</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Modal End -->
+    <!-- Forgot Password Modal S -->
+    <div class="modal fade" id="frgPsw" aria-labelledby="frgPswLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="frgPswLabel">Forgot Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3">
+                        <div class="col-12">
+                            <input type="email" class="form-control" id="" placeholder="Email Address">
+                        </div>
+                        <div class="col-12 send-btn">
+                            <button type="button">Send</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <div>
+                        <a href="#" class="loginlink" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Login
+                            Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Forgot Password Modal E -->
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 footer-widget">
+                        <a href="#" title="Helper Hand">
+                            <img src="/asset/footer-logo.png" alt="Helper Hand">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 footer-widget">
+                        <ul class="footer-navigation d-flex justify-content-center">
+                            <li>
+                                <a asp-action="Index" asp-controller="Home" title="Home">Home</a>
+                            </li>
+                            <li>
+                                <a asp-action="About" asp-controller="Home" title="About">About</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Testimonials">Testimonials</a>
+                            </li>
+                            <li>
+                                <a asp-action="FAQ" asp-controller="Home" title="FAQs">FAQs</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Impressum">Impressum</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 footer-widget">
+                        <ul class="social-media-list d-flex justify-content-end">
+                            <li>
+                                <a href="#" target="_blank" title="Facebook">
+                                    <img src="/asset/ic-facebook.png" alt="Facebook">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" title="Instagram">
+                                    <img src="/asset/ic-instagram.png" alt="Instagram">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="row faq-policy text-center">
+                <p>©️2018 Helperland. All rights reserved. Terms and Conditions | Privacy Policy</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom privacy-pol">
+            <div class="container text-center">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat nunc libero, ac malesuada ligula aliquam ac. <a href="#" title="Privacy Policy">Privacy Policy</a></p>
+                <a href="#" class="yellow-btn ok-btn">OK!</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript" src="~/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+﻿@model Helperland.ViewModel.ContactUsViewModel
+
+@{
+    ViewData["Title"] = "Home | Contact";
+    Layout = "~/Views/Shared/PublicPageLayout.cshtml";
+}
+
+<div class="contact_img">
+
+</div>
+
+<section class="faq_title text-center">
+    <h1>Contact us</h1>
+    
+    <h4><img src="/asset/forma-1-copy-5.png" class="text-center"></h4>
+
+
+    <div class="extra-service d-flex flex-wrap justify-content-center align-items-center">
+        <div class="extra-items text-center ">
+            <div class=" d-flex justify-content-center align-items-center mx-auto">
+                <img src="/asset/forma-1_2.png" alt="">
+            </div>
+            <div class="extra-details mt-3">
+                <p class="extra-title mb-0">
+                    1111 Lorem ipsum text 100,<br>Lorem ipsum AB
+                </p>
+            </div>
+        </div>
+        <div class="extra-items text-center">
+            <div class=" d-flex justify-content-center align-items-center mx-auto">
+                <img src="/asset/phone-call.png" alt="">
+            </div>
+            <div class="extra-details mt-3">
+                <p class="extra-title mb-0">
+                    +49 (40) 123 56 7890<br>
+                    +49 (40) 123 56 7890
+                </p>
+            </div>
+        </div>
+        <div class="extra-items text-center">
+            <div class="d-flex justify-content-center align-items-center mx-auto">
+                <img src="/asset/vector-smart-object.png" alt="">
+            </div>
+            <div class="extra-details mt-3">
+                <p class="extra-title mb-0">
+                    info@helperland.com
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <h5 class="p_hr mx-auto mt-3"></h5>
+</section>
+
+<section class="contact">
+    <h2 class="text-center">Get in touch with us</h2>
+    <div class="Contact_form mx-auto">
+        <form class="row  g-3" asp-action="Contact" asp-controller="Home">
+            <div class="col-md-6">
+                <input asp-for="FirstName"  type="text"  class="form-control" id="Firstname" placeholder="First Name" required>
+            </div>
+            <div class="col-md-6">
+                <input asp-for="LastName" type="text"  class="form-control" id="Lastname" placeholder="Last Name" required>
+            </div>
+            <div class="col-md-6">
+                <div class="row g-0">
+
+                    <div class="col-sm-12 input-group">
+                        <span class="c_code align-items-center justify-content-center">+49</span>
+                        <input asp-for="Phonenumber"  type="tel"  class="form-control" id="Phone number" placeholder="Mobile Number" pattern="[0-9]{10}" 
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input asp-for="Email" type="email"  class="form-control" id="Email" placeholder="Email address" required>
+            </div>
+            <div class="col-md-12">
+                <select asp-for="Subject"  class="form-select form-sub" aria-label="Default select example">
+
+                    <option value="General" selected>General</option>
+                    <option value="Inquiry">Inquiry</option>
+                    <option value="Renewal">Renewal</option>
+                    <option value="Reluctance">Reluctance</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <textarea asp-for="Message"  class="form-control" id="message" placeholder="Messages" rows="4"></textarea>
+            </div>
+            <div class="col-md-12 text-center">
+                <button class="c_sub_btn" type="submit" name="Submit"  ><h3>Submit</h3></button>
+            </div>
+        </form>
+    </div>
+
+</section>
+<section class="map">
+    <div class="contact_map">
+        <img src="/asset/pin.png" class="map_img">
+    </div>
+</section>
+
+<section class="news_letter f_color bg-white">
+    <div class="container text-center">
+
+        <h2>GET OUR NEWSLETTER</h2>
+        <div class="form-row d-flex justify-content-center align-items-center">
+            <div class="form-group">
+                <label for="email" style="display: none;">YOUR EMAIL</label>
+                <input type="text" placeholder="YOUR EMAIL" id="email" class="form-control">
+            </div>
+            <div class="btn-wrapper">
+                <button class="submit_btn">Submit</button>
+            </div>
+        </div>
+    </div>
+</section>
