@@ -22,9 +22,9 @@ namespace Helperland.Controllers
         public IActionResult Submit(ContactU contactU)
         {
             Console.WriteLine(contactU);
-           // _helperlandContext.ContactUs.Add(contactU);
-            //_helperlandContext.SaveChanges();
-            return RedirectToAction("Index");
+            _helperlandContext.ContactUs.Add(contactU);
+            _helperlandContext.SaveChanges();
+            return RedirectToAction("Contact");
         }
     }
 }

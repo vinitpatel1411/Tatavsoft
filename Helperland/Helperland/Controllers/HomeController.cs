@@ -52,7 +52,6 @@ namespace Helperland.Controllers
                 Message = contactUsViewModel.Message,
                 CreatedOn = DateTime.Now
             };
-            //Debug.WriteLine("this is " + contactU.Name);
             _helperlandContext.ContactUs.Add(contactU);
             _helperlandContext.SaveChanges();
             return RedirectToAction("Contact");

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -8,8 +7,6 @@ namespace Helperland.Models
 {
     public partial class ContactU
     {
-        
-        
         public int ContactUsId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

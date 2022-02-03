@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HOME\\Downloads\\Yaksh_Training-helperland (1)\\Yaksh_Training-helperland\\helperland\\Helperland\\Helperland\\Helperland.csproj": {}
+    "F:\\Study Material\\Tatavsoft(Training)\\Helperland\\Helperland\\Helperland.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HOME\\Downloads\\Yaksh_Training-helperland (1)\\Yaksh_Training-helperland\\helperland\\Helperland\\Helperland\\Helperland.csproj": {
+    "F:\\Study Material\\Tatavsoft(Training)\\Helperland\\Helperland\\Helperland.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HOME\\Downloads\\Yaksh_Training-helperland (1)\\Yaksh_Training-helperland\\helperland\\Helperland\\Helperland\\Helperland.csproj",
+        "projectUniqueName": "F:\\Study Material\\Tatavsoft(Training)\\Helperland\\Helperland\\Helperland.csproj",
         "projectName": "Helperland",
-        "projectPath": "C:\\Users\\HOME\\Downloads\\Yaksh_Training-helperland (1)\\Yaksh_Training-helperland\\helperland\\Helperland\\Helperland\\Helperland.csproj",
+        "projectPath": "F:\\Study Material\\Tatavsoft(Training)\\Helperland\\Helperland\\Helperland.csproj",
         "packagesPath": "C:\\Users\\HOME\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HOME\\Downloads\\Yaksh_Training-helperland (1)\\Yaksh_Training-helperland\\helperland\\Helperland\\Helperland\\obj\\",
+        "outputPath": "F:\\Study Material\\Tatavsoft(Training)\\Helperland\\Helperland\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
