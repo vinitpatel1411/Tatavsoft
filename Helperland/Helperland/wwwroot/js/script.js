@@ -22,11 +22,40 @@ jQuery('.ok-btn').click(function (e) {
 
 $(document).on('click', 'ul .nav-item', function () {
     $(this).addClass('active').siblings().removeClass('active')
-})
-/*
+});
+
+
+$(document).on('click', 'ul .nav-item', function () {
+    $(this).addClass('active').siblings().removeClass('active')
+});
+
+$('#password, #confirm_password').on('keyup', function () {
+    if ($('#password').val() == $('#confirm_password').val()) {
+        $('#message').html('Matching').css('color', 'green');
+        $('#but').prop('disabled', false);
+    } else {
+        $('#message').html('Not Matching').css('color', 'red');
+        $('#but').prop('disabled', true);
+    }
+});
 $(document).ready(function () {
-    $(window).scroll(function () {
-        $('.nav').toggleClass("scroll-active", ($(window).scrollTop() > 0));
+    $("#isCheck").change(function () {
+        if (this.checked) {
+            $('#message2').css('display', 'none');
+        } else {
+            $('#message2').css('display', 'block');
+        }
     });
 });
-*/
+$('#but').click(function () {
+
+    var status = $('#isCheck').is(':checked');
+    if (status) {
+        $('#message2').css('display', 'none');
+    } else {
+        $('#message2').css('display', 'block');
+    }
+
+});
+
+

@@ -1,0 +1,32 @@
+﻿@model Helperland.ViewModel.LoginViewModel
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{ ViewData["Title"] = "Change Password";
+                Layout = "~/Views/Shared/PublicPageLayout.cshtml"; }
+
+<h2 class="text-center" style="margin-top:80px;">welcome @HttpContextAccessor.HttpContext.Session.GetString("FirstName")</h2>
+<h2 class="text-center">User Name :  @HttpContextAccessor.HttpContext.Session.GetString("Email")</h2>
+
+<div class="Contact_form mx-auto mb-5" style="max-width:300px">
+    <form class="row  g-3" asp-action="ChangePassword" asp-controller="Home">
+
+        <div class="col-md-12">
+            <label>New Password</label>
+            <input asp-for="Password" type="password" id="password" minlength="1" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="col-md-12">
+            <label>Confirm Password</label>
+            <input type="password" id="confirm_password" name="ConfirmPassword" class="form-control" placeholder="Confirm Password" required>
+            <span id='message'></span>
+        </div>
+
+
+        <div class="col-md-12 text-center">
+            <button id="save_btn" class="frgt_sub_btn" type="submit"><h3>Save</h3></button>
+        </div>
+        <div class="col-md-12 pt-1 text-center">
+            <label><a asp-action="Index_Login" asp-controller="Home">Login Now</a></label>
+        </div>
+    </form>
+</div>

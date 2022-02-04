@@ -1,0 +1,139 @@
+﻿@model Helperland.ViewModel.CustomerRegistrationViewModel
+
+@{ ViewData["Title"] = "Helperland | BecomeProvider";
+                Layout = "~/Views/Shared/HomePageLayout.cshtml"; }
+
+<section>
+    <div class="pro-banner-image ">
+        <div class="container">
+            <div class="become_pro_form mx-auto">
+                <form class="row g-3" asp-action="BecomeProvider" asp-controller="Home">
+                    <h2>Register Now!</h2>
+                    <div class="col-md-12">
+                        <input asp-for="FirstName" type="text" class="form-control" id="Firstname" placeholder="First Name" required>
+                    </div>
+                    <div class="col-md-12">
+                        <input asp-for="LastName" type="text" class="form-control" id="Lastname" placeholder="Last Name" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input asp-for="Email" type="email" class="form-control" id="Email" placeholder="Email address" required>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row g-0">
+
+                            <div class="col-sm-12 input-group">
+                                <span class="c_code align-items-center justify-content-center">+49</span>
+                                <input asp-for="Phonenumber" type="tel" class="form-control" id="Phone number" placeholder="Mobile Number" pattern="[0-9]{10}"
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input asp-for="Password" type="password" class="form-control" id="password" placeholder="password" required>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="password" class="form-control" id="confirm_password" placeholder="confirm Password" required>
+                        <span id='message'></span>
+                    </div>
+                    <div class="col-md-12 input-group">
+                        <input type="checkbox" name="send_news_letter" id="send_news" class="check_box">
+                        <label class="check_label">Send me newsletters from Helperland</label>
+                    </div>
+                    <div class="col-md-12 input-group">
+                        <input id="isCheck" type="checkbox" name="policy_check" class="check_box" required>
+                        <label class="check_label">I accept <a href="#">terms and conditions </a>&<a href="#"> privacy policy</a></label>
+                        <div id='message2' style="color: red; display: none;">Please accept Terms & Conditions</div>
+                    </div>
+                    <div class="text-danger" asp-validation-summary="All"></div>
+                    <div class="col-md-12 text-center">
+                        <button class="pro_sub_btn" id="but" type="submit" name="Submit"><h3>Get Started     <img src="/asset/arrow-white.png"></h3></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="pt-5">
+            <div class="scroll-link-wrapper ">
+                <a href="#howitwork" title="Scroll Down" class="scroll-link">
+                    <img src="/asset/group-18_5.png" alt="Scroll-down">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="howitwork_section f_color" id="howitwork">
+    <div class="container">
+        <h2 class="text-center">How it works</h2>
+        <div class="howitwork_info mx-auto">
+            <div class="row d-flex align-items-center" id="hiw_row1">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <h3>Register yourself</h3>
+                    <p>
+                        Provide your basic information to register<br>
+                        yourself as a service provider.
+                    </p>
+                    <p><a href="#">Read More <img src="/asset/shape-2.png"></a></p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="image-wrapper">
+                        <img src="/asset/group-23.png" alt="Blog description">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+            <div class="row d-flex align-items-center" id="hiw_row2">
+                <div class="col-lg-2">
+
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="image-wrapper">
+                        <img src="/asset/group-29(circle).jpeg" alt="Blog description" style="border-radius: 50%;">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <h3>Get service requests</h3>
+                    <p>
+                        You will get service requests from<br>
+                        customers depend op service area and profile.
+                    </p>
+                    <p><a href="#">Read More <img src="/asset/shape-2.png"></a></p>
+                </div>
+
+
+
+            </div>
+            <div class="row d-flex align-items-center" id="hiw_row3">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <h3>Complete service</h3>
+                    <p>
+                        Accept service requests from your customers<br>
+                        and complete your work.
+                    </p>
+                    <p><a href="#">Read More <img src="/asset/shape-2.png"></a></p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="image-wrapper">
+                        <img src="/asset/group-30(circle).jpeg" alt="Blog description" style="border-radius: 50%;">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>

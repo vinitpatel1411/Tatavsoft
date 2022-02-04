@@ -451,3 +451,7 @@ F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Hel
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Helperland.Views.pdb
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Helperland.csproj.CopyComplete
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Helperland.genruntimeconfig.cache
+F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\BecomeProvider.cshtml.g.cs
+F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\CustomerRegistration.cshtml.g.cs
+F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\ForgotPass.cshtml.g.cs
+F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\welcome.cshtml.g.cs

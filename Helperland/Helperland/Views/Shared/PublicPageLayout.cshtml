@@ -40,10 +40,10 @@
                             <a asp-action="Contact" asp-controller="Home" class="nav-item text-white head_item none_active">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-item text-white head_item faq_active" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
+                            <a asp-action="Index_Login" class="nav-item text-white head_item faq_active" asp-controller="Home">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-item text-white head_item faq_active">Become a Helper</a>
+                            <a asp-action="BecomeProvider" asp-controller="Home" class="nav-item text-white head_item faq_active">Become a Helper</a>
                         </li>
                     </ul>
                 </div>
@@ -90,7 +90,7 @@
                             </a>
                         </div>
                         <div class="accoutReg text-center">
-                            <p>Don't have an account? <a href="#">Create an account</a></p>
+                            <p>Don't have an account? <a asp-action="CustomerRegistration" asp-controller="Home">Create an account</a></p>
                         </div>
                     </div>
                 </div>
