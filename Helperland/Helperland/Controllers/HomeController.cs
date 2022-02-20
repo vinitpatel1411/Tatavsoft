@@ -249,6 +249,25 @@ namespace Helperland.Controllers
 
             return View();
         }
+
+        public IActionResult book_service()
+        {
+
+            string uid = HttpContext.Session.GetString("UserId");
+            if (uid != null)
+            {
+                string uname = HttpContext.Session.GetString("FirstName");
+                ViewBag.Uname = uname;
+                ViewBag.login_check = String.Format("loggedin");
+                return View();
+            }
+            else
+            {
+                ViewBag.login_before_service = string.Format("please login first");
+                return RedirectToAction("Index_Login", "Home");
+            }
+
+        }
         public bool email_exist(string email)
         {
             var isCheck = _helperlandContext.Users.Where(eMail => eMail.Email == email).FirstOrDefault();

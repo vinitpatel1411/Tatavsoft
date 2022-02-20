@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 * {
-    font-family: "Roboto",sans-serif !important;
+    font-family: "Roboto",sans-serif;
 }
 
 html, body {
     width: 100%;
     margin: 0px;
-    padding: 0px;
+    padding: 0px !important;
     overflow-x: hidden;
 }
 
@@ -220,9 +220,13 @@ h2 {
     transform: translateY(-50%);
 }
 
-.navbar ul li {
-    white-space: nowrap;
+.navbar {
+    padding-right: 0px !important;
 }
+
+    .navbar ul li {
+        white-space: nowrap;
+    }
 
 .head_item {
     font-size: 17px;
@@ -1996,6 +2000,644 @@ h4 {
     .frgt_sub_btn h3 {
         margin: 0 !important;
     }
+
+.emailfield {
+    background-image: url('../asset/user2.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-origin: content-box;
+}
+
+.passfield {
+    background-image: url('../asset/lock2.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-origin: content-box;
+}
+/*-------------------------------------book-service----------------------------------------------------*/
+.book-service_img {
+    background-image: url('../asset/calculator-banner.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 370px;
+    height: 100%;
+    margin-top: 70px;
+}
+
+input[type="date"][id="service_date"]::-webkit-inner-spin-button,
+input[type="date"][id="service_date"]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    background: none;
+}
+
+.date-container {
+    position: relative;
+    float: left;
+}
+
+.date-button {
+    position: absolute;
+    top: 7px;
+    right: 28px;
+    background: #fff;
+    pointer-events: none;
+}
+
+.clock-container {
+    position: relative;
+    float: left;
+}
+
+.clock-button {
+    position: absolute;
+    top: 7px;
+    right: 28px;
+    background: #fff;
+    pointer-events: none;
+}
+
+
+.ss_form {
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+    .ss_form .col-lg-8 {
+        max-width: 750px;
+    }
+
+.ss_progress_back {
+    background-color: #F3F3F3;
+}
+
+    .ss_progress_back .col-md-3.active {
+        background-color: #1D7A8C;
+    }
+
+        .ss_progress_back .col-md-3.active.active_tab {
+            position: relative;
+        }
+
+            .ss_progress_back .col-md-3.active.active_tab:after {
+                position: absolute;
+                content: "";
+                height: 0;
+                width: 0;
+                top: 100%;
+                border-width: 14px 14px 0 14px;
+                border-color: #1d7a8c transparent transparent transparent;
+                border-style: solid;
+                left: 50%;
+                margin-left: -14px;
+            }
+
+        .ss_progress_back .col-md-3.active p {
+            color: white;
+        }
+
+    .ss_progress_back .col-md-3 {
+        display: flex;
+        height: 67px;
+        align-items: center;
+        cursor: pointer;
+    }
+
+        .ss_progress_back .col-md-3 .dwn_img {
+            padding-top: 5px;
+        }
+
+        .ss_progress_back .col-md-3 p {
+            font-size: 18px;
+            font-weight: 400;
+            color: #646464;
+            margin-left: 5px;
+            margin-bottom: 0 !important;
+            white-space: nowrap;
+        }
+
+.ss_form label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4F4F4F;
+}
+
+.ss_form .ss_form_detail form {
+    padding: 0;
+}
+
+
+
+.ss_form .fade {
+    display: none;
+}
+
+.ss_form .ss_form_detail .ss_step_1 {
+    width: 100%;
+}
+
+.ss_form .ss_form_detail .ss_step_2 {
+    width: 100%;
+}
+
+.ss_form .ss_form_detail .ss_step_3 {
+    width: 100%;
+}
+
+.ss_form .ss_form_detail .ss_step_4 {
+    width: 100%;
+}
+
+.ss_form .ss_form_detail .form-control {
+    height: 46px;
+}
+
+.ss_form .ss_form_detail .form-select {
+    height: 46px;
+}
+
+.ss_form .ss_form_detail .how_long {
+    padding-left: 25px;
+}
+
+.ss_form .ss_form_detail .postal_check_btn {
+    height: 46px;
+    background-color: #1D7A8C;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+    white-space: nowrap;
+}
+
+.ss_form .col-lg-4 {
+    max-width: 360px;
+    margin-left: 30px;
+}
+
+    .ss_form .col-lg-4 .ss_pay_summary {
+        height: 67px;
+        background-color: #1D7A8C;
+        align-items: center;
+    }
+
+        .ss_form .col-lg-4 .ss_pay_summary label {
+            font-size: 18px;
+            color: white;
+            font-weight: 400;
+            margin-left: 22px;
+        }
+
+.ss_form .seperator {
+    color: #CCCCCC;
+}
+
+.ss_form_detail .extra-serve {
+    margin-top: 10px;
+}
+
+    .ss_form_detail .extra-serve .extra-service-items {
+        margin: 0 10px 10px;
+    }
+
+.ss_form_detail .ss_form_textarea {
+    height: 70px !important;
+}
+
+.ss_form_detail .check_pet .col-sm-1 {
+    width: auto;
+    padding-right: 0;
+}
+
+.ss_form .ss_form_detail .continue-1 {
+    height: 46px;
+    background-color: #1D7A8C;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 20px;
+}
+
+.ss_form .ss_form_detail .continue-2 {
+    height: 46px;
+    background-color: #1D7A8C;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 20px;
+}
+
+.ss_form .ss_form_detail .ss_step_2 .extra-img:hover {
+    cursor: pointer;
+}
+
+.ss_form_detail .ss_step_3 .ss_address_radio {
+    height: 66px;
+    border: 1px solid #C8C8C8;
+    border-radius: 5px;
+    margin: 10px 5px;
+    cursor: pointer;
+}
+
+    .ss_form_detail .ss_step_3 .ss_address_radio .col-md-2,
+    .ss_form_detail .ss_step_3 .ss_address_radio .col-md-8 {
+        height: 66px;
+    }
+
+    .ss_form_detail .ss_step_3 .ss_address_radio p {
+        color: #4F4F4F;
+        margin: 0 !important;
+    }
+
+    .ss_form_detail .ss_step_3 .ss_address_radio .radio_address {
+        margin-top: 26px;
+    }
+
+.ss_form_detail .ss_step_3 .add_address_btn {
+    height: 46px;
+    background-color: #1D7A8C;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+    margin-left: 10px;
+}
+
+.ss_form_detail .ss_step_3 .save_address_btn {
+    height: 46px;
+    background-color: #1D7A8C;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+    margin-left: 10px;
+}
+
+.ss_form_detail .ss_step_4 .complete_booking_btn {
+    height: 46px;
+    background-color: #1D7A8C;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+}
+
+.ss_form_detail .ss_step_3 .cancel_address_btn {
+    height: 46px;
+    border-radius: 23px;
+    background-color: white;
+    color: #1D7A8C;
+    border: 1px solid #1D7A8C;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+    margin-left: 10px;
+}
+
+.ss_form_detail .ss_step_3 .add_address_btn:hover {
+    border: 1px solid #1D7A8C;
+    background-color: white;
+    color: #1D7A8C;
+}
+
+.ss_form_detail .ss_step_3 .ss_address_create {
+    border: 1px solid #C8C8C8;
+    background-color: #F1F1F1;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+
+    .ss_form_detail .ss_step_3 .ss_address_create .col-md-6 {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+.ss_form_detail .ss_step_3 .extra-img-sp-avatar {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #b0c9ce;
+    opacity: 1;
+    border-radius: 50%;
+    padding: 30px 35px;
+}
+
+.ss_form_detail .ss_step_3 .extra-sp-name {
+    color: #646464;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.ss_form_detail .ss_step_3 .sp_select_btn {
+    height: 46px;
+    border-radius: 5px;
+    background-color: white;
+    color: #1D7A8C;
+    border: 1px solid #1D7A8C;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 20px;
+    margin-top: 5px;
+}
+
+.ss_form_detail .ss_step_4 .card_img {
+    height: 35px;
+    width: 60px;
+    padding: 0 3px !important;
+}
+
+.ss_form_detail .ss_step_4 .accepted_card_lbl {
+    display: block;
+    text-align: right;
+}
+
+.ss_form_detail .ss_step_4 .check_label_book {
+    padding-left: 10px;
+    color: #4F4F4F;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+    .ss_form_detail .ss_step_4 .check_label_book a {
+        color: #1D7A8C;
+        text-decoration: none;
+    }
+
+.ss_form_detail .ss_step_4 .accept_3_policy .col-md-1 {
+    width: auto;
+    padding-right: 0px !important;
+}
+
+.ss_form_detail .ss_step_4 .accept_3_policy .col-md-11 {
+    padding-left: 3px !important;
+}
+
+.ss_form .ps_p_tag {
+    color: #4F4F4F;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+    .ss_form .ps_p_tag .ps_per_clean {
+        font-size: 18px;
+    }
+
+    .ss_form .ps_p_tag p {
+        margin-bottom: 0;
+    }
+
+.ss_form .ps_container {
+    border: 1px solid #00000059;
+}
+
+.ss_form .ss_step_3 pre {
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #4F4F4F;
+    font-family: "Roboto",sans-serif;
+}
+
+.ss_form .ps_container pre {
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #4F4F4F;
+    font-family: "Roboto",sans-serif;
+}
+
+.ss_form .ps_container .ps_total_payment {
+    font-size: 20px;
+    color: #1D7A8C;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.ss_form .ps_container .ps_total_price {
+    font-size: 40px;
+    color: #1D7A8C;
+    font-weight: 700;
+}
+
+.ss_form .ps_container .ps_grand_total {
+    font-size: 40px;
+    color: #1D7A8C;
+    font-weight: 700;
+}
+
+.ss_form .ps_container .ps_footer {
+    background-color: #F3F3F3;
+}
+
+.ss_form .ps_container .ps_footer_lbl {
+    font-size: 14px;
+    color: #8D8D8D;
+    margin-bottom: 10px;
+    margin-top: 3px;
+}
+
+.ss_form .ss_question_sect label {
+    font-size: 20px;
+}
+
+.ss_form .ss_question_sect h2 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.ss_form .ss_question_sect .accordion_item {
+    cursor: pointer;
+}
+
+.ss_form .ss_question_sect .accordion-body p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4F4F4F;
+    margin-bottom: 0;
+}
+
+.ss_form .ss_question_sect .accordion_btn {
+    position: relative;
+}
+
+    .ss_form .ss_question_sect .accordion_btn::before {
+        content: "";
+        display: block;
+        background-image: url(../asset/keyboard-right-arrow-button.png);
+        width: 12px;
+        height: 7px;
+        left: -10px;
+        top: 2px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+    }
+
+    .ss_form .ss_question_sect .accordion_btn.collapsed::before {
+        background-image: url(../asset/icon-arrow-right.png);
+        width: 11px;
+        height: 11px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: -10px;
+        top: 2px;
+        content: "";
+        display: block;
+    }
+
+
+.ss_form .ss_question_sect .for_more_help {
+    text-decoration: none;
+    font-size: 16px;
+    color: #1D7A8C;
+    font-weight: 700;
+}
+/*---------------------------------------Login Screen--------------------------------------------------*/
+.login_info_container {
+    margin-left: 10px;
+}
+
+.login_welcome_txt {
+    font-size: 14px;
+    color: #4F4F4F;
+    font-weight: 400;
+}
+
+.login_welcome_name {
+    font-size: 16px;
+    color: #4F4F4F;
+    font-weight: 700;
+}
+
+.dropdown .dropdown-menu .dropdown-item {
+    color: #4F4F4F;
+}
+
+.seperator.no_mar {
+    margin: 0;
+    color: #CCCCCC;
+}
+
+.ss_form .ss_seperator_line {
+    display: none;
+}
+
+.ps_btn {
+    display: none;
+    position: fixed;
+    bottom: -17px;
+    left: 45%;
+    height: 46px;
+    background-color: #86eb34;
+    border-radius: 23px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 10px;
+    padding-top: 5px;
+    padding-bottom: 20px;
+    white-space: nowrap;
+}
+
+    .ps_btn:hover {
+        color: #86eb34;
+        background-color: white;
+    }
+
+#psModal label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4F4F4F;
+}
+
+#psModal pre {
+    font-family: "Roboto",sans-serif;
+}
+
+#psModal .modal-header {
+    background-color: #1D7A8C;
+}
+
+    #psModal .modal-header .modal-title {
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+#psModal .modal-body {
+    padding-bottom: 0;
+}
+
+
+
+#psModal .ps_container pre {
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #4F4F4F;
+}
+
+#psModal .ps_container .ps_total_payment {
+    font-size: 20px;
+    color: #1D7A8C;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+#psModal .ps_container .ps_total_price {
+    font-size: 40px;
+    color: #1D7A8C;
+    font-weight: 700;
+}
+
+#psModal .ps_container .ps_grand_total {
+    font-size: 40px;
+    color: #1D7A8C;
+    font-weight: 700;
+}
+
+#psModal .ps_container .ps_footer {
+    background-color: #F3F3F3;
+}
+
+#psModal .ps_container .ps_footer_lbl {
+    font-size: 14px;
+    color: #8D8D8D;
+    margin-bottom: 10px;
+    margin-top: 3px;
+}
+
+#psModal .ps_p_tag {
+    color: #4F4F4F;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+    #psModal .ps_p_tag .ps_per_clean {
+        font-size: 18px;
+    }
+
+    #psModal .ps_p_tag p {
+        margin-bottom: 0;
+    }
+
+#psModal .fade {
+    display: none;
+}
 /*--------------------------------------media queries--------------------------------------------------*/
 @media (max-width: 500px) {
     .scroll-top {
@@ -2007,7 +2649,100 @@ h4 {
     }
 }
 
+@media (max-width: 516px) {
+    .ss_form .ss_form_detail .ss_step_1 label,
+    .ss_form .ss_form_detail .ss_step_2 label,
+    .ss_form .ss_form_detail .ss_step_3 label,
+    .ss_form .ss_form_detail .ss_step_4 label {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .ss_form .ss_form_detail .ss_step_1 .col-sm-5 {
+        margin-bottom: 10px;
+    }
+
+    .ss_form .ss_form_detail .ss_step_2 .clock-container {
+        margin-top: 10px;
+    }
+
+    .ss_form .ss_form_detail .ss_step_2 .check_pet {
+        justify-content: center;
+    }
+
+        .ss_form .ss_form_detail .ss_step_2 .check_pet .col-sm-6 {
+            width: auto;
+        }
+
+    .ss_form .ss_form_detail .ss_step_2 .ss_cnt_btn .col-sm-2 {
+        align-items: center;
+        text-align: center;
+    }
+
+    .ss_form .ss_form_detail .ss_step_3 .ss_cnt_btn .col-sm-2 {
+        align-items: center;
+        text-align: center;
+    }
+}
+
+
 @media (max-width: 768px) {
+
+
+    .ss_form .ss_progress_back {
+        margin: 0 auto !important;
+        max-width: 500px;
+        width: auto;
+    }
+
+    .ss_form .ss_form_detail {
+        margin: 0 auto !important;
+        max-width: 500px;
+        width: auto;
+    }
+
+    .ss_form .ss_progress_back .col-md-3 {
+        width: 25%;
+    }
+
+        .ss_form .ss_progress_back .col-md-3 .ss_progress_img {
+            margin: 0 auto !important;
+        }
+
+    .ss_form .ss_progress_back p {
+        display: none;
+    }
+
+    .ss_form .ss_form_detail .ss_step_2 .how_long {
+        margin-top: 10px;
+    }
+
+        .ss_form .ss_form_detail .ss_step_2 .how_long label {
+            padding-left: 0 !important;
+        }
+
+        .ss_form .ss_form_detail .ss_step_2 .how_long .col-sm-4 {
+            padding-left: 0 !important;
+        }
+
+    .ss_form .ss_form_detail .ss_step_3 .ss_address_radio .col-md-2 {
+        width: auto;
+    }
+
+    .ss_form .ss_form_detail .ss_step_3 .ss_address_radio .col-md-8 {
+        width: auto;
+    }
+
+    .ss_form_detail .ss_step_4 .accepted_card_lbl {
+        text-align: left !important;
+    }
+
+    .ss_form .ss_form_detail .ss_step_4 .ss_cnt_btn .col-md-3 {
+        align-items: center;
+        text-align: center;
+    }
+
     .our_blog_info .row {
         display: flex;
         flex-direction: column-reverse;
@@ -2286,6 +3021,24 @@ h4 {
 }
 
 @media (max-width: 991px) {
+
+    .ps_btn {
+        display: block;
+        z-index: 100;
+    }
+
+    .ss_form .col-lg-4 {
+        display: none;
+    }
+
+    .ss_form .ss_step_1 {
+        margin-bottom: 200px;
+    }
+
+    .book-service_img {
+        display: none;
+    }
+
     .blog-detail-outer {
         margin: 10px auto !important;
     }
@@ -2569,6 +3322,19 @@ h4 {
                 }
 }
 
+@media (max-width: 1133px) {
+    .ss_form .col-lg-4 {
+        margin-top: 30px;
+        max-width: 768px !important;
+        width: auto;
+    }
+
+    .ss_form .ss_seperator_line {
+        margin-top: 30px !important;
+        display: block !important;
+        width: 800px;
+    }
+}
 
 @media(max-width: 1300px) {
 

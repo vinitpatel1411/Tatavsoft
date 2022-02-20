@@ -39,12 +39,64 @@
                         <li class="nav-item ">
                             <a asp-action="Contact" asp-controller="Home" class="nav-item text-white head_item none_active">Contact</a>
                         </li>
-                        <li class="nav-item">
-                            <a asp-action="Index_Login" class="nav-item text-white head_item faq_active" asp-controller="Home">Login</a>
-                        </li>
+
                         <li class="nav-item">
                             <a asp-action="BecomeProvider" asp-controller="Home" class="nav-item text-white head_item faq_active">Become a Helper</a>
                         </li>
+                        @if (ViewBag.login_check == null)
+                        {
+            <li class="nav-item">
+                <a asp-action="Index_Login" class="nav-item text-white head_item faq_active" asp-controller="Home">Login</a>
+            </li> }
+                        else
+                        {
+            <li>
+                <div class="vertical_line">
+
+                </div>
+            </li>
+                            <li class="notification">
+                                <div class="align-items-center justify-content-center" id="notification">
+                                    <a href="#"><img src="/asset/icon-notification.png"></a>
+                                </div>
+                            </li>
+                                            <li>
+                                                <div class="vertical_line">
+
+                                                </div>
+                                            </li>
+                                                            <li class="dropdown no_active sp_user">
+                                                                <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <img src="/asset/user.png">
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                                    <li>
+                                                                        <div class="login_info_container">
+                                                                            <div class="login_welcome_txt">Welcome</div>
+                                                                            <div class="login_welcome_name">@ViewBag.Uname</div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <hr class="seperator no_mar" />
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            My Dashboard
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            My Settings
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                                                            Logout
+                                                                        </a>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </li>}
                     </ul>
                 </div>
             </div>
@@ -196,8 +248,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="~/js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/script.js"></script>
 </body>
 </html>

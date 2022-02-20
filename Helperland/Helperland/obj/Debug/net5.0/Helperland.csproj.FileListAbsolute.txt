@@ -455,3 +455,4 @@ F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Raz
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\CustomerRegistration.cshtml.g.cs
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\ForgotPass.cshtml.g.cs
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\welcome.cshtml.g.cs
+F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\book_service.cshtml.g.cs
