@@ -18,6 +18,7 @@ namespace Helperland.Controllers
         
         private readonly ILogger<HomeController> _logger;
         private readonly HelperlandContext _helperlandContext;
+        private int cnt;
 
         public HomeController(ILogger<HomeController> logger,HelperlandContext helperlandContext)
         {
@@ -259,14 +260,35 @@ namespace Helperland.Controllers
                 string uname = HttpContext.Session.GetString("FirstName");
                 ViewBag.Uname = uname;
                 ViewBag.login_check = String.Format("loggedin");
-                return View();
+                if (cnt != 0)
+                {
+                    if (HttpContext.Session.GetString("again_called") != "spfound")
+                    {
+                        HttpContext.Session.SetString("ss_step_2", "notset");
+                        ViewBag.foundsp = string.Format("spnotfound");
+                        string temp_var = ViewBag.foundsp;
+                        Debug.WriteLine("this is viewbag foundsp" + temp_var);
+                    }
+                    else
+                    {
+                        ViewBag.foundsp = null;
+                        HttpContext.Session.SetString("ss_step_2", "notset");
+
+                    }
+
+                }
+                cnt = 1;
+                int address_fetch_cnt = getAddress();
+
+                HttpContext.Session.SetInt32("address_fetch_cnt", address_fetch_cnt);
+
+                return View(userAddresses);
             }
             else
             {
                 ViewBag.login_before_service = string.Format("please login first");
                 return RedirectToAction("Index_Login", "Home");
             }
-
         }
         public bool email_exist(string email)
         {
