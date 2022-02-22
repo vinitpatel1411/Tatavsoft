@@ -134,6 +134,64 @@ h2 {
     border-top: none;
 }
 
+#nospModal .modal-content {
+    max-width: 320px;
+}
+
+#nospModal .login-btn {
+    text-align: center;
+}
+
+#nospModal button {
+    color: white;
+    background-color: #6DA9B5;
+    padding: 5px 15px;
+    border: 1px solid transparent;
+    border-radius: 17px;
+}
+
+#nospModal .modal-header {
+    border-bottom: none;
+}
+
+#nospModal .modal-body {
+    text-align: center;
+}
+
+#nospModal .modal-footer {
+    border-top: none;
+}
+
+
+#bookingsuccessModal .modal-content {
+    max-width: 320px;
+}
+
+#bookingsuccessModal .login-btn {
+    text-align: center;
+}
+
+#bookingsuccessModal button {
+    color: white;
+    background-color: #6DA9B5;
+    padding: 5px 15px;
+    border: 1px solid transparent;
+    border-radius: 17px;
+}
+
+#bookingsuccessModal .modal-header {
+    border-bottom: none;
+}
+
+#bookingsuccessModal .modal-body {
+    text-align: center;
+}
+
+#bookingsuccessModal .modal-footer {
+    border-top: none;
+}
+
+
 /* forgot pswd */
 #frgPsw {
     color: #646464;
@@ -181,7 +239,7 @@ h2 {
     position: relative;
 }
 
-    .emailModal i {
+    .emailModal img {
         position: absolute;
         top: 12px;
         right: 20px;
@@ -191,7 +249,7 @@ h2 {
     position: relative;
 }
 
-    .pswModal i {
+    .pswModal img {
         position: absolute;
         top: 12px;
         right: 20px;
@@ -1986,6 +2044,12 @@ h4 {
     font-size: 16px;
     font-weight: 400;
 }
+
+    .modal_register.text-center {
+        color: #4F4F4F;
+        font-size: 16px;
+        font-weight: 700;
+    }
 
 .frgt_sub_btn {
     max-width: 100px !important;

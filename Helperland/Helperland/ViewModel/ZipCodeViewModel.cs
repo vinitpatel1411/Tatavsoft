@@ -7,5 +7,6 @@ namespace Helperland.ViewModel
 {
     public class ZipCodeViewModel
     {
+        public string zipcode { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿@model Helperland.Models.User
+﻿@model Helperland.ViewModel.LoginViewModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +29,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="mx-auto"></div>
-                <ul class="navbar-nav ">
+                <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
-                        <a href="#" class="nav-item text-white head_item home_active">Book a Cleaner</a>
+                        <a asp-action="book_service" asp-controller="Home"  class="nav-item text-white head_item home_active" >Book a Cleaner</a>
                     </li>
                     <li class="nav-item no_active">
                         <a asp-action="Price" asp-controller="Home" class="nav-item text-white head_item none_active">Prices</a>
@@ -46,63 +48,65 @@
                     <li class="nav-item">
                         <a asp-action="BecomeProvider" asp-controller="Home" class="nav-item text-white head_item home_active">Become a Helper</a>
                     </li>
-                    @if (ViewBag.logged == null)
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("loggedIn") == null)
                     {
 
-        <li class="nav-item">
-            <a href="#" class="nav-item text-white head_item home_active" data-bs-toggle="modal" data-bs-target="#exampleModal" id="Login_modal">Login</a>
-        </li> }
+                        <li class="nav-item">
+                            <a href="#" class="nav-item text-white head_item home_active" data-bs-toggle="modal" data-bs-target="#exampleModal" id="Login_modal">Login</a>
+                        </li>
+
+                    }
                     else
                     {
+                        <li>
+                            <div class="vertical_line">
 
-
-        <li>
-            <div class="vertical_line">
-
-            </div>
-        </li>
+                            </div>
+                        </li>
                         <li class="notification">
                             <div class="align-items-center justify-content-center" id="notification">
                                 <a href="#"><img src="/asset/icon-notification.png"></a>
                             </div>
                         </li>
-                                        <li>
-                                            <div class="vertical_line">
+                        <li>
+                            <div class="vertical_line">
 
-                                            </div>
-                                        </li>
-                                                        <li class="dropdown no_active sp_user">
-                                                            <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <img src="/asset/user.png">
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                                <li>
-                                                                    <div class="login_info_container">
-                                                                        <div class="login_welcome_txt">Welcome</div>
-                                                                        <div class="login_welcome_name">@ViewBag.Uname</div>
-                                                                    </div>
-                                                                    <div>
-                                                                        <hr class="seperator no_mar" />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        My Dashboard
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        My Settings
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
-                                                                        Logout
-                                                                    </a>
-                                                                </li>
+                            </div>
+                        </li>
+                        <li class="dropdown no_active sp_user">
+                            <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/asset/user.png">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <div class="login_info_container">
+                                        <div class="login_welcome_txt">Welcome</div>
+                                        <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
+                                    </div>
+                                    <div>
+                                        <hr class="seperator no_mar" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        My Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        My Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                        Logout
+                                    </a>
+                                </li>
 
-                                                            </ul>
-                                                        </li>}
+                            </ul>
+                        </li>
+
+                    }
 
                 </ul>
             </div>
@@ -121,17 +125,17 @@
                     <form class="row g-3" asp-action="Login" asp-controller="Home">
                         <div class="col-12 emailModal">
                             <input asp-for="Email" type="email" class="form-control emailfield" name="Email" id="log_Email" placeholder="Email">
-
+                            <img src="/asset/user-1.png" alt="user" />
 
                         </div>
                         <div class="col-12 pswModal">
                             <input asp-for="Password" type="password" class="form-control passfield" name="Password" id="log_Pass" placeholder="Password">
-                            <i class="fas fa-lock"></i>
+                            <img src="/asset/lock-1.png" alt="lock" />
 
                         </div>
                         <div class="col-12">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="gridCheck">
+                                <input class="form-check-input" type="checkbox" asp-for="remember" id="gridCheck">
                                 <label class="form-check-label" for="gridCheck">
                                     Remember me
                                 </label>
@@ -228,6 +232,28 @@
     </div>
 
     <!-- Password Change modal E-->
+    <!-- booking successfully submitted modal -->
+    <div class="modal fade" id="bookingsuccessModal" aria-labelledby="bookingsuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered justify-content-center">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <img src="/asset/yes-tickmark.png" alt="success" />
+                </div>
+                <div class="modal-body">
+                    <div class="modal_register">
+                        Booking has been  Successfully submitted
+                    </div>
+                    <div class="modal_register text-center">
+                        Service Request ID : @HttpContextAccessor.HttpContext.Session.GetInt32("serviceRequestID")
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center login-btn">
+                    <button type="submit" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- booking successfully submitted modal end-->
     <div>
         @RenderBody()
     </div>
@@ -300,9 +326,25 @@
 
     <script type="text/javascript" src="~/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+            var email = '@HttpContextAccessor.HttpContext.Request.Cookies["Email"]';
+            var pass = '@HttpContextAccessor.HttpContext.Request.Cookies["Password"]';
+        $('#log_Email').val(email);
+        $('#log_Pass').val(pass);
+    </script>
+    @if (HttpContextAccessor.HttpContext.Session.GetString("showBookSuccess") != null)
+    {
+        <script>
+
+            var myModal = new bootstrap.Modal(document.getElementById("bookingsuccessModal"), {});
+            document.onreadystatechange = function () {
+                myModal.show();
+            };
+        </script>
+    }
     @if (ViewBag.message_mail != null && ViewBag.message_pass != null)
     {
-<script>
+        <script>
             var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
             document.onreadystatechange = function () {
                 myModal.show();
@@ -311,41 +353,44 @@
                 $('#log_Email').val("email");
                 $('#log_Pass').val("pass");
             };
-
-
-</script>}
+        </script>
+    }
     @if (ViewBag.changepass != null)
     {
-<script>
-    var sucModal = new bootstrap.Modal(document.getElementById("changeModal"), {});
-    document.onreadystatechange = function () {
-        sucModal.show();
-    };
-</script>}
+        <script>
+            var sucModal = new bootstrap.Modal(document.getElementById("changeModal"), {});
+            document.onreadystatechange = function () {
+                sucModal.show();
+            };
+        </script>
+    }
     @if (ViewBag.frgtpass != null)
     {
-<script>
-    var sucModal = new bootstrap.Modal(document.getElementById("frgPsw"), {});
-    document.onreadystatechange = function () {
-        sucModal.show();
-    };
-</script>}
+        <script>
+            var sucModal = new bootstrap.Modal(document.getElementById("frgPsw"), {});
+            document.onreadystatechange = function () {
+                sucModal.show();
+            };
+        </script>
+    }
     @if (ViewBag.successModal != null)
     {
-<script>
-    var sucModal = new bootstrap.Modal(document.getElementById("successModal"), {});
-    document.onreadystatechange = function () {
-        sucModal.show();
-    };
-</script>}
+        <script>
+            var sucModal = new bootstrap.Modal(document.getElementById("successModal"), {});
+            document.onreadystatechange = function () {
+                sucModal.show();
+            };
+        </script>
+    }
     @if (ViewBag.modal != null)
     {
-<script>
-    var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
-    document.onreadystatechange = function () {
-        myModal.show();
-    };
-</script>}
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+            document.onreadystatechange = function () {
+                myModal.show();
+            };
+        </script>
+    }
 </body>
 </html>
 

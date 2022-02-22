@@ -2,7 +2,6 @@
 using Helperland.Data;
 using Helperland.Models;
 using Helperland.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,23 +9,26 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Helperland.Controllers
 {
     public class HomeController : Controller
     {
-        
+
+        public static int cnt = 0;
         private readonly ILogger<HomeController> _logger;
         private readonly HelperlandContext _helperlandContext;
-        private int cnt;
 
-        public HomeController(ILogger<HomeController> logger,HelperlandContext helperlandContext)
+        BookServiceViewModel userAddresses = new BookServiceViewModel();
+
+        public HomeController(ILogger<HomeController> logger, HelperlandContext helperlandContext)
         {
             _logger = logger;
             _helperlandContext = helperlandContext;
         }
 
-        
+
         public IActionResult Index()
         {
             if (Request.Cookies["Email"] != null && Request.Cookies["Password"] != null)
@@ -39,8 +41,10 @@ namespace Helperland.Controllers
 
         public IActionResult About()
         {
+
             return View();
         }
+
         public IActionResult Index_Login()
         {
             ViewBag.modal = string.Format("invalid");
@@ -48,8 +52,8 @@ namespace Helperland.Controllers
         }
         public IActionResult Contact()
         {
-            ContactUsViewModel contactUsViewModel = new ContactUsViewModel();
-            return View(contactUsViewModel);
+
+            return View();
         }
         [HttpPost]
         public IActionResult Contact(ContactUsViewModel contactUsViewModel)
@@ -63,20 +67,22 @@ namespace Helperland.Controllers
                 Message = contactUsViewModel.Message,
                 CreatedOn = DateTime.Now
             };
+            //Debug.WriteLine("this is " + contactU.Name);
             _helperlandContext.ContactUs.Add(contactU);
             _helperlandContext.SaveChanges();
             return RedirectToAction("Contact");
         }
         public IActionResult FAQ()
         {
+
             return View();
         }
 
         public IActionResult Price()
         {
+
             return View();
         }
-
         public IActionResult CustomerRegistration()
         {
             CustomerRegistrationViewModel customerRegistrationViewModel = new CustomerRegistrationViewModel();
@@ -120,7 +126,7 @@ namespace Helperland.Controllers
 
         public IActionResult BecomeProvider()
         {
-            CustomerRegistrationViewModel customerRegistrationViewModel = new CustomerRegistrationViewModel();
+
             return View();
         }
 
@@ -181,26 +187,48 @@ namespace Helperland.Controllers
                                                   details.FirstOrDefault().UserId.ToString());
                     HttpContext.Session.SetString("FirstName", details.FirstOrDefault().FirstName);
                     HttpContext.Session.SetString("UserTypeId", details.FirstOrDefault().UserTypeId.ToString());
-                    CookieOptions options = new CookieOptions();
-                    options.Expires = DateTime.Now.AddDays(30);
-                    Response.Cookies.Append("Email", fc["Email"], options);
-                    Response.Cookies.Append("Password", fc["Password"], options);
-                    return RedirectToAction("welcome", "Home");
+                    if (loginViewModel.remember == true)
+                    {
+                        CookieOptions options = new CookieOptions();
+                        options.Expires = DateTime.Now.AddDays(30);
+                        Response.Cookies.Append("Email", fc["Email"], options);
+                        Response.Cookies.Append("Password", fc["Password"], options);
+                    }
+                    else
+                    {
+                        Response.Cookies.Delete("Email");
+                        Response.Cookies.Delete("Password");
+                    }
+                    HttpContext.Session.SetString("loggedIn", "yes");
+                    HttpContext.Session.SetString("UserName", details.FirstOrDefault().FirstName);
+
+                    return View("Index");
+
+
                 }
                 else
                 {
+
                     ModelState.AddModelError("", "Invalid Credentials");
                     ViewBag.modal = string.Format("invalid");
+                    ViewBag.logged = null;
                     return View("~/Views/Home/Index.cshtml");
                 }
             }
             return View(loginViewModel);
 
         }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            cnt = 0;
+            return RedirectToAction("Index", "Home");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ForgotPass(LoginViewModel loginViewModel)
         {
+            HttpContext.Session.Clear();
             var email_check = email_exist(loginViewModel.Email);
 
             if (email_check)
@@ -220,8 +248,6 @@ namespace Helperland.Controllers
                                                   details.FirstOrDefault().UserId.ToString());
                     HttpContext.Session.SetString("FirstName", details.FirstOrDefault().FirstName);
                     HttpContext.Session.SetString("Email", details.FirstOrDefault().Email);
-
-
                 }
             }
             else
@@ -244,11 +270,6 @@ namespace Helperland.Controllers
             _helperlandContext.SaveChanges();
             ViewBag.changepass = string.Format("chengepass");
             return View("~/Views/Home/Index.cshtml");
-        }
-        public IActionResult welcome()
-        {
-
-            return View();
         }
 
         public IActionResult book_service()
@@ -289,12 +310,50 @@ namespace Helperland.Controllers
                 ViewBag.login_before_service = string.Format("please login first");
                 return RedirectToAction("Index_Login", "Home");
             }
+
         }
+
+
         public bool email_exist(string email)
         {
             var isCheck = _helperlandContext.Users.Where(eMail => eMail.Email == email).FirstOrDefault();
             return isCheck != null;
         }
 
+        public int getAddress()
+        {
+
+            Debug.WriteLine("this methd is called");
+            HttpContext.Session.SetString("getaddress", "set");
+            var userid = Int32.Parse(HttpContext.Session.GetString("UserId"));
+            var addresses = (from uaddress in _helperlandContext.UserAddresses
+                             where uaddress.UserId == userid
+                             select new AddressViewModel()
+                             {
+                                 id = uaddress.AddressId,
+                                 addressline1 = uaddress.AddressLine1,
+                                 city = uaddress.City,
+                                 phonenumber = uaddress.Mobile,
+                                 postalcode = uaddress.PostalCode
+                             }).ToList();
+
+            var last_add_id = (from t in _helperlandContext.UserAddresses
+                               where t.UserId == userid
+                               orderby t.AddressId
+                               select t.AddressId).Last();
+
+            if (addresses.FirstOrDefault() != null)
+            {
+
+                userAddresses.address = new List<AddressViewModel>();
+                foreach (var add in addresses)
+                {
+                    userAddresses.address.Add(add);
+
+                }
+            }
+
+            return last_add_id;
+        }
     }
 }
