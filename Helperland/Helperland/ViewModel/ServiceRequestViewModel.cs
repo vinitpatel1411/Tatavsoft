@@ -19,5 +19,6 @@ namespace Helperland.ViewModel
         public bool extraSer3 { get; set; }
         public bool extraSer4 { get; set; }
         public bool extraSer5 { get; set; }
+
     }
 }

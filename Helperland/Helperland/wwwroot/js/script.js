@@ -103,28 +103,7 @@ $(document).on('click', '.continue-1', function () {
     }
     else {
         check_date_empty = false;
-        var service_date = $("#service_date").val();
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
-
-        var year = service_date.substr(0, 4);
-        var month = service_date.substr(5, 2);
-        var day = service_date.substr(8, 2);
-        if ((parseInt(day) >= parseInt(dd)) && (parseInt(month) == parseInt(mm)) && (parseInt(year) == parseInt(yyyy))) {
-            $('.validate_date').addClass('fade');
-            $('.validate_date_empty').addClass('fade');
-            temp = 1;
-
-        }
-        else {
-            temp = 0;
-            $('.validate_date').removeClass('fade');
-            $('.validate_date_empty').addClass('fade');
-        }
-
-
+            temp = 1; 
     }
     if (temp == 1) {
         $(".ss_step_2").addClass('fade');
@@ -134,7 +113,7 @@ $(document).on('click', '.continue-1', function () {
         step_3_img.src = "/asset/user-details.png";
         progress_step_3 = 1;
     }
-
+    
 });
 $(document).on('click', '.continue-2', function () {
     $(".ss_step_3").addClass('fade');
@@ -391,7 +370,7 @@ $(document).on('change', '#service_date', function () {
     var year = service_date.substr(0, 4);
     var month = service_date.substr(5, 2);
     var day = service_date.substr(8, 2);
-    if ((parseInt(day) >= parseInt(dd)) && (parseInt(month) == parseInt(mm)) && (parseInt(year) == parseInt(yyyy))) {
+    if ((parseInt(day) >= parseInt(dd)) && (parseInt(month) >= parseInt(mm)) && (parseInt(year) == parseInt(yyyy))) {
         var final_date = day + '/' + month + '/' + year;
         $('.ps_date').text(final_date);
         $('.validate_date').addClass('fade');
@@ -460,7 +439,7 @@ const cust_addresses = document.querySelector('.cust_addresses');
 
 $(document).on('click', '.save_address_btn', function () {
 
-
+    
 
     var approve1 = 0;
     var approve2 = 0;
@@ -642,3 +621,21 @@ $('input[type=radio][name="ss_address"]').change(function () {
     }
 
 });
+
+// ----------------------- hamburger mobile menu----------------------
+
+$(document).on('click', '.hamburger', function () {
+    console.log('clicked')
+    $(".smNavMenu").addClass("open");
+})
+
+$(document).on('click', '.firstPart', function () {
+    $(".smNavMenu").removeClass("open");
+})
+
+$(document).on('click', '.dashNavSide a', function () {
+    $(".smNavMenu").removeClass("open");
+})
+
+
+// ----------------------------- shtable jquery -----------------------------------------

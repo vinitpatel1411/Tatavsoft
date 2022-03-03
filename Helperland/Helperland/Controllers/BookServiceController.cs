@@ -14,37 +14,37 @@ namespace Helperland.Controllers
     public class BookServiceController : Controller
     {
         private readonly HelperlandContext _helperlandContext;
-
-
+        
+        
 
         public BookServiceController(HelperlandContext helperlandContext)
         {
             _helperlandContext = helperlandContext;
         }
 
-
+        
         [HttpPost]
         public IActionResult CheckPostalCode(BookServiceViewModel bookServiceViewModel)
         {
-
-            var spdetails = (from splist in _helperlandContext.Users
-                             where splist.UserTypeId == 2 && splist.ZipCode == bookServiceViewModel.zipCodeViewModel.zipcode
-                             select new
-                             {
-                                 splist.UserId,
-                                 splist.FirstName,
-                                 splist.LastName
-                             }).ToList();
+            
+                var spdetails = (from splist in _helperlandContext.Users
+                                 where splist.UserTypeId == 2 && splist.ZipCode == bookServiceViewModel.zipCodeViewModel.zipcode
+                                 select new
+                                 {
+                                     splist.UserId,
+                                     splist.FirstName,
+                                     splist.LastName
+                                 }).ToList();
             if (spdetails.FirstOrDefault() != null)
             {
-                HttpContext.Session.SetString("again_called", "spfound");
+                HttpContext.Session.SetString("again_called","spfound");
                 HttpContext.Session.SetString("zipcode", bookServiceViewModel.zipCodeViewModel.zipcode);
-
+                
                 return RedirectToAction("book_service", "Home");
             }
             else
             {
-                HttpContext.Session.SetString("again_called", "temp");
+                HttpContext.Session.SetString("again_called","temp");
                 return RedirectToAction("book_service", "Home");
             }
         }
@@ -52,8 +52,8 @@ namespace Helperland.Controllers
         [HttpPost]
         public IActionResult addServiceInfo(BookServiceViewModel bookServiceViewModel)
         {
-
-
+            
+            
 
             var startdate_str = bookServiceViewModel.ServiceRequestViewModel.servicestartdate;
             Debug.WriteLine(" this is startdate_str " + startdate_str);
@@ -62,9 +62,9 @@ namespace Helperland.Controllers
             int s_hr = Int32.Parse(starttime.Substring(0, 2));
             int s_min = Int32.Parse(starttime.Substring(3, 2));
             TimeSpan servicestarttime = new TimeSpan(s_hr, s_min, 0);
-
+            
             startdate = startdate.Date + servicestarttime;
-
+            
             string userid = HttpContext.Session.GetString("UserId");
             string zip = HttpContext.Session.GetString("zipcode");
             float hours = bookServiceViewModel.ServiceRequestViewModel.servicehours;
@@ -75,14 +75,14 @@ namespace Helperland.Controllers
             bool extraser5 = bookServiceViewModel.ServiceRequestViewModel.extraSer5;
             bool haspet = bookServiceViewModel.ServiceRequestViewModel.haspets;
             var getextraservice = extraser1 + "" + extraser2 + "" + extraser3 + "" + extraser4 + "" + extraser5;
-
+            
             var trueto1 = getextraservice.Replace("True", "1");
             var falseto0 = trueto1.Replace("False", "0");
             int extraserInt = Int32.Parse(falseto0);
-
+            
             float subtotal = hours * 20;
             double extra_hr = 0.0;
-            if (extraser1) { subtotal += 10; extra_hr += 0.5; }
+            if(extraser1){subtotal += 10;extra_hr += 0.5; }
             if (extraser2) { subtotal += 10; extra_hr += 0.5; }
             if (extraser3) { subtotal += 10; extra_hr += 0.5; }
             if (extraser4) { subtotal += 10; extra_hr += 0.5; }
@@ -90,10 +90,12 @@ namespace Helperland.Controllers
             decimal total = new decimal(subtotal);
 
             Debug.WriteLine("this is service start time " + startdate);
+            var get_ser_id = _helperlandContext.ServiceRequests.OrderBy(x=>x.ServiceRequestId).Last(x=>x.UserId == Int32.Parse(userid));
+            Debug.WriteLine("this is previous service id " + get_ser_id.ServiceId);
             ServiceRequest service = new ServiceRequest()
             {
                 UserId = Int32.Parse(userid),
-                ServiceId = 1,
+                ServiceId = get_ser_id.ServiceId + 1,
                 ZipCode = zip,
                 ServiceStartDate = startdate,
                 ServiceHourlyRate = 20,
@@ -103,9 +105,11 @@ namespace Helperland.Controllers
                 TotalCost = total,
                 PaymentDue = false,
                 HasPets = haspet,
+                Comments = bookServiceViewModel.ServiceRequestViewModel.comments,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
-                Distance = 10
+                Distance  = 10,
+                Status = 1
             };
             _helperlandContext.ServiceRequests.Add(service);
             _helperlandContext.SaveChanges();
@@ -113,9 +117,9 @@ namespace Helperland.Controllers
             //var getservicerequestid = _helperlandContext.ServiceRequests.Where(x => x.UserId == Int32.Parse(userid)).ToList();
 
             var getservicerequestid = (from temp in _helperlandContext.ServiceRequests
-                                       where temp.UserId == Int32.Parse(userid)
-                                       orderby temp.ServiceRequestId
-                                       select temp.ServiceRequestId).Last();
+                      where temp.UserId == Int32.Parse(userid)
+                      orderby temp.ServiceRequestId
+                      select temp.ServiceRequestId).Last();
 
             ServiceRequestExtra service1 = new ServiceRequestExtra()
             {
@@ -130,7 +134,7 @@ namespace Helperland.Controllers
             var addressid = bookServiceViewModel.addressId;
             var addressid2 = bookServiceViewModel.addressId2;
 
-            if (addressid2 != 0)
+            if(addressid2 != 0)
             {
                 ServiceRequestAddress serviceRequestAddress = new ServiceRequestAddress()
                 {
@@ -160,7 +164,7 @@ namespace Helperland.Controllers
                                    postalcode = uaddress.PostalCode
                                });
 
-
+                
 
                 ServiceRequestAddress serviceRequestAddress = new ServiceRequestAddress()
                 {
@@ -176,15 +180,14 @@ namespace Helperland.Controllers
                 _helperlandContext.SaveChanges();
             }
 
-
+            
             HttpContext.Session.SetString("showBookSuccess", "yes");
-
+            
             HttpContext.Session.SetInt32("serviceRequestID", getservicerequestid);
             return View("~/Views/Home/Index.cshtml");
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
+        
+        
     }
 }

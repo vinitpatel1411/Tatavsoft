@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Helperland.ViewModel
 {
-    public class AddressViewModel
+    public class AddressViewModel 
     {
+
         public int id { get; set; }
         public string addressline1 { get; set; }
         public string postalcode { get; set; }

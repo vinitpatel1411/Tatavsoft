@@ -1,4 +1,5 @@
-﻿@model Helperland.ViewModel.LoginViewModel
+﻿
+@model Helperland.ViewModel.LoginViewModel
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
@@ -31,7 +32,7 @@
                 <div class="mx-auto"></div>
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
-                        <a asp-action="book_service" asp-controller="Home"  class="nav-item text-white head_item home_active" >Book a Cleaner</a>
+                        <a asp-action="book_service" asp-controller="Home" class="nav-item text-white head_item home_active">Book a Cleaner</a>
                     </li>
                     <li class="nav-item no_active">
                         <a asp-action="Price" asp-controller="Home" class="nav-item text-white head_item none_active">Prices</a>
@@ -88,12 +89,12 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
                                         My Dashboard
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
                                         My Settings
                                     </a>
                                 </li>
@@ -328,14 +329,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
             var email = '@HttpContextAccessor.HttpContext.Request.Cookies["Email"]';
+
             var pass = '@HttpContextAccessor.HttpContext.Request.Cookies["Password"]';
+
         $('#log_Email').val(email);
         $('#log_Pass').val(pass);
     </script>
-    @if (HttpContextAccessor.HttpContext.Session.GetString("showBookSuccess") != null)
+    @if(HttpContextAccessor.HttpContext.Session.GetString("showBookSuccess") != null)
     {
         <script>
-
+            
             var myModal = new bootstrap.Modal(document.getElementById("bookingsuccessModal"), {});
             document.onreadystatechange = function () {
                 myModal.show();
@@ -353,6 +356,8 @@
                 $('#log_Email').val("email");
                 $('#log_Pass').val("pass");
             };
+
+
         </script>
     }
     @if (ViewBag.changepass != null)

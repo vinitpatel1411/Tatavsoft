@@ -11,9 +11,7 @@
     <link rel="shortcut icon" href="/asset/favicon_img.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet" />
-    <!--<link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-    <script src="~/lib/jquery/jquery.js"></script>-->
+    
 </head>
 <body>
 
@@ -28,7 +26,7 @@
                     <div class="mx-auto"></div>
                     <ul class="navbar-nav align-items-center">
                         <li class="nav-item">
-                            <a href="#" class="nav-item text-white head_item faq_active">Book a Cleaner</a>
+                            <a asp-action="book_service" asp-controller="Home" class="nav-item text-white head_item faq_active">Book a Cleaner</a>
                         </li>
                         <li class="nav-item ">
                             <a asp-action="Price" asp-controller="Home" class="nav-item text-white head_item home_active">Prices & Services</a>
@@ -84,12 +82,12 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
                                             My Dashboard
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
                                             My Settings
                                         </a>
                                     </li>
@@ -276,8 +274,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/script.js"></script>
-
-    @if (HttpContextAccessor.HttpContext.Session.GetString("zipcode") != null)
+    
+    @if(HttpContextAccessor.HttpContext.Session.GetString("zipcode") != null)
     {
         <script>
             var userpostalcode = @HttpContextAccessor.HttpContext.Session.GetString("zipcode");
@@ -285,7 +283,7 @@
             $('#add_postal').val(userpostalcode);
             $('#add_postal').attr('disabled', 'disabled');
         </script>
-
+        
 
     }
     @if (HttpContextAccessor.HttpContext.Session.GetString("ss_step_2") == "notset")
@@ -293,6 +291,7 @@
         @if (ViewBag.foundsp != null)
         {
             <script>
+
                 var nospModal = new bootstrap.Modal(document.getElementById("nospModal"), {});
                 document.onreadystatechange = function () {
                     nospModal.show();
@@ -306,6 +305,7 @@
                     $('.postal_check_btn').click();
                 });
                 $(document).on('click', '.postal_check_btn', function () {
+
                     $(".ss_step_1").addClass('fade');
                     $(".ss_step_2").removeClass('fade');
                     $(".col-step-1").removeClass('active_tab');
@@ -321,17 +321,20 @@
                     var yyyy = today.getFullYear();
                     var hr = today.getHours();
                     var minit = today.getMinutes();
+
                     var max_time = hr + ':' + minit;
                     $('#service_time').val(max_time);
+
                     var max_date = yyyy + '-' + mm + '-' + dd;
                     $('#service_date').attr('min', max_date);
-                });
 
+                });
+                
             </script>
         }
 
     }
-    @if (HttpContextAccessor.HttpContext.Session.GetInt32("address_fetch_cnt") != null)
+    @if(HttpContextAccessor.HttpContext.Session.GetInt32("address_fetch_cnt") != null)
     {
         <script>
             var cnt_addresst = @HttpContextAccessor.HttpContext.Session.GetInt32("address_fetch_cnt");
