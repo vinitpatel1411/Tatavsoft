@@ -570,7 +570,7 @@ namespace Helperland.Controllers
             var last_add_id = (from t in _helperlandContext.UserAddresses
                                        where t.UserId == userid
                                        orderby t.AddressId
-                                       select t.AddressId).LastOrDefault();
+                                       select t.AddressId).Last();
 
             if (addresses.FirstOrDefault() != null)
             {
