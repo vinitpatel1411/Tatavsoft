@@ -52,54 +52,107 @@
                         }
                         else
                         {
-                            <li>
-                                <div class="vertical_line">
+                            if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 1)
+                            {
+                                <li>
+                                    <div class="vertical_line">
 
-                                </div>
-                            </li>
-                            <li class="notification">
-                                <div class="align-items-center justify-content-center" id="notification">
-                                    <a href="#"><img src="/asset/icon-notification.png"></a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="vertical_line">
+                                    </div>
+                                </li>
+                                <li class="notification">
+                                    <div class="align-items-center justify-content-center" id="notification">
+                                        <a href="#"><img src="/asset/icon-notification.png"></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="vertical_line">
 
-                                </div>
-                            </li>
-                            <li class="dropdown no_active sp_user">
-                                <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="/asset/user.png">
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <div class="login_info_container">
-                                            <div class="login_welcome_txt">Welcome</div>
-                                            <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
-                                        </div>
-                                        <div>
-                                            <hr class="seperator no_mar" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
-                                            My Dashboard
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
-                                            My Settings
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
-                                            Logout
-                                        </a>
-                                    </li>
+                                    </div>
+                                </li>
+                                <li class="dropdown no_active sp_user">
+                                    <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="/asset/user.png">
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li>
+                                            <div class="login_info_container">
+                                                <div class="login_welcome_txt">Welcome</div>
+                                                <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
+                                            </div>
+                                            <div>
+                                                <hr class="seperator no_mar" />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
+                                                My Dashboard
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
+                                                My Settings
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                                Logout
+                                            </a>
+                                        </li>
 
-                                </ul>
-                            </li>
+                                    </ul>
+                                </li>
+                            }
 
+                            if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 2)
+                            {
+                                <li>
+                                    <div class="vertical_line">
+
+                                    </div>
+                                </li>
+                                <li class="notification">
+                                    <div class="align-items-center justify-content-center" id="notification">
+                                        <a href="#"><img src="/asset/icon-notification.png"></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="vertical_line">
+
+                                    </div>
+                                </li>
+                                <li class="dropdown no_active sp_user">
+                                    <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="/asset/user.png">
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li>
+                                            <div class="login_info_container">
+                                                <div class="login_welcome_txt">Welcome</div>
+                                                <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
+                                            </div>
+                                            <div>
+                                                <hr class="seperator no_mar" />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a asp-action="spNewServices" asp-controller="Home" class="dropdown-item">
+                                                New Services
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="spMySetting" asp-controller="Home">
+                                                My Settings
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                                Logout
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            }
                         }
                     </ul>
                 </div>
@@ -265,7 +318,9 @@
             </div>
         </div>
     </footer>
-
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
 
 
@@ -273,9 +328,12 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="~/js/script.js"></script>
-    
-    @if(HttpContextAccessor.HttpContext.Session.GetString("zipcode") != null)
+
+
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("zipcode") != null)
     {
         <script>
             var userpostalcode = @HttpContextAccessor.HttpContext.Session.GetString("zipcode");
@@ -283,7 +341,7 @@
             $('#add_postal').val(userpostalcode);
             $('#add_postal').attr('disabled', 'disabled');
         </script>
-        
+
 
     }
     @if (HttpContextAccessor.HttpContext.Session.GetString("ss_step_2") == "notset")
@@ -329,12 +387,12 @@
                     $('#service_date').attr('min', max_date);
 
                 });
-                
+
             </script>
         }
 
     }
-    @if(HttpContextAccessor.HttpContext.Session.GetInt32("address_fetch_cnt") != null)
+    @if (HttpContextAccessor.HttpContext.Session.GetInt32("address_fetch_cnt") != null)
     {
         <script>
             var cnt_addresst = @HttpContextAccessor.HttpContext.Session.GetInt32("address_fetch_cnt");

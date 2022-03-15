@@ -1,0 +1,1307 @@
+﻿@model Helperland.ViewModel.spMySettingViewModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="/asset/favicon_img.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+
+</head>
+<body>
+
+    <header class="new-header">
+        <!-- desktop view nav start -->
+        <nav class="serviceHistory-nav navbar navbar-expand-lg navbar-dark p-0 fixed-top " id="serHistoryNav">
+            <div class="container-fluid">
+                <a class="navbar-brand px-15" href="#">
+                    <img src="/asset/logo-small.png">
+                </a>
+                <div class="" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 us-nav text-center align-items-center">
+                        <li class="nav-item">
+                            <a class="none_active" asp-action="Price" asp-controller="Home">Prices & services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="none_active" href="#">Warranty</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="none_active" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="none_active" asp-action="Contact" asp-controller="Home">Contact</a>
+                        </li>
+                        <li class="nav-item us-notification">
+                            <a href="#" class="m-2">
+                                <img class="bell-notification" src="/asset/icon-notification.png">
+                                <span class="notify-badge">1</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/asset/user.png">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <div class="login_info_container">
+                                        <div class="login_welcome_txt">Welcome</div>
+                                        <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
+                                    </div>
+                                    <div>
+                                        <hr class="seperator no_mar" />
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <a asp-action="spNewServices" asp-controller="Home" class="dropdown-item">
+                                        New Services
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-action="spMySetting" asp-controller="Home">
+                                        My Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                        Logout
+                                    </a>
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- desktop view nav end -->
+        <!-- Mobile View Navbar Start -->
+        <nav class="shSmallNav serviceHistory-nav fixed-top" id="smSerHistoryNav">
+            <div class="container-fluid">
+                <div class="smallNavlogo">
+                    <a href="#"><img src="/asset/logo-small.png" alt=""></a>
+                </div>
+                <div class="smallNavNofitify">
+                    <a class="m-2" href="#">
+                        <img class="bell-notification" src="/asset/icon-notification.png">
+                        <span class="sm-notify-badge">1</span>
+                    </a>
+                </div>
+                <div class="hamburger">
+                    <img class="hamburger-img" src="/asset/hamburger-icon-2.png">
+                </div>
+                <div class="smNavMenu d-flex">
+                    <div class="firstPart"></div>
+                    <div class="secondPart">
+                        <div class="uName">
+                            Welcome,<br>
+                            <strong>Visvarajsinh</strong>
+                        </div>
+                        <hr class="smNavSeparator">
+                        <div class="nav flex-column text-start dashNavSide" role="tablist" aria-orientation="vertical">
+                            <a id="v-pills-nsr-nav" data-bs-toggle="pill" data-bs-target="#v-pills-nsr">New Service Requests</a>
+                            <a id="v-pills-us-nav" data-bs-toggle="pill" data-bs-target="#v-pills-us">Upcoming Services</a>
+                            <a id="v-pills-sh-nav" data-bs-toggle="pill" data-bs-target="#v-pills-sh">Service History</a>
+                            <a id="v-pills-mr-nav" data-bs-toggle="pill" data-bs-target="#v-pills-mr">My Ratings</a>
+                            <a id="v-pills-bc-nav" data-bs-toggle="pill" data-bs-target="#v-pills-bc">Block Customer</a>
+                        </div>
+
+                        <div class="navItem"><a asp-action="spMySetting" asp-controller="Home"> My Settings</a></div>
+                        <div class="navItem"><a asp-action="Logout" asp-controller="Home"> Logout</a></div>
+                        <hr class="smNavSeparator">
+                        <div class="navItem"><a href="#">Plans & Services</a></div>
+                        <div class="navItem"><a href="#">Warranty</a></div>
+                        <div class="navItem"><a href="#">Blog</a></div>
+                        <div class="navItem"><a href="#">Contact</a></div>
+                        <hr class="smNavSeparator">
+                        <div class="d-flex justify-content-center align-items-center  socialIcon">
+                            <img class="fb-social" src="/asset/facebook-mobile-menu.png" alt="Facebook">
+                            <img src="/asset/instagram-mobile-menu.png" alt="Instagram">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Mobile View Navbar End -->
+
+    </header>
+
+
+    <div>
+        @RenderBody()
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 footer-widget">
+                        <a href="#" title="Helper Hand">
+                            <img src="/asset/footer-logo.png" alt="Helper Hand">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 footer-widget">
+                        <ul class="footer-navigation d-flex justify-content-center">
+                            <li>
+                                <a asp-action="Index" asp-controller="Home" title="Home">Home</a>
+                            </li>
+                            <li>
+                                <a asp-action="About" asp-controller="Home" title="About">About</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Testimonials">Testimonials</a>
+                            </li>
+                            <li>
+                                <a asp-action="FAQ" asp-controller="Home" title="FAQs">FAQs</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Impressum">Impressum</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 footer-widget">
+                        <ul class="social-media-list d-flex justify-content-end">
+                            <li>
+                                <a href="#" target="_blank" title="Facebook">
+                                    <img src="/asset/ic-facebook.png" alt="Facebook">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" title="Instagram">
+                                    <img src="/asset/ic-instagram.png" alt="Instagram">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-12 p-0">
+                        <hr class="footer-separator">
+                    </div>
+                </div>
+                <div class="row faq-policy text-center">
+                    <p>©2018 Helperland. All rights reserved. Terms and Conditions | Privacy Policy</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ------------------------------------ cant complete service yet modal ------------------------- -->
+    <div class="modal fade" id="nospModal" aria-labelledby="nospModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered justify-content-center">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <img src="/asset/no-tickmark.png" alt="failed" />
+                </div>
+                <div class="modal-body">
+                    <div class="modal_register">
+                        Service can not be completed before the completion Time .
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center login-btn">
+                    <button type="submit" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------password change modal ------------------------------------------------- -->
+    <div class="modal fade" id="passchangeModal" aria-labelledby="passchangeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered justify-content-center">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <img src="/asset/yes-tickmark.png" alt="success" />
+                </div>
+                <div class="modal-body">
+                    <div class="modal_register">
+                        Password Changed Successfully
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center login-btn">
+                    <button type="submit" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -------------------------------------------cant accept service modal ------------------------------------------ -->
+    <div class="modal fade" id="cantacceptModal" aria-labelledby="nospModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered justify-content-center">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <img src="/asset/no-tickmark.png" alt="failed" />
+                </div>
+                <div class="modal-body">
+                    <div class="modal_register">
+                        <div class="text-danger">Access Denied</div>
+                        contact Admin to Activate your account.
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center login-btn">
+                    <button type="submit" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+
+
+    <script src="~/js/script.js"></script>
+    @if (ViewBag.showPassModal != null)
+    {
+
+        <script>
+            console.log("show pass modal");
+            var myModal = new bootstrap.Modal(document.getElementById("passchangeModal"), {});
+            document.onreadystatechange = function () {
+                myModal.show();
+            };
+
+        </script>
+    }
+    @if (ViewBag.doactive != null)
+    {
+
+        <script>
+
+            var myModal = new bootstrap.Modal(document.getElementById("cantacceptModal"), {});
+            document.onreadystatechange = function () {
+                myModal.show();
+            };
+
+        </script>
+    }
+    @if (HttpContextAccessor.HttpContext.Session.GetString("oldpass") == "notok")
+    {
+        <script>
+            console.log("hello");
+            $('#ms_head_3').click();
+            $('#spmyDetails').removeClass('show');
+            $('#spmyDetails').removeClass('active');
+
+            $('#spmyChangepass').addClass('active');
+            $('#spmyChangepass').addClass('show');
+            $('#wrongPass').show();
+        </script>
+    }
+    else
+    {
+        <script>
+            $('#ms_head_1').click();
+            $('#spmyDetails').addClass('show');
+            $('#spmyDetails').addClass('active');
+
+            $('#spmyChangepass').removeClass('active');
+            $('#spmyChangepass').removeClass('show');
+            $('#wrongPass').hide();
+        </script>
+    }
+    @if (Model.avatar == "1")
+    {
+        <script>
+            var sp_avtr_1 = 1;
+            var sp_avtr_2 = 0;
+            var sp_avtr_3 = 0;
+            var sp_avtr_4 = 0;
+            var sp_avtr_5 = 0;
+            var sp_avtr_6 = 0;
+            $('#avatar-1').addClass('active');
+            $('#hidden_avatar').val(1);
+            $(document).on('click', '#avatar-1', function () {
+                if (sp_avtr_1 == 0) {
+                    $('#avatar-1').addClass('active');
+                    sp_avtr_1 = 1;
+                    $('#hidden_avatar').val(1); console.log("avatar - 1 ", $('#hidden_avatar').val());
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-1').removeClass('active');
+                    sp_avtr_1 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-2', function () {
+                if (sp_avtr_2 == 0) {
+                    $('#avatar-2').addClass('active');
+                    sp_avtr_2 = 1;
+                    $('#hidden_avatar').val(2);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-2').removeClass('active');
+                    sp_avtr_2 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-3', function () {
+                if (sp_avtr_3 == 0) {
+                    $('#avatar-3').addClass('active');
+                    sp_avtr_3 = 1;
+                    $('#hidden_avatar').val(3);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-3').removeClass('active');
+                    sp_avtr_3 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-4', function () {
+                if (sp_avtr_4 == 0) {
+                    $('#avatar-4').addClass('active');
+                    sp_avtr_4 = 1;
+                    $('#hidden_avatar').val(4);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-4').removeClass('active');
+                    sp_avtr_4 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-5', function () {
+                if (sp_avtr_5 == 0) {
+                    $('#avatar-5').addClass('active');
+                    sp_avtr_5 = 1;
+                    $('#hidden_avatar').val(5);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-5').removeClass('active');
+                    sp_avtr_5 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-6', function () {
+                if (sp_avtr_6 == 0) {
+                    $('#avatar-6').addClass('active');
+                    sp_avtr_6 = 1;
+                    $('#hidden_avatar').val(6);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                }
+                else {
+                    $('#avatar-6').removeClass('active');
+                    sp_avtr_6 = 0;
+                }
+            })
+        </script>
+    }
+    @if (Model.avatar == "2")
+    {
+        <script>
+            var sp_avtr_1 = 0;
+            var sp_avtr_2 = 1;
+            var sp_avtr_3 = 0;
+            var sp_avtr_4 = 0;
+            var sp_avtr_5 = 0;
+            var sp_avtr_6 = 0;
+            $('#avatar-2').addClass('active');
+            $('#hidden_avatar').val(2);
+            $(document).on('click', '#avatar-1', function () {
+                if (sp_avtr_1 == 0) {
+                    $('#avatar-1').addClass('active');
+                    sp_avtr_1 = 1;
+                    $('#hidden_avatar').val(1); console.log("avatar - 1 ", $('#hidden_avatar').val());
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-1').removeClass('active');
+                    sp_avtr_1 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-2', function () {
+                if (sp_avtr_2 == 0) {
+                    $('#avatar-2').addClass('active');
+                    sp_avtr_2 = 1;
+                    $('#hidden_avatar').val(2);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-2').removeClass('active');
+                    sp_avtr_2 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-3', function () {
+                if (sp_avtr_3 == 0) {
+                    $('#avatar-3').addClass('active');
+                    sp_avtr_3 = 1;
+                    $('#hidden_avatar').val(3);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-3').removeClass('active');
+                    sp_avtr_3 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-4', function () {
+                if (sp_avtr_4 == 0) {
+                    $('#avatar-4').addClass('active');
+                    sp_avtr_4 = 1;
+                    $('#hidden_avatar').val(4);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-4').removeClass('active');
+                    sp_avtr_4 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-5', function () {
+                if (sp_avtr_5 == 0) {
+                    $('#avatar-5').addClass('active');
+                    sp_avtr_5 = 1;
+                    $('#hidden_avatar').val(5);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-5').removeClass('active');
+                    sp_avtr_5 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-6', function () {
+                if (sp_avtr_6 == 0) {
+                    $('#avatar-6').addClass('active');
+                    sp_avtr_6 = 1;
+                    $('#hidden_avatar').val(6);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                }
+                else {
+                    $('#avatar-6').removeClass('active');
+                    sp_avtr_6 = 0;
+                }
+            })
+        </script>
+    }
+    @if (Model.avatar == "3")
+    {
+        <script>
+            var sp_avtr_1 = 0;
+            var sp_avtr_2 = 0;
+            var sp_avtr_3 = 1;
+            var sp_avtr_4 = 0;
+            var sp_avtr_5 = 0;
+            var sp_avtr_6 = 0;
+            $('#avatar-3').addClass('active');
+            $('#hidden_avatar').val(3);
+            $(document).on('click', '#avatar-1', function () {
+                if (sp_avtr_1 == 0) {
+                    $('#avatar-1').addClass('active');
+                    sp_avtr_1 = 1;
+                    $('#hidden_avatar').val(1); console.log("avatar - 1 ", $('#hidden_avatar').val());
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-1').removeClass('active');
+                    sp_avtr_1 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-2', function () {
+                if (sp_avtr_2 == 0) {
+                    $('#avatar-2').addClass('active');
+                    sp_avtr_2 = 1;
+                    $('#hidden_avatar').val(2);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-2').removeClass('active');
+                    sp_avtr_2 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-3', function () {
+                if (sp_avtr_3 == 0) {
+                    $('#avatar-3').addClass('active');
+                    sp_avtr_3 = 1;
+                    $('#hidden_avatar').val(3);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-3').removeClass('active');
+                    sp_avtr_3 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-4', function () {
+                if (sp_avtr_4 == 0) {
+                    $('#avatar-4').addClass('active');
+                    sp_avtr_4 = 1;
+                    $('#hidden_avatar').val(4);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-4').removeClass('active');
+                    sp_avtr_4 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-5', function () {
+                if (sp_avtr_5 == 0) {
+                    $('#avatar-5').addClass('active');
+                    sp_avtr_5 = 1;
+                    $('#hidden_avatar').val(5);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-5').removeClass('active');
+                    sp_avtr_5 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-6', function () {
+                if (sp_avtr_6 == 0) {
+                    $('#avatar-6').addClass('active');
+                    sp_avtr_6 = 1;
+                    $('#hidden_avatar').val(6);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                }
+                else {
+                    $('#avatar-6').removeClass('active');
+                    sp_avtr_6 = 0;
+                }
+            })
+        </script>
+    }
+    @if (Model.avatar == "4")
+    {
+        <script>
+            var sp_avtr_1 = 0;
+            var sp_avtr_2 = 0;
+            var sp_avtr_3 = 0;
+            var sp_avtr_4 = 1;
+            var sp_avtr_5 = 0;
+            var sp_avtr_6 = 0;
+            $('#avatar-4').addClass('active');
+            $('#hidden_avatar').val(4);
+            $(document).on('click', '#avatar-1', function () {
+                if (sp_avtr_1 == 0) {
+                    $('#avatar-1').addClass('active');
+                    sp_avtr_1 = 1;
+                    $('#hidden_avatar').val(1); console.log("avatar - 1 ", $('#hidden_avatar').val());
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-1').removeClass('active');
+                    sp_avtr_1 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-2', function () {
+                if (sp_avtr_2 == 0) {
+                    $('#avatar-2').addClass('active');
+                    sp_avtr_2 = 1;
+                    $('#hidden_avatar').val(2);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-2').removeClass('active');
+                    sp_avtr_2 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-3', function () {
+                if (sp_avtr_3 == 0) {
+                    $('#avatar-3').addClass('active');
+                    sp_avtr_3 = 1;
+                    $('#hidden_avatar').val(3);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-3').removeClass('active');
+                    sp_avtr_3 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-4', function () {
+                if (sp_avtr_4 == 0) {
+                    $('#avatar-4').addClass('active');
+                    sp_avtr_4 = 1;
+                    $('#hidden_avatar').val(4);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-4').removeClass('active');
+                    sp_avtr_4 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-5', function () {
+                if (sp_avtr_5 == 0) {
+                    $('#avatar-5').addClass('active');
+                    sp_avtr_5 = 1;
+                    $('#hidden_avatar').val(5);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-5').removeClass('active');
+                    sp_avtr_5 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-6', function () {
+                if (sp_avtr_6 == 0) {
+                    $('#avatar-6').addClass('active');
+                    sp_avtr_6 = 1;
+                    $('#hidden_avatar').val(6);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                }
+                else {
+                    $('#avatar-6').removeClass('active');
+                    sp_avtr_6 = 0;
+                }
+            })
+        </script>
+    }
+    @if (Model.avatar == "5")
+    {
+        <script>
+            var sp_avtr_1 = 0;
+            var sp_avtr_2 = 0;
+            var sp_avtr_3 = 0;
+            var sp_avtr_4 = 0;
+            var sp_avtr_5 = 1;
+            var sp_avtr_6 = 0;
+            $('#avatar-5').addClass('active');
+            $('#hidden_avatar').val(5);
+            $(document).on('click', '#avatar-1', function () {
+                if (sp_avtr_1 == 0) {
+                    $('#avatar-1').addClass('active');
+                    sp_avtr_1 = 1;
+                    $('#hidden_avatar').val(1); console.log("avatar - 1 ", $('#hidden_avatar').val());
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-1').removeClass('active');
+                    sp_avtr_1 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-2', function () {
+                if (sp_avtr_2 == 0) {
+                    $('#avatar-2').addClass('active');
+                    sp_avtr_2 = 1;
+                    $('#hidden_avatar').val(2);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-2').removeClass('active');
+                    sp_avtr_2 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-3', function () {
+                if (sp_avtr_3 == 0) {
+                    $('#avatar-3').addClass('active');
+                    sp_avtr_3 = 1;
+                    $('#hidden_avatar').val(3);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-3').removeClass('active');
+                    sp_avtr_3 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-4', function () {
+                if (sp_avtr_4 == 0) {
+                    $('#avatar-4').addClass('active');
+                    sp_avtr_4 = 1;
+                    $('#hidden_avatar').val(4);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-4').removeClass('active');
+                    sp_avtr_4 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-5', function () {
+                if (sp_avtr_5 == 0) {
+                    $('#avatar-5').addClass('active');
+                    sp_avtr_5 = 1;
+                    $('#hidden_avatar').val(5);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-5').removeClass('active');
+                    sp_avtr_5 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-6', function () {
+                if (sp_avtr_6 == 0) {
+                    $('#avatar-6').addClass('active');
+                    sp_avtr_6 = 1;
+                    $('#hidden_avatar').val(6);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                }
+                else {
+                    $('#avatar-6').removeClass('active');
+                    sp_avtr_6 = 0;
+                }
+            })
+        </script>
+    }
+    @if (Model.avatar == "6")
+    {
+        <script>
+            var sp_avtr_1 = 0;
+            var sp_avtr_2 = 0;
+            var sp_avtr_3 = 0;
+            var sp_avtr_4 = 0;
+            var sp_avtr_5 = 0;
+            var sp_avtr_6 = 1;
+            $('#avatar-6').addClass('active');
+            $('#hidden_avatar').val(6);
+            $(document).on('click', '#avatar-1', function () {
+                if (sp_avtr_1 == 0) {
+                    $('#avatar-1').addClass('active');
+                    sp_avtr_1 = 1;
+                    $('#hidden_avatar').val(1); console.log("avatar - 1 ", $('#hidden_avatar').val());
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-1').removeClass('active');
+                    sp_avtr_1 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-2', function () {
+                if (sp_avtr_2 == 0) {
+                    $('#avatar-2').addClass('active');
+                    sp_avtr_2 = 1;
+                    $('#hidden_avatar').val(2);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-2').removeClass('active');
+                    sp_avtr_2 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-3', function () {
+                if (sp_avtr_3 == 0) {
+                    $('#avatar-3').addClass('active');
+                    sp_avtr_3 = 1;
+                    $('#hidden_avatar').val(3);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-3').removeClass('active');
+                    sp_avtr_3 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-4', function () {
+                if (sp_avtr_4 == 0) {
+                    $('#avatar-4').addClass('active');
+                    sp_avtr_4 = 1;
+                    $('#hidden_avatar').val(4);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-4').removeClass('active');
+                    sp_avtr_4 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-5', function () {
+                if (sp_avtr_5 == 0) {
+                    $('#avatar-5').addClass('active');
+                    sp_avtr_5 = 1;
+                    $('#hidden_avatar').val(5);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-5').removeClass('active');
+                    sp_avtr_5 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-6', function () {
+                if (sp_avtr_6 == 0) {
+                    $('#avatar-6').addClass('active');
+                    sp_avtr_6 = 1;
+                    $('#hidden_avatar').val(6);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                }
+                else {
+                    $('#avatar-6').removeClass('active');
+                    sp_avtr_6 = 0;
+                }
+            })
+        </script>
+    }
+    @if (Model.avatar == null)
+    {
+        <script>
+            var sp_avtr_1 = 0;
+            var sp_avtr_2 = 0;
+            var sp_avtr_3 = 0;
+            var sp_avtr_4 = 0;
+            var sp_avtr_5 = 0;
+            var sp_avtr_6 = 0;
+            $('#avatar-6').addClass('active');
+            $('#hidden_avatar').val(6);
+            $(document).on('click', '#avatar-1', function () {
+                if (sp_avtr_1 == 0) {
+                    $('#avatar-1').addClass('active');
+                    sp_avtr_1 = 1;
+                    $('#hidden_avatar').val(1); console.log("avatar - 1 ", $('#hidden_avatar').val());
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-1').removeClass('active');
+                    sp_avtr_1 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-2', function () {
+                if (sp_avtr_2 == 0) {
+                    $('#avatar-2').addClass('active');
+                    sp_avtr_2 = 1;
+                    $('#hidden_avatar').val(2);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-2').removeClass('active');
+                    sp_avtr_2 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-3', function () {
+                if (sp_avtr_3 == 0) {
+                    $('#avatar-3').addClass('active');
+                    sp_avtr_3 = 1;
+                    $('#hidden_avatar').val(3);
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-3').removeClass('active');
+                    sp_avtr_3 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-4', function () {
+                if (sp_avtr_4 == 0) {
+                    $('#avatar-4').addClass('active');
+                    sp_avtr_4 = 1;
+                    $('#hidden_avatar').val(4);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-4').removeClass('active');
+                    sp_avtr_4 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-5', function () {
+                if (sp_avtr_5 == 0) {
+                    $('#avatar-5').addClass('active');
+                    sp_avtr_5 = 1;
+                    $('#hidden_avatar').val(5);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                    if (sp_avtr_6 == 1) { $('#avatar-6').removeClass('active'); sp_avtr_6 = 0; }
+                }
+                else {
+                    $('#avatar-5').removeClass('active');
+                    sp_avtr_5 = 0;
+                }
+            })
+            $(document).on('click', '#avatar-6', function () {
+                if (sp_avtr_6 == 0) {
+                    $('#avatar-6').addClass('active');
+                    sp_avtr_6 = 1;
+                    $('#hidden_avatar').val(6);
+                    if (sp_avtr_2 == 1) { $('#avatar-2').removeClass('active'); sp_avtr_2 = 0; }
+                    if (sp_avtr_3 == 1) { $('#avatar-3').removeClass('active'); sp_avtr_3 = 0; }
+                    if (sp_avtr_4 == 1) { $('#avatar-4').removeClass('active'); sp_avtr_4 = 0; }
+                    if (sp_avtr_5 == 1) { $('#avatar-5').removeClass('active'); sp_avtr_5 = 0; }
+                    if (sp_avtr_1 == 1) { $('#avatar-1').removeClass('active'); sp_avtr_1 = 0; }
+                }
+                else {
+                    $('#avatar-6').removeClass('active');
+                    sp_avtr_6 = 0;
+                }
+            })
+        </script>
+    }
+    @if (ViewBag.sp_gender != null)
+    {
+        if (ViewBag.sp_gender == 1)
+        {
+            <script>
+                $('input:radio[name=gender]')[0].checked = true;
+            </script>
+        }
+        if (ViewBag.sp_gender == 2)
+        {
+            <script>
+                $('input:radio[name=gender]')[1].checked = true;
+            </script>
+        }
+        if (ViewBag.sp_gender == 3)
+        {
+            <script>
+                $('input:radio[name=gender]')[2].checked = true;
+            </script>
+        }
+    }
+    @if (ViewBag.sp_cust_block != null)
+    {
+        <script>
+            $('#v-pills-bc-nav').addClass('active');
+            $('#v-pills-mySetting').removeClass('active');
+            $('#v-pills-mySetting').removeClass('show');
+            $('#v-pills-bc').addClass('show');
+            $('#v-pills-bc').addClass('active');
+        </script>
+    }
+    @if (HttpContextAccessor.HttpContext.Session.GetString("cant_complete_ser") == "true")
+    {
+        <script>
+
+            var nospModal = new bootstrap.Modal(document.getElementById("nospModal"), {});
+            document.onreadystatechange = function () {
+                nospModal.show();
+            };
+            $('#v-pills-us-nav').addClass('active');
+            $('#v-pills-mySetting').removeClass('active');
+            $('#v-pills-mySetting').removeClass('show');
+            $('#v-pills-us').addClass('show');
+            $('#v-pills-us').addClass('active');
+        </script>
+    }
+    @if (ViewBag.sp_cancel_service != null)
+    {
+        <script>
+            $('#v-pills-us-nav').addClass('active');
+            $('#v-pills-mySetting').removeClass('active');
+            $('#v-pills-mySetting').removeClass('show');
+            $('#v-pills-us').addClass('show');
+            $('#v-pills-us').addClass('active');
+        </script>
+    }
+    @if (ViewBag.sp_complete_service != null)
+    {
+        <script>
+            $('#v-pills-us-nav').addClass('active');
+            $('#v-pills-mySetting').removeClass('active');
+            $('#v-pills-mySetting').removeClass('show');
+            $('#v-pills-us').addClass('show');
+            $('#v-pills-us').addClass('active');
+        </script>
+    }
+    @if (ViewBag.service_accepted != null)
+    {
+        <script>
+            $('#v-pills-nsr-nav').addClass('active');
+            $('#v-pills-mySetting').removeClass('active');
+            $('#v-pills-mySetting').removeClass('show');
+            $('#v-pills-nsr').addClass('show');
+            $('#v-pills-nsr').addClass('active');
+        </script>
+    }
+
+    @if (ViewBag.spmysetting != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $("#spshTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [2],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+                $(".buttons-pdf").hide();
+                $(".buttons-copy").hide();
+                $(".buttons-csv").hide();
+                $(".buttons-print").hide();
+
+                $("#export").on("click", function () {
+                    $(".buttons-csv").trigger("click");
+                });
+            });
+
+            $(document).ready(function () {
+                $("#spmrTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [0],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+                $(".buttons-pdf").hide();
+                $(".buttons-copy").hide();
+                $(".buttons-csv").hide();
+                $(".buttons-print").hide();
+            });
+
+            $(document).ready(function () {
+                $("#spbcTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [0],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+                $(".buttons-pdf").hide();
+                $(".buttons-copy").hide();
+                $(".buttons-csv").hide();
+                $(".buttons-print").hide();
+            });
+
+            $(document).ready(function () {
+                $("#spusTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [5],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+                $(".buttons-pdf").hide();
+                $(".buttons-copy").hide();
+                $(".buttons-csv").hide();
+                $(".buttons-print").hide();
+            });
+
+            $(document).ready(function () {
+                $("#spnsrTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [5],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+                $(".buttons-pdf").hide();
+                $(".buttons-copy").hide();
+                $(".buttons-csv").hide();
+                $(".buttons-print").hide();
+            });
+        </script>
+    }
+
+</body>
+</html>

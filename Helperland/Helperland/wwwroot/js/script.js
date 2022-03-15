@@ -638,4 +638,3 @@ $(document).on('click', '.dashNavSide a', function () {
 })
 
 
-// ----------------------------- shtable jquery -----------------------------------------

@@ -17,5 +17,7 @@ namespace Helperland.ViewModel
         public string email { get; set; }
         public string comment { get; set; }
         public bool has_pet { get; set; }
+        public decimal? sp_rating { get; set; }
+        public string sp_name { get; set; }
     }
 }

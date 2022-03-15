@@ -276,6 +276,33 @@ h2{
 	border-top: none;
 }
 
+#cantacceptModal .modal-content {
+	max-width: 320px;
+}
+
+#cantacceptModal .login-btn {
+	text-align: center;
+}
+
+#cantacceptModal button {
+	color: white;
+	background-color: #6DA9B5;
+	padding: 5px 15px;
+	border: 1px solid transparent;
+	border-radius: 17px;
+}
+
+#cantacceptModal .modal-header {
+	border-bottom: none;
+}
+
+#cantacceptModal .modal-body {
+	text-align: center;
+}
+
+#cantacceptModal .modal-footer {
+	border-top: none;
+}
 
 #bookingsuccessModal .modal-content {
 	max-width: 320px;
@@ -419,11 +446,13 @@ h2{
 	border-top: none;
 }
 
-.servicedetail_modal pre {
+.servicedetail_modal .service_extra {
 	margin-bottom: 0;
+	flex-wrap: wrap;
 	font-size: 16px;
 	font-weight: 400;
 	color: #4F4F4F;
+	line-height: 20px;
 }
 
 .servicedetail_modal .scheduled_time {
@@ -465,7 +494,20 @@ h2{
 	margin-right: 5px;
 	border: none;
 }
-
+.servicedetail_modal .service_accept_btn {
+	background-color: #67B644;
+	padding: 5px 15px;
+	color: white;
+	border-radius: 17px;
+	margin-right: 5px;
+	border: none;
+}
+.servicedetail_modal pre {
+	margin-bottom: 0;
+	font-size: 16px;
+	font-weight: 400;
+	color: #4F4F4F;
+}
 /*----------------------------------reschedule modal-----------------------------*/
 .reschedule_modal .modal-content {
 	max-width: 400px;
@@ -666,6 +708,87 @@ ratesp_modal .modal-content {
     top: 12px;
     right: 20px;
 }
+/* ------------------------------------admin update service modal --------------------------------*/
+.editsrmodal {
+	color: #646464;
+}
+
+	.editsrmodal .modal-dialog {
+		justify-content: center;
+	}
+
+	.editsrmodal .modal-content {
+		max-width: 520px;
+	}
+
+	.editsrmodal .modal-header {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+		.editsrmodal .modal-header h5 {
+			font-size: 24px;
+			font-weight: bold;
+		}
+
+	.editsrmodal .login-btn {
+		text-align: center;
+	}
+
+	.editsrmodal .save_address_btn {
+		color: white;
+		background-color: #6DA9B5;
+		padding: 5px 120px;
+		border: 1px solid transparent;
+		border-radius: 17px;
+		width: 100%;
+	}
+
+	.editsrmodal .modal-footer {
+		border-top: none;
+	}
+
+		.editsrmodal .modal-footer a {
+			text-decoration: none;
+			color: #006072;
+		}
+
+	.editsrmodal .fade {
+		display: none;
+	}
+
+	.editsrmodal label {
+		font-size: 16px;
+		font-weight: 500;
+		color: #4F4F4F;
+	}
+
+	.editsrmodal .seperator {
+		color: #E1E1E1;
+	}
+
+	.editsrmodal .title_lbl {
+		font-size: 18px;
+	}
+
+	.editsrmodal .sp_rate_textarea {
+		height: 60px !important;
+		margin: 5px 12px;
+		width: 93%;
+	}
+
+.update_service_btn {
+	height: 46px;
+	background-color: #1FB6FF;
+	border-radius: 23px;
+	border: none;
+	color: white;
+	font-size: 14px;
+	font-weight: 500;
+	width: 100%;
+}
+
+
 /*-------------------------------------------------------------------home-page-------------------------------------------------*/
 .banner-image{
 	background-image: url('../asset/Landing-Page-background-image.png');
@@ -705,8 +828,8 @@ ratesp_modal .modal-content {
 }
 
 .scroll-active {
-	background-color: #73706C;
-	opacity: 1;
+	background-color: #525252;
+	opacity: 0.8;
 }
 .home_active{
 	border: 1px solid #FFFFFF80;
@@ -2055,7 +2178,7 @@ table.dataTable thead .sorting_desc {
 
 .user_mng ul{
 	list-style-type: none;
-	margin-left: -33px;
+	/*margin-left: -33px;*/
 }
 .user_mng ul li{
 	border-bottom: 0.5px solid #E5E5E5;
@@ -2176,6 +2299,31 @@ table.dataTable thead .sorting_desc {
 .user_mng .dropdown a{
 	color: #646464;
 }
+table#umAdminTable.dataTable.no-footer {
+	border: none;
+}
+
+table#umAdminTable.dataTable thead th,
+table#umAdminTable.dataTable thead td {
+	border: none;
+}
+
+table#umAdminTable.dataTable.stripe tbody tr.odd,
+table#umAdminTable.dataTable.display tbody tr.odd,
+table#umAdminTable.dataTable.stripe tbody tr.even,
+table#umAdminTable.dataTable.display tbody tr.even {
+	background-color: #fff;
+	border: 1px solid #AAAAAA;
+}
+
+table#umAdminTable.dataTable.no-footer {
+	border: 1px solid #AAAAAA !important;
+}
+
+table#umAdminTable.dataTable thead th {
+	border-bottom: 1px solid #AAAAAA;
+}
+
 /*--------------------------------------service request------------------------------------------------*/
 .service_request_main{
 	background-color: #F4F4F4;
@@ -2298,7 +2446,41 @@ table.dataTable thead .sorting_desc {
 	background-color: #565656;
 	color: white;
 }
+table#srAdminTable.dataTable.no-footer {
+	border: none;
+}
 
+table#srAdminTable.dataTable thead th,
+table#srAdminTable.dataTable thead td {
+	border: none;
+}
+
+table#srAdminTable.dataTable.stripe tbody tr.odd,
+table#srAdminTable.dataTable.display tbody tr.odd,
+table#srAdminTable.dataTable.stripe tbody tr.even,
+table#srAdminTable.dataTable.display tbody tr.even {
+	background-color: #fff;
+}
+
+table#srAdminTable.dataTable.no-footer {
+	border: 1px solid #AAAAAA !important;
+}
+
+table#srAdminTable.dataTable thead th {
+	border-bottom: 1px solid #AAAAAA;
+}
+
+#srAdminTable p,
+#umAdminTable p {
+	margin-bottom: 0;
+}
+#srAdminTable b{
+	color: #4F4F4F;
+}
+#umAdminTable_wrapper,
+#srAdminTable_wrapper {
+	margin-top: 10px;
+}
 /*--------------------------------------Regustration---------------------------------------------------*/
 .Contact_form label {
 	font-size: 14px;
@@ -3273,6 +3455,476 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 		color: white !important;
 	}
 
+
+/* ------------------------------------service provider screen css -------------------------------------*/
+#spmyDetails label {
+	padding-left: 0;
+	font-size: 16px;
+	font-weight: 500;
+	color: #4F4F4F;
+}
+
+#spmyDetails .input-group {
+	padding: 0;
+}
+
+#spmyDetails .col-md-4 {
+	padding-right: 30px;
+}
+
+#spmyDetails select {
+	height: 46px;
+}
+
+#spmyDetails .col-sm-3,
+#spmyDetails .col-sm-4,
+#spmyDetails .col-sm-5,
+#spmyDetails .col-sm-2 {
+	padding: 0;
+	padding-right: 5px;
+}
+
+.myDetails_save {
+	height: 46px;
+	background-color: #1D7A8C;
+	border-radius: 23px;
+	border: none;
+	color: white;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 0 20px;
+	white-space: nowrap;
+}
+
+
+
+
+.changepass_content label {
+	padding-left: 0;
+	font-size: 16px;
+	font-weight: 700;
+	color: #4F4F4F;
+}
+
+.active_status {
+	font-size: 16px !important;
+	color: #67B644 !important;
+	font-weight: 400 !important;
+	margin-bottom: 0;
+}
+.inactive_status {
+	font-size: 16px !important;
+	color: #FF7B6D !important;
+	font-weight: 400 !important;
+	margin-bottom: 0;
+}
+.col-md-2.sp_avatar {
+	height: 20px !important;
+	
+}
+.sp_accnt_status{
+	padding:2px 0 ;
+}
+.spDOB_select select {
+	font-size: 14px !important;
+}
+
+.spDOB_select .form-select {
+	background-size: 10px 10px !important;
+	padding-right: 10px !important;
+}
+
+.sp_gender {
+	padding-left: 0;
+}
+
+	.sp_gender label {
+		padding-left: 5px !important;
+	}
+
+#spmyDetails .extra-serve .extra-service-items {
+	margin: 0 10px 10px;
+}
+
+#spmyDetails .extra-img {
+	width: 105px;
+	height: 105px;
+	border: 1px solid #b0c9ce;
+	opacity: 1;
+	border-radius: 50%;
+	padding: 30px 35px;
+}
+
+	#spmyDetails .extra-img.active {
+		border: 2px solid #1D7A8C;
+	}
+
+#spmyDetails .seperator {
+	color: #CCCCCC;
+}
+
+/*--------- sp service history table ----------*/
+
+#spshTable p {
+	margin-bottom: 0;
+}
+
+#spshTable .spsh_custdetail .col-sm-1 {
+	padding-right: 0;
+}
+
+#spshTable pre {
+	font-size: 16px;
+	color: #4F4F4F;
+	font-weight: 400;
+	margin-bottom: 0;
+}
+
+
+#spshTable thead {
+	color: #646464;
+	background-color: #F9F9F9;
+	font-size: 16px;
+	font-weight: bold;
+	border: 1px solid #e1e1e1;
+}
+
+	#spshTable thead th {
+		padding: 17px 20px 20px 14px;
+	}
+
+		#spshTable thead th img {
+			margin: -2px 0 0 8px;
+		}
+
+#spshTable tbody td {
+	padding: 10px 20px 10px 14px;
+	color: #646464;
+}
+
+#spshTable tbody tr {
+	border: 1px solid #e1e1e1;
+}
+
+table#spshTable.dataTable thead th {
+	border-bottom: 1px solid #AAAAAA;
+}
+
+table#spshTable.dataTable.no-footer {
+	border: 1px solid #AAAAAA !important;
+}
+
+/* ----------- sp my ratings table -------------- */
+#spmrTable p {
+	margin-bottom: 0;
+}
+
+#spmrTable .spsh_custdetail .col-sm-1 {
+	padding-right: 0;
+}
+
+#spmrTable pre {
+	font-size: 16px;
+	color: #4F4F4F;
+	font-weight: 400;
+	margin-bottom: 0;
+}
+
+#spmrTable tbody td {
+	padding: 10px 20px 10px 14px;
+	color: #646464;
+}
+
+#spmrTable tbody tr {
+	border: 1px solid #e1e1e1;
+}
+
+#spmrTable .spmr_stars {
+	align-items: center;
+}
+
+/* ----------------sp block customer ------------------------- */
+#spbcTable .spbc_cust_card {
+	border: 1px solid #AAAAAA;
+}
+
+table#spbcTable.dataTable.no-footer {
+	border: none;
+}
+
+table#spbcTable.dataTable thead th,
+table#spbcTable.dataTable thead td {
+	border: none;
+}
+
+table#spbcTable.dataTable.stripe tbody tr.odd,
+table#spbcTable.dataTable.display tbody tr.odd,
+table#spbcTable.dataTable.stripe tbody tr.even,
+table#spbcTable.dataTable.display tbody tr.even {
+	background-color: #fff;
+}
+
+table#spbcTable.dataTable.cell-border tbody td {
+	border: none;
+}
+
+#spbcTable tr {
+	display: table;
+	min-width: 250px;
+}
+
+#spbcTable td {
+	display: table-cell;
+}
+
+#spbcTable .cust_td .cust_logo {
+	height: 70px;
+	width: 70px;
+	border: 2px solid #AAAAAA;
+	border-radius: 50%;
+}
+
+	#spbcTable .cust_td .cust_logo img {
+		margin-left: -12px;
+	}
+
+#spbcTable .cust_block_btn {
+	border: none;
+	background-color: #FF6B6B;
+	color: #fff;
+	padding: 5px 10px;
+	border-radius: 17px;
+	margin-bottom: 20px;
+	width: 100px;
+}
+#spbcTable .cust_unblock_btn {
+	border: none;
+	background-color: #6DA9B5;
+	color: #fff;
+	padding: 5px 10px;
+	border-radius: 17px;
+	margin-bottom: 20px;
+	width: 100px;
+}
+
+/* --------------------sp upcoming service table ------------*/
+#spusTable .spus_cancel_btn {
+	border: none;
+	background-color: #FF6B6B;
+	color: #fff;
+	padding: 5px 10px;
+	border-radius: 17px;
+}
+
+#spusTable p {
+	margin-bottom: 0;
+}
+
+#spusTable .spsh_custdetail .col-sm-1 {
+	padding-right: 0;
+}
+
+#spusTable pre {
+	font-size: 16px;
+	color: #4F4F4F;
+	font-weight: 400;
+	margin-bottom: 0;
+}
+
+
+#spusTable thead {
+	color: #646464;
+	background-color: #F9F9F9;
+	font-size: 16px;
+	font-weight: bold;
+	border: 1px solid #e1e1e1;
+}
+
+	#spusTable thead th {
+		padding: 17px 20px 20px 14px;
+	}
+
+		#spusTable thead th img {
+			margin: -2px 0 0 8px;
+		}
+
+#spusTable tbody td {
+	padding: 10px 20px 10px 14px;
+	color: #646464;
+}
+
+
+
+table#spusTable.dataTable thead th {
+	border-bottom: 1px solid #AAAAAA;
+}
+
+table#spusTable.dataTable.no-footer {
+	border: 1px solid #AAAAAA !important;
+}
+
+/*-----------------sp nsr table ----------------------*/
+table#spnsrTable.dataTable thead th {
+	border-bottom: 1px solid #AAAAAA;
+}
+
+table#spnsrTable.dataTable.no-footer {
+	border: 1px solid #AAAAAA !important;
+}
+
+#spnsrTable .spnsr_accept_btn {
+	border: none;
+	background-color: #146371;
+	color: #fff;
+	padding: 5px 10px;
+	border-radius: 17px;
+}
+
+#spnsrTable p {
+	margin-bottom: 0;
+}
+
+#spnsrTable .spsh_custdetail .col-sm-1 {
+	padding-right: 0;
+}
+
+#spnsrTable pre {
+	font-size: 16px;
+	color: #4F4F4F;
+	font-weight: 400;
+	margin-bottom: 0;
+}
+
+
+#spnsrTable thead {
+	color: #646464;
+	background-color: #F9F9F9;
+	font-size: 16px;
+	font-weight: bold;
+	border: 1px solid #e1e1e1;
+}
+
+	#spnsrTable thead th {
+		padding: 17px 20px 20px 14px;
+	}
+
+		#spnsrTable thead th img {
+			margin: -2px 0 0 8px;
+		}
+
+#spnsrTable tbody td {
+	padding: 10px 20px 10px 14px;
+	color: #646464;
+}
+
+
+/* ----------------------service acctept cancel modal -------------------------- */
+.serviceacceptcancel_modal .modal-content {
+	max-width: 500px;
+}
+
+.serviceacceptcancel_modal .modal-header {
+	border-bottom: none;
+}
+
+.serviceacceptcancel_modal .modal-footer {
+	border-top: none;
+}
+
+.serviceacceptcancel_modal pre {
+	margin-bottom: 0;
+	font-size: 16px;
+	font-weight: 400;
+	color: #4F4F4F;
+}
+
+.serviceacceptcancel_modal .scheduled_time {
+	font-size: 20px;
+	font-weight: 700;
+	color: #4F4F4F;
+}
+
+.serviceacceptcancel_modal label {
+	font-size: 16px;
+	font-weight: 500;
+	color: #4F4F4F;
+}
+
+.serviceacceptcancel_modal .service_amount,
+.serviceacceptcancel_modal .amount_symbol {
+	font-size: 32px;
+	font-weight: 700;
+	color: #1D7A8C;
+}
+
+.serviceacceptcancel_modal .seperator {
+	color: #CCCCCC;
+}
+
+.serviceacceptcancel_modal .cancel_btn {
+	background-color: #FF6B6B;
+	color: white;
+	border-radius: 17px;
+	padding: 5px 15px;
+	border: none;
+}
+
+.serviceacceptcancel_modal .service_accept_btn {
+	background-color: #67B644;
+	padding: 5px 15px;
+	color: white;
+	border-radius: 17px;
+	margin-right: 5px;
+	border: none;
+}
+
+.serviceacceptcancel_modal .spus_cancel_btn {
+	border: none;
+	background-color: #FF6B6B;
+	color: #fff;
+	padding: 5px 14px;
+	border-radius: 17px;
+}
+
+.serviceacceptcancel_modal .service_complete_btn {
+	border: none;
+	background-color: #1D7A8C;
+	color: #fff;
+	padding: 5px 14px;
+	border-radius: 17px;
+}
+
+
+.sp_detail .seperator {
+	color: #CCCCCC;
+}
+
+#v-pills-mySetting .fade {
+	display: none;
+}
+
+#v-pills-mySetting .show {
+	display: block;
+}
+
+.mySetting_header {
+	margin-top: 5px;
+	align-items: center;
+	border-bottom: 2px solid #DCDCDC;
+}
+
+	.mySetting_header .fade {
+		display: none;
+	}
+
+	.mySetting_header .col-lg-3 {
+		height: 70px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+		cursor: pointer;
+	}
+
 /*--------------------------------------media queries--------------------------------------------------*/
 @media (max-width: 467px) {
 	.mySetting_header .col-lg-3 {
@@ -3379,6 +4031,16 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	.dash_btns {
 		flex-direction: column;
 	}
+
+	#spmyDetails .personal_info .col-md-4 {
+		width: 100% !important;
+		margin-bottom: 10px;
+	}
+
+	#spmyDetails .phone_num .col-md-4 {
+		width: 100% !important;
+		margin-bottom: 10px;
+	}
 }
 
 @media screen and (max-width: 600px) {
@@ -3462,6 +4124,17 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	.dataTables_paginate {
 		width: 420px !important;
 	}
+
+	#spshTable_thead {
+		display: none;
+	}
+
+	#spshTable {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		margin-right: 30px;
+	}
 }
 
 
@@ -3471,6 +4144,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	}
 
 	#myDetails .phone_num .col-md-4 {
+		width: 50%;
+		margin-bottom: 10px;
+	}
+	#spmyDetails .personal_info .col-md-4 {
+		width: 50%;
+	}
+
+	#spmyDetails .phone_num .col-md-4 {
 		width: 50%;
 		margin-bottom: 10px;
 	}
@@ -3693,6 +4374,25 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	.addresses_header .col-sm-2 {
 		margin-right: 20px;
 	}
+
+	.sp_avatar {
+		display: none;
+	}
+
+	#spmrTable .rate_date {
+		margin-left: auto !important;
+		margin-bottom: 10px;
+		padding-right: 30px !important;
+	}
+
+	#spusTable_thead {
+		display: none;
+	}
+
+	#spnsrTable_thead {
+		display: none;
+	}
+
 }
 
 @media screen and (max-width: 970px){
@@ -4035,6 +4735,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 			width: auto;
 			margin: 0 auto 0 auto;
 		}
+	#spmyChangepass .changepass_content {
+		margin: 0 auto;
+	}
+
+		#spmyChangepass .changepass_content .col-lg-4 {
+			width: 400px;
+		}
 
 	.addresses_content .address_data .interact_address {
 		margin-right: 20px !important;
@@ -4182,6 +4889,44 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 		#myChangepass .changepass_content .save_btn {
 			justify-content: center;
 		}
+
+	#spmyDetails {
+		margin: 5px 30px;
+	}
+
+		#spmyDetails .select_lang,
+		#spmyDetails .save_btn {
+			justify-content: center;
+		}
+
+	.gender_container {
+		justify-content: center !important;
+	}
+
+	.sp_gender .col-sm-3 {
+		margin-left: auto;
+	}
+
+	.sp_gender .col-sm-6 {
+		margin-left: auto;
+	}
+
+	#spmyChangepass .changepass_content {
+		justify-content: center;
+	}
+
+		#spmyChangepass .changepass_content .save_btn {
+			justify-content: center;
+		}
+
+	#spmyDetails .extra-serve {
+		justify-content: center !important;
+	}
+
+	#spmrTable .spmr_stars {
+		justify-content: center !important;
+		align-items: center !important;
+	}
 	
 }
 

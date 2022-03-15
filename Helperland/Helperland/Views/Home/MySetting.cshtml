@@ -1,4 +1,5 @@
-﻿@model Helperland.ViewModel.MySettingViewModel
+﻿
+@model Helperland.ViewModel.MySettingViewModel
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @{
@@ -131,6 +132,8 @@
                                         extra_arr[i] = extra_str[j];
                                     }
                                     string[] extra_services = { "Inside Cabinets","Inside fridge","Inside Oven","Laundry wash & dry","Interior windows"};
+                                    double rating = Convert.ToDouble(ser.sp_rating);
+                                    int rate_int = Convert.ToInt32(rating);
                                     <tr class="sp_details pt-3">
                                         <td class="col-md-2">
                                             <p class="text-center">@ser.service_id</p>
@@ -146,7 +149,29 @@
                                         </td>
 
                                         <td class="col-md-3">
-
+                                            @if(ser.sp_name != null)
+                                            { 
+                                            <div class="row">
+                                                <div class="col-sm-3 sh_cap_border ">
+                                                    <img src="/asset/cap.png" id="cap">
+                                                </div>
+                                                <div class="col-sm-9 ">
+                                                    <p>
+                                                        @ser.sp_name<br>
+                                                        @for (int i = 0; i < rate_int; i++)
+                                                        {
+                                                            <img src="/asset/star1.png">
+                                                        }
+                                                        @for (int i = rate_int; i < 5; i++)
+                                                        {
+                                                            <img src="/asset/star2.png">
+                                                        }
+                                                        @rating
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            }
+                                            
                                         </td>
 
                                         <td class="col-md-2 sh_payment">
@@ -186,13 +211,17 @@
                                                     <div class="row">
                                                         <div class="d-flex">
                                                             <label>Extras : </label>
+                                                            <pre class="service_extra">
                                                             @for(int i =0;i< 5;i++)
                                                             {
                                                                 if(extra_arr[i] == '1')
                                                                 { 
-                                                                    <pre class="service_extra"> @extra_services[i]</pre>        
+                                                                     @extra_services[i]  
+
                                                                 }
-                                                            }                                                            
+                                                            }
+                                                            </pre>
+
                                                         </div>
                                                     </div>
 
@@ -343,7 +372,7 @@
 
                     </div>
                     <div class="col-md-2" id="export_end">
-                        <button class="sh_export_btn">Export</button>
+                        <button id="export" class="sh_export_btn">Export</button>
                     </div>
                 </div>
                 <table id="shTable" class="display">
@@ -418,7 +447,8 @@
                                     string date_str = ser.service_date.ToString();
                                     string date = date_str.Substring(0, 10);
                                     string start = date_str.Substring(10, 6);
-
+                                    double rating = Convert.ToDouble(ser.sp_rating);
+                                    int rate_int = Convert.ToInt32(rating);
                                     <tr class="sp_details pt-3">
                                         <td class="col-md-1 col-sm-9">
                                             <p>@ser.service_id</p>
@@ -438,13 +468,16 @@
                                                 </div>
                                                 <div class="col-sm-9 ">
                                                     <p>
-                                                        Lyum Watson<br>
-                                                        <img src="/asset/star1.png">
-                                                        <img src="/asset/star1.png">
-                                                        <img src="/asset/star1.png">
-                                                        <img src="/asset/star1.png">
-                                                        <img src="/asset/star2.png">
-                                                        4
+                                                        @ser.sp_name<br>
+                                                        @for (int i = 0; i < rate_int; i++)
+                                                        {
+                                                            <img src="/asset/star1.png">
+                                                        }
+                                                        @for (int i = rate_int; i < 5; i++)
+                                                        {
+                                                            <img src="/asset/star2.png">
+                                                        }
+                                                        @rating
                                                     </p>
                                                 </div>
                                             </div>
@@ -453,7 +486,7 @@
                                             € @ser.service_amount
                                         </td>
                                         <td class="col-md-2 sh_status align-items-center pt-1">
-                                            @if (ser.status == 1)
+                                            @if (ser.status == 2)
                                             {
                                                 <div class="sh_status_completed">
                                                     Completed
@@ -469,7 +502,7 @@
 
                                         </td>
                                         <td class="col-md-1">
-                                            @if (ser.status == 1)
+                                            @if (ser.status == 2)
                                             {
                                                 <button data-bs-toggle="modal" data-bs-target="@("#ratespModal"+ser.service_id)" class="sh_ratesp">Rate SP</button>
                                             }
@@ -487,19 +520,22 @@
                                                         </div>
                                                         <div class="col-sm-9 pt-3">
                                                             <p class="">
-                                                                Lyum Watson<br>
-                                                                <img src="/asset/star1.png">
-                                                                <img src="/asset/star1.png">
-                                                                <img src="/asset/star1.png">
-                                                                <img src="/asset/star1.png">
-                                                                <img src="/asset/star2.png">
-                                                                4
+                                                                @ser.sp_name<br>
+                                                                @for (int i = 0; i < rate_int; i++)
+                                                                {
+                                                                    <img src="/asset/star1.png">
+                                                                }
+                                                                @for (int i = rate_int; i < 5; i++)
+                                                                {
+                                                                    <img src="/asset/star2.png">
+                                                                }
+                                                                @rating
                                                             </p>
                                                         </div>
                                                     </div>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div  class="modal-body">
                                                     <div class="row">
                                                         <label>Rate your Service Provider</label>
                                                     </div>
@@ -548,19 +584,26 @@
                                                     <div class="row">
                                                         <label>Feedback on Service Provider</label>
                                                     </div>
-                                                    <div class="row">
-                                                        <textarea class="form-control sp_rate_textarea"></textarea>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <button class="service_reschedule_btn" type="button">Submit</button>
+                                                    <form asp-action="sp_rating" asp-controller="Home" class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <textarea asp-for="feedback" class="form-control sp_rate_textarea"></textarea>
+                                                            </div>
+                                                            <div class="row">
+                                                                <input asp-for="on_time_arrival" type="hidden" id="@("hidden_ota"+ser.service_id)" />
+                                                                <input asp-for="freindly" type="hidden" id="@("hidden_frnd"+ser.service_id)" />
+                                                                <input asp-for="qualit_of_service" type="hidden" id="@("hidden_qos"+ser.service_id)" />
+                                                                <input asp-for="rate_ser_id" value="@ser.service_id" type="hidden" />
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <button data-bs-dismiss="modal" class="service_reschedule_btn" type="submit">Submit</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <input type="hidden" id="@("hidden_ota"+ser.service_id)" />
-                                                        <input type="hidden" id="@("hidden_frnd"+ser.service_id)" />
-                                                        <input type="hidden" id="@("hidden_qos"+ser.service_id)" />
-                                                    </div>
+                                                    </form>
+                                                    
+
 
                                                 </div>
 

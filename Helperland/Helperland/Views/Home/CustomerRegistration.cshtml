@@ -11,13 +11,16 @@
     <div class="Contact_form mx-auto">
         <form class="row  g-3" asp-action="CustomerRegistration" asp-controller="Home">
             <div class="col-md-6">
-                <input asp-for="FirstName" type="text" class="form-control" id="Firstname" placeholder="First Name" required>
+                <input asp-for="FirstName" type="text" class="form-control" id="Firstname" placeholder="First Name">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="col-md-6">
-                <input asp-for="LastName" type="text" class="form-control" id="Lastname" placeholder="Last Name" required>
+                <input asp-for="LastName" type="text" class="form-control" id="Lastname" placeholder="Last Name">
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="col-md-6">
-                <input asp-for="Email" type="email" class="form-control" id="Email" placeholder="E-mail address" required>
+                <input asp-for="Email" type="email" class="form-control" id="Email" placeholder="E-mail address">
+                <span asp-validation-for="Email" class="text-danger"></span>
 
             </div>
 
@@ -26,23 +29,27 @@
 
                     <div class="col-sm-12 input-group">
                         <span class="c_code align-items-center justify-content-center">+49</span>
-                        <input asp-for="Phonenumber" type="tel" class="form-control" id="Phone number" placeholder="Mobile Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" pattern="[0-9]{10}" required>
+                        <input asp-for="Phonenumber" type="tel" class="form-control" id="Phone number" placeholder="Mobile Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" pattern="[0-9]{10}">
+
                     </div>
+                    <span asp-validation-for="Phonenumber" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-md-6">
-                <input asp-for="Password" type="password" id="password" minlength="1" class="form-control" placeholder="Password" required>
+                <input asp-for="Password" type="password" id="password" minlength="1" class="form-control" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="col-md-6">
-                <input type="password" id="confirm_password" name="ConfirmPassword" class="form-control" placeholder="Confirm Password" required>
-                <span id='message'></span>
+                <input asp-for="confirmPassword" type="password" id="confirm_password"  class="form-control" placeholder="Confirm Password" >
+                <span asp-validation-for="confirmPassword" class="text-danger"></span>
+                @*<span id="message"></span>*@
             </div>
             <div class="col-md-5 pt-3">
                 <input id="isCheck" type="checkbox" name="policy_check" required>
                 <label>I have read the <a href="#">Privacy Policy</a></label>
                 <div id='message2' style="color: red; display: none;">Please accept Privacy Policy</div>
             </div>
-            <div class="text-danger" asp-validation-summary="All"></div>
+            
             <div class="col-md-12 text-center">
                 <button id="but" class="c_sub_btn" type="submit"><h3>Register</h3></button>
             </div>

@@ -1,0 +1,1257 @@
+﻿@model Helperland.ViewModel.spMySettingViewModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Helperland | Service Provider Settings";
+    Layout = "~/Views/Shared/ServiceProviderPageLayout.cshtml";
+}
+
+<section class="welcome">
+    <div class="text-center d-flex justify-content-center align-items-center">
+        <div class="welcome_text">
+            Welcome,
+        </div>
+        <div class="sp_name">
+            @HttpContextAccessor.HttpContext.Session.GetString("UserName")
+        </div>
+        <div class="sp_name">
+            !
+        </div>
+    </div>
+</section>
+
+
+<section class="sp_menu_details">
+    <div class="sp_main mx-auto">
+        <div class="sp_menu ">
+            <ul class="nav flex-column nav-pills">
+                <li id="v-pills-nsr-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-nsr"><a href="#" class="nav-link">New Service Requests</a></li>
+                <li id="v-pills-us-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-us"><a href="#" class="nav-link">Upcoming Services</a></li>
+                <li id="v-pills-sh-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-sh"><a href="#" class="nav-link">Service History</a></li>
+                <li id="v-pills-mr-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-mr"><a href="#" class="nav-link">My Ratings</a></li>
+                <li id="v-pills-bc-nav" class="nav-item" data-bs-toggle="pill" data-bs-target="#v-pills-bc"><a href="#" class="nav-link">Block Customer</a></li>
+
+            </ul>
+        </div>
+        <div class="sp_detail sp_menu_nav_content tab-content">
+
+            <div class="tab-pane fade " id="v-pills-nsr" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                <table id="spnsrTable">
+                    <thead id="spnsrTable_thead">
+                        <tr>
+                            <th class="text-center">
+                                <p>Service Id</p>
+                            </th>
+                            <th class="text-center">
+                                <p>Service Date</p>
+                            </th>
+                            <th>
+                                <p>Customer Details</p>
+                            </th>
+                            <th>
+                                <p>Payment</p>
+                            </th>
+                            <th>
+                                <p>Time Conflict</p>
+                            </th>
+                            <th>
+                                <p>Action</p>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            if (Model.newServices != null)
+                            {
+                                foreach (var ser in Model.newServices)
+                                {
+
+                                    int duration_hr = 0;
+                                    int duration_min = 0;
+                                    DateTime end_time = ser.service_date;
+                                    double duration = Convert.ToDouble(ser.duration);
+                                    string dura_str = duration.ToString();
+                                    bool dura_is_decimal = dura_str.Contains(".");
+                                    string[] dura_arr = dura_str.Split(".");
+                                    if (dura_is_decimal)
+                                    {
+                                        duration_hr = Int32.Parse(dura_arr[0]);
+
+
+
+                                        if (Int32.Parse(dura_arr[1]) != 0)
+                                        {
+                                            duration_min = 30;
+                                        }
+                                        else
+                                        {
+                                            duration_min = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        duration_hr = Int32.Parse(dura_str);
+                                        duration_min = 0;
+
+                                    }
+
+
+                                    TimeSpan end_time_cal = new TimeSpan(duration_hr, duration_min, 0);
+
+                                    end_time = end_time + end_time_cal;
+
+
+                                    string end_str = end_time.ToString();
+                                    string end = end_str.Substring(10, 6);
+
+                                    string date_str = ser.service_date.ToString();
+                                    string date = date_str.Substring(0, 10);
+                                    string start = date_str.Substring(10, 6);
+
+                                    int extra_ser = ser.extra_service;
+                                    string extra_str = extra_ser.ToString();
+                                    char[] extra_arr = new char[5];
+                                    int extra_total = 5;
+                                    int temp = 0;
+                                    for (int i = 0; i < (extra_total - extra_str.Length); i++)
+                                    {
+                                        extra_arr[i] = '0';
+                                        temp += 1;
+                                    }
+                                    for (int i = temp, j = 0; i < 5; i++, j++)
+                                    {
+                                        extra_arr[i] = extra_str[j];
+                                    }
+                                    string[] extra_services = { "Inside Cabinets", "Inside fridge", "Inside Oven", "Laundry wash & dry", "Interior windows" };
+
+                                    <tr class="sp_details pt-3">
+                                        <td class="col-md-1 text-center">
+                                            <p>@ser.service_id</p>
+                                        </td>
+
+                                        <td class="col-md-3 text-center">
+                                            <div class="">
+                                                <p>
+                                                    <img src="/asset/calendar2.png"> <b>@date</b><br>
+                                                    <img src="/asset/layer-14.png">@start - @end
+                                                </p>
+                                            </div>
+                                        </td>
+
+                                        <td class="col-md-4">
+                                            <div class="row">
+
+                                                <div class="col-sm-11 spsh_address">
+                                                    <div class="row">
+                                                        <pre>       @ser.cust_name</pre>
+                                                    </div>
+
+                                                    <div class="row pt-1">
+                                                        <pre><img src="/asset/layer-15.png"> @ser.service_address</pre><br>
+                                                        <pre>       @ser.pincode , @ser.city</pre>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <div>
+                                                <p>@ser.service_amount €</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <div>
+                                                <p>@ser.conflictId</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-2">
+                                            <div>
+                                                @if(ser.conflictId == null)
+                                                { 
+                                                    <button data-bs-toggle="modal" data-bs-target="@("#servicedetailModal"+ser.service_id)" class="spnsr_accept_btn">Accept</button>    
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+
+
+
+
+
+                                    <div class="modal fade servicedetail_modal" id="@("servicedetailModal"+ser.service_id)" aria-labelledby="servicedetailModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered justify-content-center">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="servicedetailModalLabel">Service Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <pre class="scheduled_time">@date   @start-@end</pre>
+                                                    </div>
+                                                    <div class="row">
+                                                        <pre class="duration"><label>Duration : </label>@duration hrs</pre>
+                                                    </div>
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+                                                    <div class="row">
+                                                        <pre class="service_id"><label>Service ID : </label>@ser.service_id</pre>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="d-flex">
+                                                            <label>Extras : </label>
+                                                            <pre class="service_extra">
+                                                                @for(int i =0;i< 5;i++)
+                                                                {
+                                                                    if(extra_arr[i] == '1')
+                                                                    { 
+                                                                         @extra_services[i]  
+
+                                                                    }
+                                                                }
+                                                            </pre>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label>Net Amount :</label>
+                                                        </div>
+                                                        <div class="col-sm-5 d-flex justify-content-center">
+                                                            <pre class="service_amount">@ser.service_amount </pre><pre class="amount_symbol">€</pre>
+                                                        </div>
+                                                        <div class="col-sm-4">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_address"><label>Service Address : </label>@ser.service_address</pre>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_phone"><label>Phone : </label>@ser.phone</pre>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_email"><label>Email : </label>@ser.email</pre>
+                                                    </div>
+
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_comment"><label>Comments : </label>@ser.comment</pre>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        @if (ser.has_pet)
+                                                        {
+                                                            <pre class="service_pets"><label><img src="/asset/has-pet-true.png" />  </label>I have pets at home</pre>
+                                                        }
+                                                        else
+                                                        {
+                                                            <pre class="service_pets"><label><img src="/asset/has-pet-false.png" />  </label>I don't have pets at home</pre>
+
+                                                        }
+                                                    </div>
+
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+
+                                                    <form asp-action="accept_service" asp-controller="Home" class="row">
+                                                        <input asp-for="hidden_nsr_ser_id" type="hidden" value="@ser.service_id" />
+                                                        <div class="col-sm-3">
+                                                            <button data-bs-dismiss="modal" class="service_accept_btn" type="submit"><img src="/asset/ic-check.png">Accept</button>
+                                                        </div>
+                                                        
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade " id="v-pills-us" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                <table id="spusTable">
+                    <thead id="spusTable_thead">
+                        <tr>
+                            <th class="text-center">
+                                <p>Service Id</p>
+                            </th>
+                            <th class="text-center">
+                                <p>Service Date</p>
+                            </th>
+                            <th>
+                                <p>Customer Details</p>
+                            </th>
+                            <th>
+                                <p>Payment</p>
+                            </th>
+                            <th>
+                                <p>Distance</p>
+                            </th>
+                            <th>
+                                <p>Action</p>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            if (Model.upcomingServices != null)
+                            {
+                                foreach (var ser in Model.upcomingServices)
+                                {
+                                    int duration_hr = 0;
+                                    int duration_min = 0;
+                                    DateTime end_time = ser.service_date;
+                                    double duration = Convert.ToDouble(ser.duration);
+                                    string dura_str = duration.ToString();
+                                    bool dura_is_decimal = dura_str.Contains(".");
+                                    string[] dura_arr = dura_str.Split(".");
+                                    if (dura_is_decimal)
+                                    {
+                                        duration_hr = Int32.Parse(dura_arr[0]);
+
+
+
+                                        if (Int32.Parse(dura_arr[1]) != 0)
+                                        {
+                                            duration_min = 30;
+                                        }
+                                        else
+                                        {
+                                            duration_min = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        duration_hr = Int32.Parse(dura_str);
+                                        duration_min = 0;
+
+                                    }
+
+
+                                    TimeSpan end_time_cal = new TimeSpan(duration_hr, duration_min, 0);
+
+                                    end_time = end_time + end_time_cal;
+
+
+                                    string end_str = end_time.ToString();
+                                    string end = end_str.Substring(10, 6);
+
+                                    string date_str = ser.service_date.ToString();
+                                    string date = date_str.Substring(0, 10);
+                                    string start = date_str.Substring(10, 6);
+
+                                    int extra_ser = ser.extra_service;
+                                    string extra_str = extra_ser.ToString();
+                                    char[] extra_arr = new char[5];
+                                    int extra_total = 5;
+                                    int temp = 0;
+                                    for (int i = 0; i < (extra_total - extra_str.Length); i++)
+                                    {
+                                        extra_arr[i] = '0';
+                                        temp += 1;
+                                    }
+                                    for (int i = temp, j = 0; i < 5; i++, j++)
+                                    {
+                                        extra_arr[i] = extra_str[j];
+                                    }
+                                    string[] extra_services = { "Inside Cabinets", "Inside fridge", "Inside Oven", "Laundry wash & dry", "Interior windows" };
+
+                                    <tr class="sp_details pt-3">
+                                        <td class="col-md-1 text-center">
+                                            <p>@ser.service_id</p>
+                                        </td>
+
+                                        <td class="col-md-3 text-center">
+                                            <div class="">
+                                                <p>
+                                                    <img src="/asset/calendar2.png"> <b>@date</b><br>
+                                                    <img src="/asset/layer-14.png">@start - @end
+                                                </p>
+                                            </div>
+                                        </td>
+
+                                        <td class="col-md-4">
+                                            <div class="row">
+
+                                                <div class="col-sm-11 spsh_address">
+                                                    <div class="row">
+                                                        <pre>       @ser.cust_first_name @ser.cust_last_name</pre>
+                                                    </div>
+
+                                                    <div class="row pt-1">
+                                                        <pre><img src="/asset/layer-15.png"> @ser.service_address</pre><br>
+                                                        <pre>       @ser.pincode , @ser.city</pre>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <div>
+                                                <p>@ser.service_amount €</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <div>
+                                                <p>@ser.distance km</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-2">
+                                            <div>
+                                                <button data-bs-toggle="modal" data-bs-target="@("#serviceacceptcancelModal"+ser.service_id)" class="spus_cancel_btn">Cancel</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- --------------------------service cancelcomplete modal -------------------------- -->
+                                    <div class="modal fade serviceacceptcancel_modal" id="@("serviceacceptcancelModal"+ser.service_id)" aria-labelledby="servicedetailModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered justify-content-center">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="servicedetailModalLabel">Service Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <pre class="scheduled_time">@date   @start-@end</pre>
+                                                    </div>
+                                                    <div class="row">
+                                                        <pre class="duration"><label>Duration : </label>@duration hrs</pre>
+                                                    </div>
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+                                                    <div class="row">
+                                                        <pre class="service_id"><label>Service ID : </label>@ser.service_id</pre>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="d-flex">
+                                                            <label>Extras : </label>
+                                                            <pre class="service_extra">
+                                                                @for(int i =0;i< 5;i++)
+                                                                {
+                                                                    if(extra_arr[i] == '1')
+                                                                    { 
+                                                                         @extra_services[i]  
+
+                                                                    }
+                                                                }
+                                                            </pre>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label>Net Amount :</label>
+                                                        </div>
+                                                        <div class="col-sm-5 d-flex justify-content-center">
+                                                            <pre class="service_amount">@ser.service_amount </pre><pre class="amount_symbol">€</pre>
+                                                        </div>
+                                                        <div class="col-sm-4">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_email"><label>Customer Name : </label>@ser.cust_first_name @ser.cust_last_name</pre>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_address"><label>Service Address : </label>@ser.service_address ,@ser.city @ser.pincode</pre>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_phone"><label>Distance : </label>@ser.distance km</pre>
+                                                    </div>
+
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <pre class="service_comment"><label>Comments : </label>@ser.comment</pre>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        @if (ser.has_pet)
+                                                        {
+                                                            <pre class="service_pets"><label><img src="/asset/has-pet-true.png" />  </label>I have pets at home</pre>
+                                                        }
+                                                        else
+                                                        {
+                                                            <pre class="service_pets"><label><img src="/asset/has-pet-false.png" />  </label>I don't have pets at home</pre>
+
+                                                        }
+                                                    </div>
+
+                                                    <div class="row pt-2">
+                                                        <hr class="seperator">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <form asp-action="sp_cancel_service" asp-controller="Home">
+                                                                <input asp-for="customer_id" type="hidden" value="@ser.cust_id" />
+                                                                <input asp-for="hidden_cancel_ser_id" type="hidden" value="@ser.service_id" />
+                                                                <button data-bs-dismiss="modal" class="spus_cancel_btn" type="submit"><img src="/asset/x-mark-16.png"> Cancel</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <form asp-action="sp_complete_service" asp-controller="Home">
+                                                                <input asp-for="customer_id" type="hidden" value="@ser.cust_id" />
+                                                                <input asp-for="hidden_complete_ser_id" type="hidden" value="@ser.service_id" />
+                                                                <button data-bs-dismiss="modal" class="service_complete_btn" type="submit"><img src="/asset/ic-check.png"> Complete</button>
+                                                            </form>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="v-pills-sh" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                <div class="row mt-2">
+                    <div class="col-md-5 sh_title">
+                        Service History
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-2 ms-auto" id="export_end">
+                        <button id="export" class="sh_export_btn">Export</button>
+                    </div>
+                </div>
+                <table id="spshTable">
+                    <thead id="spshTable_thead">
+                        <tr>
+                            <th class="text-center">
+                                <p>Service Id</p>
+                            </th>
+                            <th class="text-center">
+                                <p>Service Date</p>
+                            </th>
+                            <th>
+                                <p>Customer Details</p>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{ 
+                            if(Model.spServiceHistories != null)
+                            {
+                                foreach(var ser in Model.spServiceHistories)
+                                {
+                                    int duration_hr = 0;
+                                    int duration_min = 0;
+                                    DateTime end_time = ser.service_datetime;
+                                    double duration = Convert.ToDouble(ser.duration);
+                                    string dura_str = duration.ToString();
+                                    bool dura_is_decimal = dura_str.Contains(".");
+                                    string[] dura_arr = dura_str.Split(".");
+                                    if (dura_is_decimal)
+                                    {
+                                        duration_hr = Int32.Parse(dura_arr[0]);
+
+
+
+                                        if (Int32.Parse(dura_arr[1]) != 0)
+                                        {
+                                            duration_min = 30;
+                                        }
+                                        else
+                                        {
+                                            duration_min = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        duration_hr = Int32.Parse(dura_str);
+                                        duration_min = 0;
+
+                                    }
+
+
+                                    TimeSpan end_time_cal = new TimeSpan(duration_hr, duration_min, 0);
+
+                                    end_time = end_time + end_time_cal;
+
+
+                                    string end_str = end_time.ToString();
+                                    string end = end_str.Substring(10, 6);
+
+                                    string date_str = ser.service_datetime.ToString();
+                                    string date = date_str.Substring(0, 10);
+                                    string start = date_str.Substring(10, 6);
+                                    <tr class="sp_details pt-3">
+                                        <td class="col-md-3 text-center">
+                                            <p>@ser.service_id</p>
+                                        </td>
+
+                                        <td class="col-md-4 text-center">
+                                            <div class="">
+                                                <p>
+                                                    <img src="/asset/calendar2.png"> <b>@date</b><br>
+                                                    <img src="/asset/layer-14.png">@start - @end
+                                                </p>
+                                            </div>
+                                        </td>
+
+                                        <td class="col-md-5">
+                                            <div class="row">
+
+                                                
+                                                <div class="col-sm-8 spsh_address">
+                                                    <div class="row">
+                                                        <pre>       @ser.cust_name</pre>
+                                                    </div>
+
+                                                    <div class="row pt-1">
+                                                        <pre><img src="/asset/layer-15.png"> @ser.addressline1</pre><br>
+                                                        <pre>       @ser.pincode , @ser.city</pre>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                        
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="v-pills-mr" role="tabpanel" aria-labelledby="v-pills-fp-tab">
+                <div class="row mt-2">
+                    <div class="col-md-5 sh_title">
+                        Ratings
+                    </div>
+                </div>
+                <table id="spmrTable" class="cell-border display">
+                    <tbody>
+                        @{
+                            if (Model.spMyratings != null)
+                            {
+                                foreach (var ser in Model.spMyratings)
+                                {
+                                    int duration_hr = 0;
+                                    int duration_min = 0;
+                                    DateTime end_time = ser.service_datetime;
+                                    double duration = Convert.ToDouble(ser.duration);
+                                    string dura_str = duration.ToString();
+                                    bool dura_is_decimal = dura_str.Contains(".");
+                                    string[] dura_arr = dura_str.Split(".");
+                                    if (dura_is_decimal)
+                                    {
+                                        duration_hr = Int32.Parse(dura_arr[0]);
+
+
+
+                                        if (Int32.Parse(dura_arr[1]) != 0)
+                                        {
+                                            duration_min = 30;
+                                        }
+                                        else
+                                        {
+                                            duration_min = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        duration_hr = Int32.Parse(dura_str);
+                                        duration_min = 0;
+
+                                    }
+
+
+                                    TimeSpan end_time_cal = new TimeSpan(duration_hr, duration_min, 0);
+
+                                    end_time = end_time + end_time_cal;
+
+
+                                    string end_str = end_time.ToString();
+                                    string end = end_str.Substring(10, 6);
+
+                                    string date_str = ser.service_datetime.ToString();
+                                    string date = date_str.Substring(0, 10);
+                                    string start = date_str.Substring(10, 6);
+                                    double rating = Convert.ToDouble(ser.rating);
+                                    int rate_int = Convert.ToInt32(rating - 1);
+                                    <tr class="sp_details pt-3">
+                                        <td class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>@ser.service_id</p>
+                                                    <b>@ser.cust_name</b>
+                                                </div>
+
+                                                <div class="col-md-4 rate_date">
+                                                    <div class="">
+                                                        <p>
+                                                            <img src="/asset/calendar2.png"> <b>@date</b><br>
+                                                            <img src="/asset/layer-14.png">@start - @end
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-5 ms-auto">
+                                                    <div class="row">
+                                                        <b>ratings</b>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="d-flex spmr_stars">
+                                                            @for (int i = 0; i < rate_int; i++)
+                                                            {
+                                                                <img src="/asset/star1.png">
+                                                            }
+                                                            @for (int i = rate_int; i < 5; i++)
+                                                            {
+                                                                <img src="/asset/star2.png">
+                                                            }
+                                                            @if (rate_int == 1)
+                                                            {
+                                                                <pre>      Poor</pre>
+                                                            }
+                                                            @if (rate_int == 2)
+                                                            {
+                                                                <pre>      Average</pre>
+                                                            }
+                                                            @if (rate_int == 3)
+                                                            {
+                                                                <pre>      Good</pre>
+                                                            }
+                                                            @if (rate_int == 4)
+                                                            {
+                                                                <pre>      Very Good</pre>
+                                                            }
+                                                            @if (rate_int == 5)
+                                                            {
+                                                                <pre>      Excellent</pre>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row pt-3">
+                                                <hr class="seperator">
+                                            </div>
+                                            <div class="row">
+                                                <p><b>Customer Comments : </b>@ser.cust_feedback</p>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade " id="v-pills-bc" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                <div class="row mt-2">
+                    <div class="col-md-5 sh_title">
+                        Customers
+                    </div>
+                </div>
+                <table id="spbcTable" class="cell-border display">
+                    <tbody class="row justify-content-center">
+                        @{ 
+                            if(Model.spBlockCustomers != null)
+                            {
+                                foreach(var cust in Model.spBlockCustomers)
+                                { 
+                                    <tr class="col-md-4 spbc_cust_card justify-content-center">
+                                        <td class="cust_td">
+                                            <div class="cust_td">
+                                                <div class="row pt-2 justify-content-center">
+                                                    <div class="col-sm-12 cust_logo">
+                                                        <img height="68" width="68" src="/asset/default-sp-large.png">
+                                                    </div>
+
+                                                </div>
+                                                <div class="row pt-2">
+                                                    <b class="text-center">@cust.cust_name</b>
+                                                </div>
+                                                <div class="row pt-3 justify-content-center">
+
+                                                    @if (cust.blocked)
+                                                    {
+                                                        <form asp-action="unblock_cust" asp-controller="Home" class="col-md-12 justify-content-center text-center">
+                                                            <input asp-for="customer_id" type="hidden" value="@cust.cust_id" />
+                                                            <button type="submit" class="cust_unblock_btn">Unblock</button>
+                                                        </form>
+                                                     }
+                                                    else
+                                                    {
+                                                        <form asp-action="block_cust" asp-controller="Home" class="col-md-12 justify-content-center text-center">
+                                                            <input asp-for="customer_id" type="hidden" value="@cust.cust_id" />
+                                                            <button type="submit" class="cust_block_btn">Block</button>
+                                                        </form>
+                                                    }
+                                                        
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>            
+                                }
+                            }
+                        }
+                        
+                        
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="tab-pane fade show active" id="v-pills-mySetting" role="tabpanel" area-labelledby="v-pills-mySetting-tab">
+                <!-- Pills navs -->
+                <ul class="row mySetting_header nav nav-pills">
+                    <li id="ms_head_1" class="nav-item col-lg-3 active" data-bs-toggle="pill" data-bs-target="#spmyDetails"><a href="#" class="nav-link">My Details</a></li>
+                    <li id="ms_head_3" class="nav-item col-lg-3" data-bs-toggle="pill" data-bs-target="#spmyChangepass"><a href="#" class="nav-link">Change Password</a></li>
+                </ul>
+
+
+                <!-- Pills content -->
+                <!-- -----------------------mydetails content---------------- -->
+                <form asp-action="spMydetail" asp-controller="Home" class="tab-pane fade show active" id="spmyDetails" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                    @if (Model != null)
+                    {
+                        <div class="row pt-3">
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-sm-8 d-flex sp_accnt_status">
+                                        <label>Account Status :</label>
+                                        @if (Model.is_active == true)
+                                        {
+                                            <pre class="active_status"> Active</pre>
+                                        }
+                                        else
+                                        {
+                                            <pre class="inactive_status"> Inactive</pre>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="row pt-2">
+                                    <label>Basic Details</label>
+                                    <hr class="seperator">
+                                </div>
+                            </div>
+                            <div class="col-md-2 ms-auto sp_avatar">
+                                @if (Model.avatar == "1")
+                                {
+                                    <img src="/asset/avatar-car.png">
+                                }
+                                @if (Model.avatar == "2")
+                                {
+                                    <img src="/asset/avatar-female.png">
+                                }
+                                @if (Model.avatar == "3")
+                                {
+                                    <img src="/asset/avatar-hat.png">
+                                }
+                                @if (Model.avatar == "4")
+                                {
+                                    <img src="/asset/avatar-iron.png">
+                                }
+                                @if (Model.avatar == "5")
+                                {
+                                    <img src="/asset/avatar-male.png">
+                                }
+                                @if (Model.avatar == "6")
+                                {
+                                    <img src="/asset/avatar-ship.png">
+                                }
+                            </div>
+
+                        </div>
+                        <div class="row pt-1 personal_info">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>First Name</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <input asp-for="Firsname" value="@Model.Firsname" class="form-control" type="text" placeholder="Firstname" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>Last Name</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <input asp-for="Lastname" value="@Model.Lastname" class="form-control" type="text" placeholder="Lastname" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>Email</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <input asp-for="Email" value="@Model.Email" class="form-control" type="email" placeholder="E-mail" disabled/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pt-3 phone_num">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>Phone Number</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <div class="input-group">
+                                        <span class="c_code align-items-center justify-content-center">+49</span>
+                                        <input asp-for="phone" value="@Model.phone" type="text" class="form-control" id="Phone number" placeholder="Mobile Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" pattern="[0-9]{10}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 spDOB_select">
+                                <div class="row">
+                                    <label>Date of Birth</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <div class="col-sm-3">
+                                        <select asp-for="dob_day" class="form-select" id="DOB_day">
+                                            <option value="1">01</option>
+                                            <option value="2">02</option>
+                                            <option value="3">03</option>
+                                            <option value="4">04</option>
+                                            <option value="5">05</option>
+                                            <option value="6">06</option>
+                                            <option value="7">07</option>
+                                            <option value="8">08</option>
+                                            <option value="9">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <select asp-for="dob_month" class="form-select" id="DOB_month">
+                                            <option value="1" selected>January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select asp-for="dob_year" class="form-select" id="DOB_year">
+                                            <option value="1960">1960</option>
+                                            <option value="1961">1961</option>
+                                            <option value="1962">1962</option>
+                                            <option value="1963">1963</option>
+                                            <option value="1964">1964</option>
+                                            <option value="1965">1965</option>
+                                            <option value="1966">1966</option>
+                                            <option value="1967">1967</option>
+                                            <option value="1968">1968</option>
+                                            <option value="1969">1969</option>
+                                            <option value="1970">1970</option>
+                                            <option value="1971">1971</option>
+                                            <option value="1972">1972</option>
+                                            <option value="1973">1973</option>
+                                            <option value="1974">1974</option>
+                                            <option value="1975">1975</option>
+                                            <option value="1976">1976</option>
+                                            <option value="1977">1977</option>
+                                            <option value="1978">1978</option>
+                                            <option value="1979">1979</option>
+                                            <option value="1980">1980</option>
+                                            <option value="1981">1981</option>
+                                            <option value="1982">1982</option>
+                                            <option value="1983">1983</option>
+                                            <option value="1984">1984</option>
+                                            <option value="1985">1985</option>
+                                            <option value="1986">1986</option>
+                                            <option value="1987">1987</option>
+                                            <option value="1988">1988</option>
+                                            <option value="1989">1989</option>
+                                            <option value="1990">1990</option>
+                                            <option value="1991">1991</option>
+                                            <option value="1992">1992</option>
+                                            <option value="1993">1993</option>
+                                            <option value="1994">1994</option>
+                                            <option value="1995">1995</option>
+                                            <option value="1996">1996</option>
+                                            <option value="1997">1997</option>
+                                            <option value="1998">1998</option>
+                                            <option value="1999">1999</option>
+                                            <option value="2000">2000</option>
+                                            <option value="2001">2001</option>
+                                            <option value="2002">2002</option>
+                                            <option value="2003">2003</option>
+                                            <option value="2004">2004</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>Nationality</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <select asp-for="nationalityid" class="form-select" id="sp_nationality">
+                                        <option value="1" selected>Indian</option>
+                                        <option value="2">German</option>
+                                        <option value="3">Australian</option>
+                                        <option value="4">American</option>
+                                        <option value="5">Canadian</option>
+                                        <option value="6">Russian</option>
+                                        <option value="7">Other</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row pt-4">
+                            <label>Gender</label>
+                        </div>
+                        <div class="row pt-1 gender_container">
+                            <div class="col-md-5 d-flex sp_gender">
+                                <div class="col-sm-3 d-flex">
+                                    <input asp-for="gender" class="form-check-input" type="radio" name="gender" value="1" />
+                                    <label>Male</label>
+                                </div>
+                                <div class="col-sm-3 d-flex">
+                                    <input asp-for="gender" class="form-check-input" type="radio" name="gender" value="2" />
+                                    <label>Female</label>
+                                </div>
+                                <div class="col-sm-6 d-flex">
+                                    <input asp-for="gender" class="form-check-input" type="radio" name="gender" value="3" />
+                                    <label>Rather not to say</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row pt-3">
+                            <hr class="seperator">
+                        </div>
+
+                        <div class="row">
+                            <label>Select Avatar</label>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="extra-serve d-flex flex-wrap align-items-center ">
+                                <div class="extra-service-items text-center">
+                                    <div id="avatar-1" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                        <img id="sr-1" src="/asset/avatar-car.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="extra-service-items text-center">
+                                    <div id="avatar-2" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                        <img id="sr-2" src="/asset/avatar-female.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="extra-service-items text-center">
+                                    <div id="avatar-3" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                        <img id="sr-3" src="/asset/avatar-hat.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="extra-service-items text-center">
+                                    <div id="avatar-4" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                        <img id="sr-4" src="/asset/avatar-iron.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="extra-service-items text-center">
+                                    <div id="avatar-5" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                        <img id="sr-5" src="/asset/avatar-male.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="extra-service-items text-center">
+                                    <div id="avatar-6" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                        <img id="sr-6" src="/asset/avatar-ship.png" alt="">
+                                    </div>
+                                </div>
+                                <input id="hidden_avatar" asp-for="hidden_avatar" type="hidden" />
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-4">
+                            <label>My Address</label>
+                        </div>
+                        <div class="row">
+                            <hr class="seperator">
+                        </div>
+                        <div class="row pt-1 personal_info">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>Street Name</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <input asp-for="street" value="@Model.street" class="form-control" type="text" placeholder="Street name" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>House Number</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <input asp-for="house" value="@Model.house" class="form-control" type="text" placeholder="House number" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label>Postal code</label>
+                                </div>
+                                <div class="row pt-1">
+                                    <input asp-for="postal" value="@Model.postal" class="form-control" type="text" placeholder="Postalcode" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row pt-1">
+                                    <label>City</label>
+                                </div>
+                                <div class="row">
+                                    <input asp-for="city" value="@Model.city" class="form-control" type="text" placeholder="city" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pt-2">
+                            <hr class="seperator">
+                        </div>
+
+                        <div class="row pt-2 save_btn">
+                            <div class="col-sm-2">
+                                <button type="submit" class="myDetails_save">Save</button>
+                            </div>
+
+                        </div>
+                    }
+
+                </form>
+
+
+
+
+
+
+                <!-- ----------------------change password content------------------------ -->
+                <form asp-action="spChangepass" asp-controller="Home" class="tab-pane fade " id="spmyChangepass" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                    <div class="row pt-3 changepass_content">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <label>Old Password</label>
+                            </div>
+                            <div class="row pt-1">
+                                <input asp-for="pwd" type="password" class="form-control" placeholder="Old Password" />
+                                <span id="wrongPass" class="text-danger">Old password is invalid</span>
+                            </div>
+
+                            <div class="row pt-3">
+                                <label>New Password</label>
+                            </div>
+                            <div class="row pt-1">
+                                <input asp-for="new_pwd" type="password" id="password"  minlength="1" class="form-control" placeholder="Password" />
+                            </div>
+
+                            <div class="row pt-3">
+                                <label>Confirm Password</label>
+                            </div>
+                            <div class="row pt-1">
+                                <input type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" required>
+                                <span id='message'></span>
+                            </div>
+
+                            <div class="row pt-2 save_btn">
+                                <div class="col-sm-5">
+                                    <button type="submit" class="myDetails_save">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ---------------------------------- service screen modals -------------------------- -->
+        
+
+        
+
+    </div>
+</section>

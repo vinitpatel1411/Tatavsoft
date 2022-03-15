@@ -109,7 +109,7 @@ namespace Helperland.Controllers
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
                 Distance  = 10,
-                Status = 1
+                Status = 0
             };
             _helperlandContext.ServiceRequests.Add(service);
             _helperlandContext.SaveChanges();
@@ -179,8 +179,19 @@ namespace Helperland.Controllers
                 _helperlandContext.ServiceRequestAddresses.Add(serviceRequestAddress);
                 _helperlandContext.SaveChanges();
             }
-
-            
+            Rating rating = new Rating()
+            {
+                ServiceRequestId = getservicerequestid,
+                RatingFrom = Int32.Parse(userid),
+                RatingTo = 1,
+                Ratings = 0,
+                RatingDate = DateTime.Now,
+                OnTimeArrival = 0,
+                Friendly = 0,
+                QualityOfService = 0
+            };
+            _helperlandContext.Ratings.Add(rating);
+            _helperlandContext.SaveChanges();
             HttpContext.Session.SetString("showBookSuccess", "yes");
             
             HttpContext.Session.SetInt32("serviceRequestID", getservicerequestid);

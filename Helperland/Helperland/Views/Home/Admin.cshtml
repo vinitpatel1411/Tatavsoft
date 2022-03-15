@@ -1,0 +1,565 @@
+﻿@model Helperland.ViewModel.AdminViewModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Helperland | Administrator";
+    Layout = "~/Views/Shared/AdminPageLayout.cshtml";
+}
+<section class="user_mng_main service_request_main">
+    <div class="d-flex">
+        <div class="user_mng">
+            <ul class="nav flex-column nav-pills">
+                <li id="admin_ser" class="nav-item" data-bs-toggle="pill" data-bs-target="#v-pills-ServiceRequest"><a href="#" class="nav-link">Service Request</a></li>
+                <li id="admin_user" class="nav-item active" data-bs-toggle="pill" data-bs-target="#v-pills-UserManagement"><a href="#" class="nav-link">User Management</a></li>
+            </ul>
+        </div>
+        <div class="container-fluid user_mng_detail mt-3 tab-content">
+
+            <div class="sp_detail tab-pane fade" id="v-pills-ServiceRequest" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                <div class="row user_mng_head_row">
+                    <div class="col-md-4 sh_title">
+                        Service Requests
+                    </div>
+                </div>
+                <div class="row user_mng_search mt-3">
+                    <div>
+                        <form>
+                            <div class="user_mng_search_form ">
+                                <div>
+                                    <input type="text" name="ServiceID" class="form-control" id="serviceID1" placeholder="Service ID">
+                                </div>
+                                <div>
+                                    <select class="form-control form-select">
+                                        <option disabled selected>Customer</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select class="form-control form-select">
+                                        <option disabled selected>Service Provider</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select name="status" id="status1" class="form-control form-select">
+                                        <option value="" disabled selected>Status</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                        <option value="New">New</option>
+                                        <option value="Pending">Pending</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <div class="sd-container">
+                                            <input class="form-control" type="text" name="from_date" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                                            <span class="open-button">
+                                                <button type="button"><img src="/asset/admin-calendar-blue.png"></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="sd-container">
+                                            <input class="form-control" type="text" name="to_date" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                                            <span class="open-button">
+                                                <button type="button"><img src="/asset/admin-calendar-blue.png"></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <button class="form-control search_btn" id="search" type="submit" name="search">search</button>
+                                </div>
+                                <div>
+                                    <button class="form-control" type="submit" name="Clear">Clear</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <table id="srAdminTable" class="display">
+                    <thead>
+
+                        <tr>
+                            <th>
+                                <p>Service ID</p>
+                            </th>
+                            <th>
+                                <p>Service Date</p>
+                            </th>
+                            <th>
+                                <p>Customer Details</p>
+                            </th>
+                            <th>
+                                <p>Service Provider</p>
+                            </th>
+                            <th>
+                                <p>Net Amount</p>
+                            </th>
+                            <th>
+                                <p>status</p>
+                            </th>
+                            <th>
+                                <p>Actions</p>
+                            </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.adminServiceRequests != null)
+                            {
+                                foreach (var ser in Model.adminServiceRequests)
+                                {
+                                    int duration_hr = 0;
+                                    int duration_min = 0;
+                                    DateTime end_time = ser.start_date;
+                                    double duration = Convert.ToDouble(ser.duration);
+                                    string dura_str = duration.ToString();
+                                    bool dura_is_decimal = dura_str.Contains(".");
+                                    string[] dura_arr = dura_str.Split(".");
+                                    if (dura_is_decimal)
+                                    {
+                                        duration_hr = Int32.Parse(dura_arr[0]);
+
+
+
+                                        if (Int32.Parse(dura_arr[1]) != 0)
+                                        {
+                                            duration_min = 30;
+                                        }
+                                        else
+                                        {
+                                            duration_min = 0;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        duration_hr = Int32.Parse(dura_str);
+                                        duration_min = 0;
+
+                                    }
+
+
+                                    TimeSpan end_time_cal = new TimeSpan(duration_hr, duration_min, 0);
+
+                                    end_time = end_time + end_time_cal;
+
+
+                                    string end_str = end_time.ToString();
+                                    string end = end_str.Substring(10, 6);
+
+                                    string date_str = ser.start_date.ToString();
+                                    string date = date_str.Substring(0, 10);
+                                    string start = date_str.Substring(10, 6);
+                                    double rating = Convert.ToDouble(ser.sp_rating);
+                                    int rate_int = 0;
+                                    if (rating == 0)
+                                    {
+                                        rate_int = Convert.ToInt32(rating);
+                                    }
+                                    else
+                                    {
+                                        rate_int = Convert.ToInt32(rating - 1);
+                                    }
+                                    string[] add = ser.addressline1.ToString().Split(" ");
+
+                                    <tr class="sp_details pt-3">
+                                        <td class="col-md-1">
+                                            <p class="text-center">@ser.ser_id</p>
+                                        </td>
+                                        <td class="col-md-2 ">
+                                            <div class="row">
+                                                <p>
+                                                    <img src="/asset/calendar2.png" class="s_req_cal"> <b>@date</b><br>
+                                                    <img src="/asset/layer-14.png" class="s_req_time"> @start - @end
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-3">
+                                            <div class="row">
+                                                <p>
+                                                    <b>@ser.cust_name</b><br>
+                                                    <img src="/asset/layer-15.png" class="s_req_home"> @ser.addressline1,@ser.pincode @ser.city
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-sm-12 ">
+                                                    @if (ser.sp_id != null)
+                                                    {
+                                                        <p>
+                                                            <b>@ser.sp_name</b><br>
+                                                            @for (int i = 0; i < rate_int; i++)
+                                                            {
+                                                                <img src="/asset/star1.png">
+                                                            }
+                                                            @for (int i = rate_int; i < 5; i++)
+                                                            {
+                                                                <img src="/asset/star2.png">
+                                                            }<br>
+                                                            @rating
+                                                        </p>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <p> € @ser.amount</p>
+                                        </td>
+                                        <td class="col-md-1 pt-1">
+                                            @if (ser.status == 0)
+                                            {
+                                                <div class="service_req_status_new">
+                                                    New
+                                                </div>
+                                            }
+                                            @if (ser.status == 1)
+                                            {
+                                                <div class="service_req_status_pending">
+                                                    Pending
+                                                </div>
+                                            }
+                                            @if (ser.status == 2)
+                                            {
+                                                <div class="service_req_status_completed">
+                                                    Completed
+                                                </div>
+                                            }
+                                            @if (ser.status == 3)
+                                            {
+                                                <div class="service_req_status_cancelled">
+                                                    Cancelled
+                                                </div>
+                                            }
+
+                                        </td>
+                                        <td class="col-md-1">
+                                            @if (ser.status == 0 || ser.status == 1)
+                                            {
+                                                <div class="dropdown ">
+                                                    <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                        <img src="/asset/group-38.png">
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                                        <li>
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="@("#editsrModal"+ser.ser_id)">Edit & Reschedule</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }
+
+                                        </td>
+                                    </tr>
+
+                                    <div class="modal fade editsrmodal" id="@("editsrModal"+ser.ser_id)" aria-labelledby="editsrModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addressModalLabel">Edit Service Request</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form asp-action="service_reschedule_admin" asp-controller="Home">
+                                                        <div class="row">
+                                                            <div class="col-md-6 date-container">
+                                                                <input asp-for="c_ser_date" type="text" id="@("service_date"+ser.ser_id)" value="@(date)"  class="form-control date_field" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="01/01/1111" />
+                                                                <span class="date-button">
+                                                                    <img src="/asset/admin-calendar-blue.png">
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-6 clock-container">
+                                                                <input asp-for="c_ser_time" id="@("service_time"+ser.ser_id)" type="time" placeholder="00:00" class="form-control" >
+                                                                <span class="clock-button">
+                                                                    <img src="/asset/clock-blue.png">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="title_lbl">Service Address</label>
+                                                            <hr class="seperator">
+                                                        </div>
+                                                        <div class="row ">
+                                                            <div class="col-md-6 ">
+                                                                <div class="row pt-2">
+                                                                    <label>Street Name</label>
+                                                                </div>
+                                                                <div class="row pt-1">
+                                                                    <div class="col-sm-12">
+                                                                        <input asp-for="c_street" id="@("add_street"+ser.ser_id)" value="@(add[0]+" "+add[1])" type="text" placeholder="Street Name" class="form-control" />
+                                                                        <div id="add_street_err" class="text-danger fade">
+                                                                            streetname required
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row pt-2">
+                                                                    <label>Postal Code</label>
+                                                                </div>
+                                                                <div class="row pt-1">
+                                                                    <div class="col-sm-12">
+                                                                        <input asp-for="c_postal" id="@("add_postal"+ser.ser_id)" value="@(ser.pincode)" type="text" placeholder="Postalcode" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+
+
+                                                            <div class="col-md-6">
+                                                                <div class="row pt-2">
+                                                                    <label>House number</label>
+                                                                </div>
+                                                                <div class="row pt-1">
+                                                                    <div class="col-sm-12">
+                                                                        <input asp-for="c_hno" id="@("add_house"+ser.ser_id)" value="@(add[2])" type="text" placeholder="House number" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                                                        <div id="add_house_err" class="text-danger fade">
+                                                                            House number required
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row pt-2">
+                                                                    <label>City</label>
+                                                                </div>
+                                                                <div class="row pt-1">
+                                                                    <div class="col-sm-12">
+                                                                        <input asp-for="c_city" id="@("add_city"+ser.ser_id)" value="@(ser.city)" type="text" placeholder="City" class="form-control" name="cityname" />
+                                                                        <div id="add_city_err" class="text-danger fade">
+                                                                            city name required
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                        <div class="row pt-2">
+                                                            <hr class="seperator">
+                                                        </div>
+                                                        <div class="row pt-2">
+                                                            <label class="title_lbl">Why do you want to reschedule service request?</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <textarea placeholder="Why do you want to reschedule service request?" class="form-control sp_rate_textarea"></textarea>
+                                                        </div>
+                                                        <div class="row pt-2">
+                                                            <label class="title_lbl">Call center EMP notes</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <textarea placeholder="EMP notes" class="form-control sp_rate_textarea"></textarea>
+                                                        </div>
+
+                                                        <div class="row pt-3">
+                                                            <div class="col-12 mb-2">
+                                                                <input asp-for="hidden_ser_id" type="hidden" value="@ser.ser_id" />
+                                                                <button type="submit" class="update_service_btn">Update</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+
+
+
+
+
+                    </tbody>
+
+
+                </table>
+            </div>
+
+
+            <div id="v-pills-UserManagement" class="sp_detail tab-pane fade show active">
+                <div class="row user_mng_head_row">
+                    <div class="col-md-4 sh_title">
+                        User Management
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-md-2">
+                        <button class="user_mng_add_usr"><img src="/asset/add.png" class="pb-1"> Add New User</button>
+                    </div>
+                </div>
+                <div class="row user_mng_search mt-3">
+                    <div>
+                        <form>
+                            <div class="user_mng_search_form ">
+                                <div>
+                                    <input type="text" name="User name" class="form-control" id="username" placeholder="User name">
+                                </div>
+                                <div>
+                                    <input type="text" name="User role" class="form-control" id="userrole" placeholder="User Role">
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <span class="c_code align-items-center justify-content-center">+49</span>
+                                        <input type="text" name="Phonenumber" class="form-control" id="Phone number" placeholder="Phone Number">
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="text" name="pincode" class="form-control" id="pincode" placeholder="Pincode">
+                                </div>
+
+                                <div>
+                                    <button class="form-control search_btn" type="submit" name="search">search</button>
+                                </div>
+                                <div>
+                                    <button class="form-control" type="submit" name="Clear">Clear</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <table id="umAdminTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p>User Name</p>
+                            </th>
+                            <th>
+                                <p>Role</p>
+                            </th>
+                            <th>
+                                <p>Date of Registration</p>
+                            </th>
+                            <th>
+                                <p>User Type</p>
+                            </th>
+                            <th>
+                                <p>Phone Number</p>
+                            </th>
+                            <th>
+                                <p>Postal Code</p>
+                            </th>
+                            <th>
+                                <p>User Status</p>
+                            </th>
+                            <th>
+                                <p>Actions</p>
+                            </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{ 
+                            if(Model.users !=null)
+                            {
+                                foreach(var data in Model.users)
+                                { 
+                                    var u_name = data.FirstName + " "+data.LastName;
+                                    string registered_date = data.CreatedDate.ToString().Substring(0,10).Replace("-","/");
+                                    <tr class="sp_details pt-3">
+                                        <td class="col-md-2 pt-1">
+                                            <p>@u_name</p>
+                                        </td>
+                                        <td class="col-md-1 pt-1">
+                                            <p></p>
+                                        </td>
+                                        <td class="col-md-2 pt-1">
+                                            <div class="row">
+                                                <p>
+                                                    <img src="/asset/calendar2.png" class="s_req_cal"> <b>@registered_date</b>
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-2 pt-1">
+                                            @if (data.UserTypeId == 1)
+                                            {
+                                                <p>Customer</p>
+                                            }
+                                            @if (data.UserTypeId == 2)
+                                            {
+                                                <p>Service Provider</p>
+                                            }
+                                            @if (data.UserTypeId == 3)
+                                            {
+                                                <p>Admin</p>
+                                            }
+                                        </td>
+                                        <td class="col-md-2 pt-1">
+                                            <p>@data.Mobile</p>
+                                        </td>
+                                        <td class="col-md-1 pt-1" id="medium-1">
+                                            <p>@data.ZipCode</p>
+                                        </td>
+                                        <td class="col-md-1 pt-1">
+                                            @if (data.IsActive)
+                                            {
+                                                <div class="user_status_active">
+                                                    Active
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="user_status_inactive">
+                                                    Inactive
+                                                </div>
+                                            }
+
+
+                                        </td>
+                                        <td class="col-md-1 pt-1">
+                                            <div class="dropdown ">
+                                                <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <img src="/asset/group-38.png">
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                    <li>
+                                                        @if (data.IsActive == true)
+                                                        {
+                                                            <form asp-action="deactivate_user" asp-controller="Home">
+                                                                <input asp-for="hidden_u_id" type="hidden" value="@data.UserId" />
+                                                                <button type="submit" class="dropdown-item">Deactivate</button>
+                                                            </form>
+                                                        }
+                                                        else
+                                                        {
+                                                            <form asp-action="activate_user" asp-controller="Home">
+                                                                <input asp-for="hidden_u_id" type="hidden" value="@data.UserId" />
+                                                                <button type="submit" class="dropdown-item">Activate</button>
+                                                            </form>
+                                                        }
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        }
+                        
+
+
+
+
+
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

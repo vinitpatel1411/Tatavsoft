@@ -29,9 +29,12 @@
                 </a>
                 <div class="" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 us-nav text-center align-items-center">
-                        <li class="nav-item">
-                            <a class="sh-sp-btn faq_active" asp-action="book_service" asp-controller="Home">Book now</a>
-                        </li>
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 1)
+                        {
+                            <li class="nav-item">
+                                <a class="sh-sp-btn faq_active" asp-action="book_service" asp-controller="Home">Book now</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="none_active" asp-action="Price" asp-controller="Home">Prices & services</a>
                         </li>
@@ -64,21 +67,43 @@
                                         <hr class="seperator no_mar" />
                                     </div>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
-                                        My Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
-                                        My Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
-                                        Logout
-                                    </a>
-                                </li>
+                                @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 1)
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
+                                            My Dashboard
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
+                                            My Settings
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                            Logout
+                                        </a>
+                                    </li>
+                                }
+                                @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 2)
+                                {
+                                    <li>
+                                        <a class="dropdown-item">
+                                            My Dashboard
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="spMySetting" asp-controller="Home">
+                                            My Settings
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                            Logout
+                                        </a>
+                                    </li>
+                                }
+
 
                             </ul>
                         </li>
@@ -135,10 +160,14 @@
                                aria-selected="false">Notifications</a>
                         </div>
 
-                        <div class="navItem"><a href="#"> My Settings</a></div>
-                        <div class="navItem"><a href="#"> Logout</a></div>
+                        <div class="navItem"><a asp-action="mySetting" asp-controller="Home"> My Settings</a></div>
+                        <div class="navItem"><a asp-action="Logout" asp-controller="Home"> Logout</a></div>
                         <hr class="smNavSeparator">
-                        <div class="navItem"><a href="#">Book Now</a></div>
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 1)
+                        {
+                            <div class="navItem"><a href="#">Book Now</a></div>
+                        }
+
                         <div class="navItem"><a href="#">Plans & Services</a></div>
                         <div class="navItem"><a href="#">Warranty</a></div>
                         <div class="navItem"><a href="#">Blog</a></div>
@@ -256,6 +285,11 @@
         </div>
     </div>
 
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -265,9 +299,27 @@
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+
+
     <script src="~/js/script.js"></script>
 
-
+    @if (ViewBag.after_rate != null)
+    {
+        <script>
+            if ($('#v-pills-mySetting').hasClass('show')) {
+                $('#v-pills-mySetting').removeClass('show');
+                $('#v-pills-mySetting').removeClass('active');
+            }
+            $('#ServiceHistory-li').addClass('active');
+            $('#v-pills-sh').addClass('show');
+            $('#v-pills-sh').addClass('active');
+        </script>
+    }
     @if (ViewBag.showDash != null)
     {
         <script>
@@ -463,6 +515,7 @@
             $('#ms_fname').val("@ViewBag.fname");
             $('#ms_lname').val("@ViewBag.lname");
             $('#ms_email').val("@ViewBag.email");
+
             $('#ms_phone').val("@ViewBag.phone");
             $('#DOB_day').val(@ViewBag.DOB_day);
             $('#DOB_month').val(@ViewBag.DOB_month);
@@ -493,6 +546,14 @@
                         'info': "Total Record: _MAX_",
                     }
                 });
+                $(".buttons-pdf").hide();
+                $(".buttons-copy").hide();
+                $(".buttons-csv").hide();
+                $(".buttons-print").hide();
+
+                $("#export").on("click", function () {
+                    $(".buttons-csv").trigger("click");
+                });
             });
             // ----------------------------- datatable jquery -----------------------------------------
             $(document).ready(function () {
@@ -514,16 +575,20 @@
                         'info': "Total Record: _MAX_",
                     }
                 });
+                $(".buttons-pdf").hide();
+                $(".buttons-copy").hide();
+                $(".buttons-csv").hide();
+                $(".buttons-print").hide();
             })
-            
+
         </script>
 
 
 
 
 
-}
-    @if (HttpContextAccessor.HttpContext.Session.GetString("oldpass") != null)
+    }
+    @if (HttpContextAccessor.HttpContext.Session.GetString("oldpass") == "notok")
     {
         <script>
             console.log("hello");
@@ -539,6 +604,12 @@
     else
     {
         <script>
+            $('#ms_head_1').click();
+            $('#myDetails').addClass('show');
+            $('#myDetails').addClass('active');
+
+            $('#myChangepass').removeClass('active');
+            $('#myChangepass').removeClass('show');
             $('#wrongPass').hide();
         </script>
     }
@@ -550,6 +621,115 @@
             document.onreadystatechange = function () {
                 myModal.show();
             };
+        </script>
+    }
+    @if (ViewBag.spmysetting != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $("#spshTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [2],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $("#spmrTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [0],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $("#spbcTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [0],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $("#spusTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [5],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $("#spnsrTable").DataTable({
+                    "dom": 'Bt<"table-bottom d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                    "pagingType": "full_numbers",
+                    "searching": false,
+                    'columnDefs': [{
+                        'targets': [5],
+                        'orderable': false,
+                    }],
+                    "language": {
+                        "paginate": {
+                            "first": '<img src="/asset/leftMost.png" alt="">',
+                            "last": '<img src="/asset/RightMost.png" alt="">',
+                            "previous": '<img src="/asset/Left-arrow-button-copy.png" alt="">',
+                            "next": '<img src="/asset/Right-arrow-button.png" alt="">'
+                        },
+                        'info': "Total Record: _MAX_",
+                    }
+                });
+            });
         </script>
     }
 </body>

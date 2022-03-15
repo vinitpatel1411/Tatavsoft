@@ -37,5 +37,11 @@ namespace Helperland.ViewModel
         public int hidden_delete_service { get; set; }
         //----------------------------for service history ----------------------------
         public List<ServiceHistoryViewModel> pastServices { get; set; }
+        //----------------------------for ratings -------------------------------
+        public decimal on_time_arrival { get; set; }
+        public decimal freindly { get; set; }
+        public decimal qualit_of_service { get; set; }
+        public string feedback { get; set; }
+        public int rate_ser_id { get; set; }
     }
 }
