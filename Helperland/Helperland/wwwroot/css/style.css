@@ -32,6 +32,12 @@ h2{
   font-size: 16px!important;
   font-weight: 400!important;
 }
+#add_validation {
+	display: none;
+}
+#terms-book-err{
+	display:none;
+}
 /* ------------------- dashboard navbar --------------- */
 
 .serviceHistory-nav {
@@ -829,7 +835,7 @@ ratesp_modal .modal-content {
 
 .scroll-active {
 	background-color: #525252;
-	opacity: 0.8;
+	opacity: 0.9;
 }
 .home_active{
 	border: 1px solid #FFFFFF80;
@@ -918,6 +924,11 @@ ratesp_modal .modal-content {
 	font-weight: 500;
 	color: white; 
 }
+	.banner-image h3 {
+		margin-bottom: 14px;
+		font-weight: 500;
+		color: white;
+	}
 .banner-image ul { 
 	list-style-type: none; 
 	padding: 0; 
@@ -946,7 +957,7 @@ ratesp_modal .modal-content {
 	background-size: cover; 
 }
 .banner-image .btn-wrapper { 
-	margin-bottom: 200px;
+	margin-bottom: 100px;
 	margin-top: 70px; 
 }
 .banner-image .step-wrapper { 
@@ -2011,18 +2022,24 @@ h4:after{
 	
 }
 
+table.dataTable tbody th, table.dataTable tbody td{
+	border-bottom:1px solid #e1e1e1!important;
+}
+
 table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1,
 table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
 	background-color: white !important;
 }
-
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+	background-color: white !important;
+}
 table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
 	border-top: none;
 }
 
 
 table.dataTable thead .sorting {
-	background-image: url("../images/sort.png");
+	background-image: url("../images/sort.png")!important;
 }
 
 table.dataTable thead .sorting_asc {
@@ -3452,7 +3469,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	.dataTables_wrapper .dataTables_paginate .paginate_button.current,
 	.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
 		background-color: #1D7A8C !important;
-		color: white !important;
+		
 	}
 
 
@@ -3618,7 +3635,13 @@ table#spshTable.dataTable.no-footer {
 #spmrTable p {
 	margin-bottom: 0;
 }
-
+#spmrTable tbody tr .spaceunder {
+	height: 15px !important;
+	border-top: 2px solid #e1e1e1;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
 #spmrTable .spsh_custdetail .col-sm-1 {
 	padding-right: 0;
 }
@@ -3991,7 +4014,6 @@ table#spnsrTable.dataTable.no-footer {
 		width: 100% !important;
 		margin-bottom: 10px;
 	}
-
 	#myDetails .phone_num .col-md-4 {
 		width: 100% !important;
 		margin-bottom: 10px;
@@ -4776,6 +4798,9 @@ table#spnsrTable.dataTable.no-footer {
 
 
 @media (max-width: 1112px){
+	.myDetail_form {
+		margin-right: 12px!important;
+	}
 	.ctr-btn{
 		margin-top: 15px;
 	}

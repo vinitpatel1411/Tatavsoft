@@ -12,12 +12,16 @@
     <title>@ViewBag.Title</title>
     <link rel="shortcut icon" href="/asset/favicon_img.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/css/style.css" rel="stylesheet" />
+
 
     <link rel="stylesheet" href="http://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.min.css" media="print"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"  />
+    <link href="~/css/style.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -25,7 +29,7 @@
         <!-- desktop view nav start -->
         <nav class="serviceHistory-nav navbar navbar-expand-lg navbar-dark p-0 fixed-top " id="serHistoryNav">
             <div class="container-fluid">
-                <a class="navbar-brand px-15" href="#">
+                <a class="navbar-brand px-15" asp-action="Index" asp-controller="Home">
                     <img src="/asset/logo-small.png">
                 </a>
                 <div class="" id="navbarSupportedContent">
@@ -93,7 +97,7 @@
         <nav class="shSmallNav serviceHistory-nav fixed-top" id="smSerHistoryNav">
             <div class="container-fluid">
                 <div class="smallNavlogo">
-                    <a href="#"><img src="/asset/logo-small.png" alt=""></a>
+                    <a asp-action="Index" asp-controller="Home"><img src="/asset/logo-small.png" alt=""></a>
                 </div>
                 <div class="smallNavNofitify">
                     <a class="m-2" href="#">
@@ -109,7 +113,7 @@
                     <div class="secondPart">
                         <div class="uName">
                             Welcome,<br>
-                            <strong>Visvarajsinh</strong>
+                            <strong>@HttpContextAccessor.HttpContext.Session.GetString("UserName")</strong>
                         </div>
                         <hr class="smNavSeparator">
                         <div class="nav flex-column text-start dashNavSide" role="tablist" aria-orientation="vertical">
@@ -123,10 +127,10 @@
                         <div class="navItem"><a asp-action="spMySetting" asp-controller="Home"> My Settings</a></div>
                         <div class="navItem"><a asp-action="Logout" asp-controller="Home"> Logout</a></div>
                         <hr class="smNavSeparator">
-                        <div class="navItem"><a href="#">Plans & Services</a></div>
+                        <div class="navItem"><a asp-action="Price" asp-controller="Home">Plans & Services</a></div>
                         <div class="navItem"><a href="#">Warranty</a></div>
                         <div class="navItem"><a href="#">Blog</a></div>
-                        <div class="navItem"><a href="#">Contact</a></div>
+                        <div class="navItem"><a asp-action="Contact" asp-controller="Home">Contact</a></div>
                         <hr class="smNavSeparator">
                         <div class="d-flex justify-content-center align-items-center  socialIcon">
                             <img class="fb-social" src="/asset/facebook-mobile-menu.png" alt="Facebook">
@@ -278,6 +282,10 @@
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js" ></script>
+
+    
 
     <script src="~/js/script.js"></script>
     @if (ViewBag.showPassModal != null)
@@ -1302,6 +1310,53 @@
             });
         </script>
     }
+    <script>
+        $(document).ready(function () {
 
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: "Service Details",
+                            description: v.Comments,
+                            start: moment(v.ServiceStartDate),
+                            
+                        });
+                    })
+                    GenerateCalendar(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+            function GenerateCalendar(events){
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.timeFormat("DD-MMM-YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+                        $('#myModal').modal();
+                    }
+                });
+            }
+        })
+    </script>
 </body>
 </html>

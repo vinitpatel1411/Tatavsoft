@@ -11,6 +11,18 @@ window.addEventListener("scroll", () => {
     }
 });
 
+function rm_lock() {
+    var rm_img = document.getElementById("pwd_lock_img");
+    rm_img.setAttribute("height", "0");
+    rm_img.setAttribute("width", "0");
+    console.log("this is called for remove");
+}
+function add_lock() {
+    var rm_img = document.getElementById("pwd_lock_img");
+    rm_img.setAttribute("height", "auto");
+    rm_img.setAttribute("width", "auto");
+    console.log("this is called for add");
+}
 
 
 jQuery('.ok-btn').click(function (e) {
@@ -116,12 +128,29 @@ $(document).on('click', '.continue-1', function () {
     
 });
 $(document).on('click', '.continue-2', function () {
-    $(".ss_step_3").addClass('fade');
-    $(".ss_step_4").removeClass('fade');
-    $(".col-step-3").removeClass('active_tab');
-    $(".col-step-4").addClass('active').addClass('active_tab');
-    step_4_img.src = "/asset/payment.png";
-    progress_step_4 = 1;
+    const radioButtons = document.querySelectorAll('input[name=ss_address]');
+    let selectedSize;
+    for (const radioButton of radioButtons) {
+        if (radioButton.checked) {
+            selectedSize = radioButton.value;
+            break;
+        }
+    }
+    var temporary = selectedSize ? 0 : 1;
+    if (temporary == 1) {
+        $('#add_validation').css("display", "block");
+        console.log("show error");
+    }
+    else {
+        $('#add_validation').css("display", "none");
+        $(".ss_step_3").addClass('fade');
+        $(".ss_step_4").removeClass('fade');
+        $(".col-step-3").removeClass('active_tab');
+        $(".col-step-4").addClass('active').addClass('active_tab');
+        step_4_img.src = "/asset/payment.png";
+        progress_step_4 = 1;
+    }
+
 });
 
 // for progressbar button click
@@ -618,6 +647,26 @@ $('input[type=radio][name="ss_address"]').change(function () {
         console.log("checkradio else " + checkradioid);
         $('#hidden_field2').val(0);
         $('#hidden_field').val(checkradioid);
+    }
+
+});
+
+$(document).ready(function () {
+    $("#terms-book").change(function () {
+        if (this.checked) {
+            $('#terms-book-err').css('display', 'none');
+        } else {
+            $('#terms-book-err').css('display', 'block');
+        }
+    });
+});
+$('#complete_booking_btn').click(function () {
+
+    var status = $('#terms-book').is(':checked');
+    if (status) {
+        $('#terms-book-err').css('display', 'none');
+    } else {
+        $('#terms-book-err').css('display', 'block');
     }
 
 });

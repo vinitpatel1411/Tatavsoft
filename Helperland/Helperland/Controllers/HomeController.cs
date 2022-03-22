@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Helperland.Controllers
 {
@@ -323,11 +324,11 @@ namespace Helperland.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChangePassword(LoginViewModel loginViewModel)
+        public IActionResult ChangePassword(ForgotPasswordViewModel forgot)
         {
             int id = Int32.Parse(HttpContext.Session.GetString("UserId"));
             User user = _helperlandContext.Users.Where(x => x.UserId == id).FirstOrDefault();
-            user.Password = loginViewModel.Password;
+            user.Password = forgot.fpassword;
             _helperlandContext.Update(user);
             _helperlandContext.SaveChanges();
             ViewBag.changepass = string.Format("chengepass");
@@ -343,6 +344,7 @@ namespace Helperland.Controllers
                 string uname = HttpContext.Session.GetString("FirstName");
                 ViewBag.Uname = uname;
                 ViewBag.login_check = String.Format("loggedin");
+                
                 if (cnt != 0)
                 {
                     if (HttpContext.Session.GetString("again_called") != "spfound")
@@ -356,16 +358,34 @@ namespace Helperland.Controllers
                     {
                         ViewBag.foundsp = null;
                         HttpContext.Session.SetString("ss_step_2", "notset");
-
+                        
                     }
 
                 }
                 cnt = 1;
-                int address_fetch_cnt = getAddress();
+                int address_fetch_cnt = 0;
+                if (HttpContext.Session.GetString("zipcode") != "nozip" && HttpContext.Session.GetString("zipcode") != null)
+                {
+                    var check_zip = _helperlandContext.UserAddresses.Where(x => x.UserId == Int32.Parse(uid) && x.PostalCode == HttpContext.Session.GetString("zipcode"));
 
-                HttpContext.Session.SetInt32("address_fetch_cnt", address_fetch_cnt);
+                    if (check_zip.FirstOrDefault() != null)
+                    {
+                        address_fetch_cnt = getAddress();
+                        HttpContext.Session.SetString("zipcode", "nozip");
+                        HttpContext.Session.SetInt32("address_fetch_cnt", address_fetch_cnt);
+                        return View(userAddresses);
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetInt32("address_fetch_cnt", address_fetch_cnt);
+                        return View();
+                    }
 
-                return View(userAddresses);
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
@@ -456,10 +476,10 @@ namespace Helperland.Controllers
                 DOB_final = DOB_final.Date + time;
 
 
-                user.FirstName = mySetting.user.FirstName;
-                user.LastName = mySetting.user.LastName;
-                user.Email = mySetting.user.Email;
-                user.Mobile = mySetting.user.Mobile;
+                user.FirstName = mySetting.my.fname;
+                user.LastName = mySetting.my.lname;
+                user.Email = mySetting.my.email;
+                user.Mobile = mySetting.my.phone;
                 user.LanguageId = mySetting.user.LanguageId;
                 user.DateOfBirth = DOB_final;
                 _helperlandContext.SaveChanges();
@@ -481,7 +501,7 @@ namespace Helperland.Controllers
                 var user = _helperlandContext.Users.Where(u => u.UserId == userId).FirstOrDefault();
                 if (user.Password == mySetting.pwd)
                 {
-                    user.Password = mySetting.user.Password;
+                    user.Password = mySetting.forgot.fpassword;
                     _helperlandContext.SaveChanges();
                     pass_success = 1;
                     HttpContext.Session.SetString("oldpass", "ok");
@@ -506,10 +526,10 @@ namespace Helperland.Controllers
                 UserAddress userAddress = new UserAddress()
                 {
                     UserId = userId,
-                    AddressLine1 = mySettingViewModel.street + " " + mySettingViewModel.hno,
-                    City = mySettingViewModel.city,
-                    PostalCode = mySettingViewModel.pincode,
-                    Mobile = mySettingViewModel.phone,
+                    AddressLine1 = mySettingViewModel.myAddress.street + " " + mySettingViewModel.myAddress.hno,
+                    City = mySettingViewModel.myAddress.city,
+                    PostalCode = mySettingViewModel.myAddress.pincode,
+                    Mobile = mySettingViewModel.myAddress.phone,
                     IsDefault = false,
                     IsDeleted = false,
                     Email = email
@@ -525,14 +545,14 @@ namespace Helperland.Controllers
         {
             if (ModelState.IsValid)
             {
-                string addressline = mySettingViewModel.street + " " + mySettingViewModel.hno;
+                string addressline = mySettingViewModel.myAddress.street + " " + mySettingViewModel.myAddress.hno;
 
                 var user_add = _helperlandContext.UserAddresses.Where(x => x.AddressId == mySettingViewModel.hidden_add_id).FirstOrDefault();
 
                 user_add.AddressLine1 = addressline;
-                user_add.City = mySettingViewModel.city;
-                user_add.Mobile = mySettingViewModel.phone;
-                user_add.PostalCode = mySettingViewModel.pincode;
+                user_add.City = mySettingViewModel.myAddress.city;
+                user_add.Mobile = mySettingViewModel.myAddress.phone;
+                user_add.PostalCode = mySettingViewModel.myAddress.pincode;
 
                 _helperlandContext.SaveChanges();
 
@@ -564,23 +584,19 @@ namespace Helperland.Controllers
         [HttpPost]
         public IActionResult reschedule_service(MySettingViewModel mySettingViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                int service_id = mySettingViewModel.hidden_service_id;
-
-                var startdate = mySettingViewModel.rescheduled_date;
-                DateTime start_date = DateTime.Parse(startdate);
-                var starttime = mySettingViewModel.rescheduled_time;
-                int s_hr = Int32.Parse(starttime.Substring(0, 2));
-                int s_min = Int32.Parse(starttime.Substring(3, 2));
-                TimeSpan servicestarttime = new TimeSpan(s_hr, s_min, 0);
-
-                start_date = start_date.Date + servicestarttime;
-
-                var servicerequest = _helperlandContext.ServiceRequests.Where(x => x.ServiceId == service_id).FirstOrDefault();
-                servicerequest.ServiceStartDate = start_date;
-                _helperlandContext.SaveChanges();
-            }
+            
+            int service_id = mySettingViewModel.hidden_service_id;
+            var startdate = mySettingViewModel.mySettingReschedule.rescheduled_date;
+            DateTime start_date = DateTime.Parse(startdate);
+            var starttime = mySettingViewModel.mySettingReschedule.rescheduled_time;
+            int s_hr = Int32.Parse(starttime.Substring(0, 2));
+            int s_min = Int32.Parse(starttime.Substring(3, 2));
+            TimeSpan servicestarttime = new TimeSpan(s_hr, s_min, 0);
+            start_date = start_date.Date + servicestarttime;
+            var servicerequest = _helperlandContext.ServiceRequests.Where(x => x.ServiceId == service_id).FirstOrDefault();
+            servicerequest.ServiceStartDate = start_date;
+            _helperlandContext.SaveChanges();
+            
             return RedirectToAction("dashboard");
         }
 
@@ -624,6 +640,7 @@ namespace Helperland.Controllers
 
             return RedirectToAction("mySetting");
         }
+
         public IActionResult spMySetting()
         {
             ViewBag.spmysetting = "hello";
@@ -661,10 +678,12 @@ namespace Helperland.Controllers
             var userId = Int32.Parse(HttpContext.Session.GetString("UserId"));
             User req = _helperlandContext.Users.FirstOrDefault(x => x.UserId == userId);
             UserAddress add = _helperlandContext.UserAddresses.FirstOrDefault(x => x.UserId == userId);
-            spMySettingViewModel.Firsname = req.FirstName;
-            spMySettingViewModel.Lastname = req.LastName;
+            spMySettingViewModel.detailViewModel = new spMySettingDetailViewModel();
+            
+            spMySettingViewModel.detailViewModel.Firsname = req.FirstName;
+            spMySettingViewModel.detailViewModel.Lastname = req.LastName;
             spMySettingViewModel.Email = req.Email;
-            spMySettingViewModel.phone = req.Mobile;
+            spMySettingViewModel.detailViewModel.phone = req.Mobile;
             spMySettingViewModel.nationalityid = req.NationalityId;
             spMySettingViewModel.is_active = req.IsActive;
             spMySettingViewModel.avatar = req.UserProfilePicture;
@@ -672,10 +691,10 @@ namespace Helperland.Controllers
             var house = address[address.Length - 1];
             address = address.Where(val => val != house).ToArray();
             string add_str = string.Join(" ", address);
-            spMySettingViewModel.street = add_str;
-            spMySettingViewModel.house = Int32.Parse(house);
-            spMySettingViewModel.postal = add.PostalCode;
-            spMySettingViewModel.city = add.City;
+            spMySettingViewModel.detailViewModel.street = add_str;
+            spMySettingViewModel.detailViewModel.house = Int32.Parse(house);
+            spMySettingViewModel.detailViewModel.postal = add.PostalCode;
+            spMySettingViewModel.detailViewModel.city = add.City;
             if (req.DateOfBirth != null)
             {
                 var DOB_str = (req.DateOfBirth).ToString();
@@ -688,21 +707,39 @@ namespace Helperland.Controllers
 
             get_sp_new_service_request();
             get_sp_upcoming_services();
+
+            
+
             get_sp_service_history();
             get_sp_my_rating();
             get_sp_customers();
             return View(spMySettingViewModel);
         }
 
+        
+        public JsonResult GetEvents()
+        {
+            var uid = Int32.Parse(HttpContext.Session.GetString("UserId"));
+            var events = _helperlandContext.ServiceRequests.Where(x => x.Status == 1 && x.ServiceProviderId == uid).ToList();
+            if (events.FirstOrDefault() != null)
+            {
+                return Json(events);
+            }
+            else
+            {
+                return Json("Not Found");
+            }
+            
+        }
         [HttpPost]
         public IActionResult spMydetail(spMySettingViewModel spMySetting)
         {
             var userid = Int32.Parse(HttpContext.Session.GetString("UserId"));
             var u = _helperlandContext.Users.Where(x => x.UserId == userid).FirstOrDefault();
             var ua = _helperlandContext.UserAddresses.Where(x => x.UserId == userid).FirstOrDefault();
-            u.FirstName = spMySetting.Firsname;
-            u.LastName = spMySetting.Lastname;
-            u.Mobile = spMySetting.phone;
+            u.FirstName = spMySetting.detailViewModel.Firsname;
+            u.LastName = spMySetting.detailViewModel.Lastname;
+            u.Mobile = spMySetting.detailViewModel.phone;
             u.NationalityId = spMySetting.nationalityid;
             var DOB_day = spMySetting.dob_day;
             var DOB_month = spMySetting.dob_month;
@@ -714,10 +751,31 @@ namespace Helperland.Controllers
             u.DateOfBirth = DOB_final;
             u.Gender = spMySetting.gender;
             u.UserProfilePicture = spMySetting.hidden_avatar.ToString();
-            ua.AddressLine1 = spMySetting.street + " " + spMySetting.house;
-            ua.PostalCode = spMySetting.postal;
-            ua.City = spMySetting.city;
-            u.ZipCode = spMySetting.postal;
+            ua.AddressLine1 = spMySetting.detailViewModel.street + " " + spMySetting.detailViewModel.house;
+            ua.City = spMySetting.detailViewModel.city;
+            if(ua.PostalCode != spMySetting.detailViewModel.postal)
+            {
+                ua.PostalCode = spMySetting.detailViewModel.postal;
+                u.ZipCode = spMySetting.detailViewModel.postal;
+
+                var up_services = _helperlandContext.ServiceRequests.Where(x => x.ServiceProviderId == userid && x.Status == 1).ToList();
+                if (up_services.FirstOrDefault() != null)
+                {
+                    foreach (var i in up_services)
+                    {
+                        if(i.ServiceStartDate > DateTime.Now)
+                        {
+                            i.ServiceProviderId = null;
+                            i.Status = 0;
+                        }
+                        else
+                        {
+                            i.ServiceProviderId = null;
+                            i.Status = 3;
+                        }
+                    }
+                }
+            }
             _helperlandContext.SaveChanges();
             return RedirectToAction("spMySetting");
         }
@@ -732,7 +790,7 @@ namespace Helperland.Controllers
                 var user = _helperlandContext.Users.Where(u => u.UserId == userId).FirstOrDefault();
                 if (user.Password == mySetting.pwd)
                 {
-                    user.Password = mySetting.new_pwd;
+                    user.Password = mySetting.forgot.fpassword;
                     _helperlandContext.SaveChanges();
                     pass_success = 1;
                     HttpContext.Session.SetString("oldpass", "ok");
@@ -905,6 +963,8 @@ namespace Helperland.Controllers
         [HttpPost]
         public IActionResult service_reschedule_admin(AdminViewModel admin)
         {
+            
+
             int ser_id = admin.hidden_ser_id;
             var startdate = admin.c_ser_date;
             DateTime start_date = DateTime.Parse(startdate);
@@ -921,11 +981,12 @@ namespace Helperland.Controllers
 
 
             service.ServiceStartDate = start_date;
-            service_address.AddressLine1 = admin.c_street + " " + admin.c_hno;
-            service_address.City = admin.c_city;
-            service_address.PostalCode = admin.c_postal;
+            service_address.AddressLine1 = admin.adminServiceAddress.c_street + " " + admin.adminServiceAddress.c_hno;
+            service_address.City = admin.adminServiceAddress.c_city;
+            service_address.PostalCode = admin.adminServiceAddress.c_postal;
             _helperlandContext.SaveChanges();
             admin_service_request = 1;
+            
             return RedirectToAction("Admin");
         }
 
@@ -1106,35 +1167,7 @@ namespace Helperland.Controllers
                                    zip.ZipCode
                                };
                 var user_Zipcode = user_zip.FirstOrDefault().ZipCode;
-                //var new_services = (from sr in _helperlandContext.ServiceRequests
-                //                    from sre in _helperlandContext.ServiceRequestExtras
-                //                    from sra in _helperlandContext.ServiceRequestAddresses
-                //                    from uid in _helperlandContext.Users
-                //                    from favblock in _helperlandContext.FavoriteAndBlockeds
-                //                    where sr.Status == 0 && sr.ZipCode == user_Zipcode 
-                //                        && sr.ServiceRequestId == sre.ServiceRequestId 
-                //                        && sr.ServiceRequestId == sra.ServiceRequestId 
-                //                        && sr.UserId == uid.UserId 
-                //                        && sr.ServiceStartDate > DateTime.Now
-                //                        && sr.UserId == favblock.TargetUserId
-                //                        && userid == favblock.UserId
-                //                        && !(_helperlandContext.FavoriteAndBlockeds.Where(x=>x.UserId == userid && x.TargetUserId == sr.UserId).FirstOrDefault().IsBlocked)
-                //                    select new NewServiceRequestViewModel()
-                //                    {
-                //                        service_id = sr.ServiceId,
-                //                        service_date = sr.ServiceStartDate,
-                //                        duration = sr.ServiceHours + sr.ExtraHours,
-                //                        service_amount = sr.TotalCost,
-                //                        extra_service = sre.ServiceExtraId,
-                //                        service_address = sra.AddressLine1,
-                //                        phone = sra.Mobile,
-                //                        email = sra.Email,
-                //                        comment = sr.Comments,
-                //                        has_pet = sr.HasPets,
-                //                        cust_name = uid.FirstName,
-                //                        pincode = sra.PostalCode,
-                //                        city = sra.City
-                //                    }).ToList();
+                
                 var req = _helperlandContext.ServiceRequests.Where(x => x.ZipCode == user_Zipcode && x.ServiceStartDate > DateTime.Now && x.ServiceProviderId == null && x.Status == 0).ToList();
                 if(req.Count() > 0)
                 {
@@ -1161,7 +1194,7 @@ namespace Helperland.Controllers
 
 
                             var sra = _helperlandContext.ServiceRequestAddresses.FirstOrDefault(x => x.ServiceRequestId == item.ServiceRequestId);
-                            res.pincode = sra.PostalCode;
+                            res.pincode = item.ZipCode;
                             res.city = sra.City;
                             res.service_address = sra.AddressLine1;
                             res.phone = sra.Mobile;
@@ -1226,7 +1259,7 @@ namespace Helperland.Controllers
                                     from sre in _helperlandContext.ServiceRequestExtras
                                     from sra in _helperlandContext.ServiceRequestAddresses
                                     from uid in _helperlandContext.Users
-                                    where sr.Status == 1 && sr.ZipCode == user_Zipcode && sr.ServiceRequestId == sre.ServiceRequestId && sr.ServiceRequestId == sra.ServiceRequestId && sr.UserId == uid.UserId && sr.ServiceStartDate > DateTime.Now
+                                    where sr.Status == 1 && sr.ZipCode == user_Zipcode && sr.ServiceRequestId == sre.ServiceRequestId && sr.ServiceRequestId == sra.ServiceRequestId && sr.UserId == uid.UserId && sr.ServiceProviderId == userid
                                    select new UpcomingServiceViewModel()
                                     {
                                         cust_id = sr.UserId,

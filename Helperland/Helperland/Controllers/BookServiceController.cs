@@ -37,9 +37,10 @@ namespace Helperland.Controllers
                                  }).ToList();
             if (spdetails.FirstOrDefault() != null)
             {
+
                 HttpContext.Session.SetString("again_called","spfound");
                 HttpContext.Session.SetString("zipcode", bookServiceViewModel.zipCodeViewModel.zipcode);
-                
+                HttpContext.Session.SetString("sr_postal", bookServiceViewModel.zipCodeViewModel.zipcode);
                 return RedirectToAction("book_service", "Home");
             }
             else
@@ -66,7 +67,7 @@ namespace Helperland.Controllers
             startdate = startdate.Date + servicestarttime;
             
             string userid = HttpContext.Session.GetString("UserId");
-            string zip = HttpContext.Session.GetString("zipcode");
+            string zip = HttpContext.Session.GetString("sr_postal");
             float hours = bookServiceViewModel.ServiceRequestViewModel.servicehours;
             bool extraser1 = bookServiceViewModel.ServiceRequestViewModel.extraSer1;
             bool extraser2 = bookServiceViewModel.ServiceRequestViewModel.extraSer2;
@@ -90,8 +91,9 @@ namespace Helperland.Controllers
             decimal total = new decimal(subtotal);
 
             Debug.WriteLine("this is service start time " + startdate);
-            var get_ser_id = _helperlandContext.ServiceRequests.OrderBy(x=>x.ServiceRequestId).Last(x=>x.UserId == Int32.Parse(userid));
+            var get_ser_id = _helperlandContext.ServiceRequests.OrderBy(x=>x.ServiceRequestId).Last();
             Debug.WriteLine("this is previous service id " + get_ser_id.ServiceId);
+            
             ServiceRequest service = new ServiceRequest()
             {
                 UserId = Int32.Parse(userid),

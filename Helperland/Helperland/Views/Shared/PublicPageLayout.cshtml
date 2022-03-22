@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿
+@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 
 <!DOCTYPE html>
@@ -18,145 +19,153 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg align-items-center navbar-dark faq_nav_bg">
             <div class="container-fluid">
-                <img src="/asset/logo-small.png">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="mx-auto"></div>
-                    <ul class="navbar-nav align-items-center">
-                        <li class="nav-item">
-                            <a asp-action="book_service" asp-controller="Home" class="nav-item text-white head_item faq_active">Book a Cleaner</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a asp-action="Price" asp-controller="Home" class="nav-item text-white head_item home_active">Prices & Services</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-item text-white head_item none_active">Warranty</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-item text-white head_item none_active">Blog</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a asp-action="Contact" asp-controller="Home" class="nav-item text-white head_item none_active">Contact</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a asp-action="BecomeProvider" asp-controller="Home" class="nav-item text-white head_item faq_active">Become a Helper</a>
-                        </li>
-                        @if (HttpContextAccessor.HttpContext.Session.GetString("loggedIn") == null)
-                        {
-                            <li class="nav-item">
-                                <a asp-action="Index_Login" class="nav-item text-white head_item faq_active" asp-controller="Home">Login</a>
+                <a asp-action="Index" asp-controller="Home">
+                    <img src="/asset/logo-small.png">
+                </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="mx-auto"></div>
+                        <ul class="navbar-nav align-items-center">
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 1)
+                            {
+                                <li class="nav-item">
+                                    <a asp-action="book_service" asp-controller="Home" class="nav-item text-white head_item home_active">Book a Cleaner</a>
+                                </li>
+                            }
+                            <li class="nav-item ">
+                                <a asp-action="Price" asp-controller="Home" class="nav-item text-white head_item home_active">Prices & Services</a>
                             </li>
-                        }
-                        else
-                        {
-                            if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 1)
+                            <li class="nav-item ">
+                                <a href="#" class="nav-item text-white head_item none_active">Warranty</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="#" class="nav-item text-white head_item none_active">Blog</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a asp-action="Contact" asp-controller="Home" class="nav-item text-white head_item none_active">Contact</a>
+                            </li>
+
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") != 1)
                             {
-                                <li>
-                                    <div class="vertical_line">
-
-                                    </div>
-                                </li>
-                                <li class="notification">
-                                    <div class="align-items-center justify-content-center" id="notification">
-                                        <a href="#"><img src="/asset/icon-notification.png"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="vertical_line">
-
-                                    </div>
-                                </li>
-                                <li class="dropdown no_active sp_user">
-                                    <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="/asset/user.png">
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <li>
-                                            <div class="login_info_container">
-                                                <div class="login_welcome_txt">Welcome</div>
-                                                <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
-                                            </div>
-                                            <div>
-                                                <hr class="seperator no_mar" />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
-                                                My Dashboard
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
-                                                My Settings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
-                                                Logout
-                                            </a>
-                                        </li>
-
-                                    </ul>
+                                <li class="nav-item">
+                                    <a asp-action="BecomeProvider" asp-controller="Home" class="nav-item text-white head_item home_active">Become a Helper</a>
                                 </li>
                             }
-
-                            if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 2)
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("loggedIn") == null)
                             {
-                                <li>
-                                    <div class="vertical_line">
-
-                                    </div>
-                                </li>
-                                <li class="notification">
-                                    <div class="align-items-center justify-content-center" id="notification">
-                                        <a href="#"><img src="/asset/icon-notification.png"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="vertical_line">
-
-                                    </div>
-                                </li>
-                                <li class="dropdown no_active sp_user">
-                                    <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="/asset/user.png">
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <li>
-                                            <div class="login_info_container">
-                                                <div class="login_welcome_txt">Welcome</div>
-                                                <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
-                                            </div>
-                                            <div>
-                                                <hr class="seperator no_mar" />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a asp-action="spNewServices" asp-controller="Home" class="dropdown-item">
-                                                New Services
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-action="spMySetting" asp-controller="Home">
-                                                My Settings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
-                                                Logout
-                                            </a>
-                                        </li>
-
-                                    </ul>
+                                <li class="nav-item">
+                                    <a asp-action="Index_Login" class="nav-item text-white head_item faq_active" asp-controller="Home">Login</a>
                                 </li>
                             }
-                        }
-                    </ul>
-                </div>
-            </div>
+                            else
+                            {
+                                if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 1)
+                                {
+                                    <li>
+                                        <div class="vertical_line">
+
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="align-items-center justify-content-center" id="notification">
+                                            <a href="#"><img src="/asset/icon-notification.png"></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="vertical_line">
+
+                                        </div>
+                                    </li>
+                                    <li class="dropdown no_active sp_user">
+                                        <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/asset/user.png">
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <li>
+                                                <div class="login_info_container">
+                                                    <div class="login_welcome_txt">Welcome</div>
+                                                    <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
+                                                </div>
+                                                <div>
+                                                    <hr class="seperator no_mar" />
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-action="dashboard" asp-controller="Home">
+                                                    My Dashboard
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-action="mySetting" asp-controller="Home">
+                                                    My Settings
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                                    Logout
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                }
+
+                                if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 2)
+                                {
+                                    <li>
+                                        <div class="vertical_line">
+
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="align-items-center justify-content-center" id="notification">
+                                            <a href="#"><img src="/asset/icon-notification.png"></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="vertical_line">
+
+                                        </div>
+                                    </li>
+                                    <li class="dropdown no_active sp_user">
+                                        <a class="nav-link dropdown-toggle" id="drpdwn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/asset/user.png">
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <li>
+                                                <div class="login_info_container">
+                                                    <div class="login_welcome_txt">Welcome</div>
+                                                    <div class="login_welcome_name">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
+                                                </div>
+                                                <div>
+                                                    <hr class="seperator no_mar" />
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a asp-action="spNewServices" asp-controller="Home" class="dropdown-item">
+                                                    New Services
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-action="spMySetting" asp-controller="Home">
+                                                    My Settings
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
+                                                    Logout
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+</div>
         </nav>
 
 
@@ -266,7 +275,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-2 footer-widget">
-                        <a href="#" title="Helper Hand">
+                        <a asp-action="Index" asp-controller="Home" title="Helper Hand">
                             <img src="/asset/footer-logo.png" alt="Helper Hand">
                         </a>
                     </div>
@@ -333,7 +342,7 @@
 
 
 
-    @if (HttpContextAccessor.HttpContext.Session.GetString("zipcode") != null)
+    @*@if (HttpContextAccessor.HttpContext.Session.GetString("zipcode") != null)
     {
         <script>
             var userpostalcode = @HttpContextAccessor.HttpContext.Session.GetString("zipcode");
@@ -343,7 +352,7 @@
         </script>
 
 
-    }
+    }*@
     @if (HttpContextAccessor.HttpContext.Session.GetString("ss_step_2") == "notset")
     {
         @if (ViewBag.foundsp != null)
@@ -359,11 +368,7 @@
         @if (ViewBag.foundsp == null)
         {
             <script>
-                $(function () {
-                    $('.postal_check_btn').click();
-                });
-                $(document).on('click', '.postal_check_btn', function () {
-
+                
                     $(".ss_step_1").addClass('fade');
                     $(".ss_step_2").removeClass('fade');
                     $(".col-step-1").removeClass('active_tab');
@@ -372,22 +377,34 @@
                     progress_step_2 = 1;
                     console.log("this is progress step 2" + progress_step_2);
                     //set date to be disable before today & set time
-                    var today = new Date();
+                    let today = new Date();
                     today.setHours(today.getHours() + 2);
-                    var dd = String(today.getDate()).padStart(2, '0');
-                    var mm = String(today.getMonth() + 1).padStart(2, '0');
-                    var yyyy = today.getFullYear();
-                    var hr = today.getHours();
-                    var minit = today.getMinutes();
+                    let dd = String(today.getDate()).padStart(2, '0');
+                    let mm = String(today.getMonth() + 1).padStart(2, '0');
+                    let yyyy = today.getFullYear();
+                    let hr = today.getHours();
+                    let minit = today.getMinutes();
 
-                    var max_time = hr + ':' + minit;
-                    $('#service_time').val(max_time);
+                let max_time = hr + ':' + minit;
+                const s_time = document.getElementById("service_time");
+                    s_time.value = max_time;
+                    console.log("this sets time ", max_time);
+                let max_date = yyyy + '-' + mm + '-' + dd;
+                const s_date = document.getElementById("service_date");
+                s_date.setAttribute('min', max_date);
 
-                    var max_date = yyyy + '-' + mm + '-' + dd;
-                    $('#service_date').attr('min', max_date);
 
-                });
 
+                //$(document).on('click', '.complete_booking_btn', function () {
+                //    if ($('#terms-book').prop('checked') == true) {
+                //        $('#terms-book-error').css('display', 'none');
+                //    }
+                //    else {
+                //        $('#terms-book-error').css('display', 'block');
+                //    }
+                //})
+
+                
             </script>
         }
 

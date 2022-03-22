@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @model Helperland.ViewModel.BookServiceViewModel
 @{
     ViewData["Title"] = "Book-Service";
@@ -59,7 +60,8 @@
 
                     <div class="row pt-2">
                         <div class="col-sm-5">
-                            <input class="form-control" asp-for="zipCodeViewModel.zipcode" type="text"  placeholder="Postal Code" required/>
+                            <input class="form-control" asp-for="zipCodeViewModel.zipcode" type="text" placeholder="Postal Code" />
+                            <span asp-validation-for="zipCodeViewModel.zipcode" class="text-danger"></span>
                         </div>
                         <div class="col-sm-3">
                             <button type="submit" class="postal_check_btn">Check Availability</button>
@@ -69,161 +71,161 @@
                 </div>
             </form>
 
-            
+
             <form asp-action="addServiceInfo" asp-controller="BookService" id="BookService">
                 <div class="ss_step_2 fade">
 
-                
 
-                        <div class="row pt-3">
-                            <div class="col-md-5">
 
-                                <div class="row">
-                                    <label>When do you need the cleaner?</label>
-                                </div>
-                                <div class="row pt-2">
-                                    <div class="col-sm-7 date-container">
-                                        <input asp-for="ServiceRequestViewModel.servicestartdate" type="text" id="service_date" class="form-control date_field"  onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="01/01/1111" required/>
-                                        <span class="date-button">
-                                            <img src="/asset/admin-calendar-blue.png">
-                                        </span>
-                                        
-                                        <p class="text-danger validate_date_empty fade">select date</p>
-                                    </div>
-                                    <div class="col-sm-5 clock-container">
-                                        <input asp-for="ServiceRequestViewModel.servicestrarttime" id="service_time" type="time" placeholder="00:00" class="form-control" required/>
-                                        <span class="clock-button">
-                                            <img src="/asset/clock-blue.png">
-                                        </span>
-                                        <p class="text-danger validate_time fade">Select time</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-7 how_long">
-                                <div class="row">
-                                    <label>How long do you need your cleaner to stay?</label>
-                                </div>
-                                <div class="row pt-2">
-                                    <div class="col-sm-4">
-                                        <select asp-for="ServiceRequestViewModel.servicehours" id="basic_time" class="form-select">
-                                            <option selected value="3">3 Hrs</option>
-                                            <option value="4">4 Hrs</option>
-                                            <option value="5">5 Hrs</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row pt-4">
-                            <hr class="seperator">
-                        </div>
+                    <div class="row pt-3">
+                        <div class="col-md-5">
 
-                        <div class="row">
-                            <label>Extra Services</label>
-                        </div>
-                        <div class="row">
-                            <div class="extra-serve d-flex flex-wrap align-items-center justify-content-center">
-                                <div class="extra-service-items text-center">
-                                    <div id="extra-ser-1" class="extra-img d-flex justify-content-center align-items-center mx-auto">
-                                        <img id="sr-1" src="/asset/3.png" alt="">
-                                    </div>
-                                    <div class="extra-details mt-3">
-                                        <p class="extra-title mb-0">
-                                            Inside cabinets
-                                        </p>
-                                    </div>
-                                    <div class="fade">
-                                        <input asp-for="ServiceRequestViewModel.extraSer1" type="checkbox" id="extra_s_check_1" />
-                                    </div>
-                                </div>
-                                <div class="extra-service-items text-center">
-                                    <div id="extra-ser-2" class="extra-img d-flex justify-content-center align-items-center mx-auto">
-                                        <img id="sr-2" src="/asset/5.png" alt="">
-                                    </div>
-                                    <div class="extra-details mt-3">
-                                        <p class="extra-title mb-0">
-                                            Inside fridge
-                                        </p>
-                                    </div>
-                                    <div class="fade">
-                                        <input asp-for="ServiceRequestViewModel.extraSer2" type="checkbox" id="extra_s_check_2" />
-                                    </div>
-                                </div>
-                                <div class="extra-service-items text-center">
-                                    <div id="extra-ser-3" class="extra-img d-flex justify-content-center align-items-center mx-auto">
-                                        <img id="sr-3" src="/asset/service-icon-03-1.png" alt="">
-                                    </div>
-                                    <div class="extra-details mt-3">
-                                        <p class="extra-title mb-0">
-                                            Inside oven
-                                        </p>
-                                    </div>
-                                    <div class="fade">
-                                        <input asp-for="ServiceRequestViewModel.extraSer3" type="checkbox" id="extra_s_check_3" />
-                                    </div>
-                                </div>
-                                <div class="extra-service-items text-center">
-                                    <div id="extra-ser-4" class="extra-img d-flex justify-content-center align-items-center mx-auto">
-                                        <img id="sr-4" src="/asset/2.png" alt="">
-                                    </div>
-                                    <div class="extra-details mt-3">
-                                        <p class="extra-title mb-0">
-                                            Laundry wash & dry
-                                        </p>
-                                    </div>
-                                    <div class="fade">
-                                        <input asp-for="ServiceRequestViewModel.extraSer4" type="checkbox" id="extra_s_check_4" />
-                                    </div>
-                                </div>
-                                <div class="extra-service-items text-center">
-                                    <div id="extra-ser-5" class="extra-img d-flex justify-content-center align-items-center mx-auto">
-                                        <img id="sr-5" src="/asset/1.png" alt="">
-                                    </div>
-                                    <div class="extra-details mt-3">
-                                        <p class="extra-title mb-0">
-                                            Interior windows
-                                        </p>
-                                    </div>
-                                    <div class="fade">
-                                        <input asp-for="ServiceRequestViewModel.extraSer5" type="checkbox" id="extra_s_check_5" />
-                                    </div>
-                                </div>
+                            <div class="row">
+                                <label>When do you need the cleaner?</label>
                             </div>
-                        </div>
+                            <div class="row pt-2">
+                                <div class="col-sm-7 date-container">
+                                    <input asp-for="ServiceRequestViewModel.servicestartdate" type="text" id="service_date" class="form-control date_field" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="01/01/1111" required />
+                                    <span class="date-button">
+                                        <img src="/asset/admin-calendar-blue.png">
+                                    </span>
 
-                        <div class="row">
-                            <hr class="seperator">
-                        </div>
-                        <div class="row">
-                            <label>Comments</label>
-                        </div>
-                        <div class="row pt-2">
-                            <div class="col-sm-12">
-                                <textarea asp-for="ServiceRequestViewModel.comments" class="form-control ss_form_textarea"></textarea>
+                                    <p class="text-danger validate_date_empty fade">select date</p>
+                                </div>
+                                <div class="col-sm-5 clock-container">
+                                    <input asp-for="ServiceRequestViewModel.servicestrarttime" id="service_time" type="time" placeholder="00:00" class="form-control" required />
+                                    <span class="clock-button">
+                                        <img src="/asset/clock-blue.png">
+                                    </span>
+                                    <p class="text-danger validate_time fade">Select time</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="row pt-3 check_pet">
-                            <div class="col-sm-1">
-                                <input asp-for="ServiceRequestViewModel.haspets" id="pets_at_home" type="checkbox" class="form-check" />
+                        <div class="col-md-7 how_long">
+                            <div class="row">
+                                <label>How long do you need your cleaner to stay?</label>
                             </div>
-                            <div class="col-sm-6 ps_p_tag">
-                                <p>I have pets at home</p>
+                            <div class="row pt-2">
+                                <div class="col-sm-4">
+                                    <select asp-for="ServiceRequestViewModel.servicehours" id="basic_time" class="form-select">
+                                        <option selected value="3">3 Hrs</option>
+                                        <option value="4">4 Hrs</option>
+                                        <option value="5">5 Hrs</option>
+                                    </select>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <hr class="seperator">
+                    </div>
 
+                    <div class="row">
+                        <label>Extra Services</label>
+                    </div>
+                    <div class="row">
+                        <div class="extra-serve d-flex flex-wrap align-items-center justify-content-center">
+                            <div class="extra-service-items text-center">
+                                <div id="extra-ser-1" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                    <img id="sr-1" src="/asset/3.png" alt="">
+                                </div>
+                                <div class="extra-details mt-3">
+                                    <p class="extra-title mb-0">
+                                        Inside cabinets
+                                    </p>
+                                </div>
+                                <div class="fade">
+                                    <input asp-for="ServiceRequestViewModel.extraSer1" type="checkbox" id="extra_s_check_1" />
+                                </div>
+                            </div>
+                            <div class="extra-service-items text-center">
+                                <div id="extra-ser-2" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                    <img id="sr-2" src="/asset/5.png" alt="">
+                                </div>
+                                <div class="extra-details mt-3">
+                                    <p class="extra-title mb-0">
+                                        Inside fridge
+                                    </p>
+                                </div>
+                                <div class="fade">
+                                    <input asp-for="ServiceRequestViewModel.extraSer2" type="checkbox" id="extra_s_check_2" />
+                                </div>
+                            </div>
+                            <div class="extra-service-items text-center">
+                                <div id="extra-ser-3" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                    <img id="sr-3" src="/asset/service-icon-03-1.png" alt="">
+                                </div>
+                                <div class="extra-details mt-3">
+                                    <p class="extra-title mb-0">
+                                        Inside oven
+                                    </p>
+                                </div>
+                                <div class="fade">
+                                    <input asp-for="ServiceRequestViewModel.extraSer3" type="checkbox" id="extra_s_check_3" />
+                                </div>
+                            </div>
+                            <div class="extra-service-items text-center">
+                                <div id="extra-ser-4" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                    <img id="sr-4" src="/asset/2.png" alt="">
+                                </div>
+                                <div class="extra-details mt-3">
+                                    <p class="extra-title mb-0">
+                                        Laundry wash & dry
+                                    </p>
+                                </div>
+                                <div class="fade">
+                                    <input asp-for="ServiceRequestViewModel.extraSer4" type="checkbox" id="extra_s_check_4" />
+                                </div>
+                            </div>
+                            <div class="extra-service-items text-center">
+                                <div id="extra-ser-5" class="extra-img d-flex justify-content-center align-items-center mx-auto">
+                                    <img id="sr-5" src="/asset/1.png" alt="">
+                                </div>
+                                <div class="extra-details mt-3">
+                                    <p class="extra-title mb-0">
+                                        Interior windows
+                                    </p>
+                                </div>
+                                <div class="fade">
+                                    <input asp-for="ServiceRequestViewModel.extraSer5" type="checkbox" id="extra_s_check_5" />
+                                </div>
+                            </div>
                         </div>
-                        <div class="row pt-3">
-                            <hr>
+                    </div>
+
+                    <div class="row">
+                        <hr class="seperator">
+                    </div>
+                    <div class="row">
+                        <label>Comments</label>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-sm-12">
+                            <textarea asp-for="ServiceRequestViewModel.comments" class="form-control ss_form_textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="row pt-3 check_pet">
+                        <div class="col-sm-1">
+                            <input asp-for="ServiceRequestViewModel.haspets" id="pets_at_home" type="checkbox" class="form-check" />
+                        </div>
+                        <div class="col-sm-6 ps_p_tag">
+                            <p>I have pets at home</p>
                         </div>
 
-                        <div class="row ss_cnt_btn">
-                            <div class="col-sm-10">
+                    </div>
+                    <div class="row pt-3">
+                        <hr>
+                    </div>
 
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="continue-1">Continue</button>
-                            </div>
+                    <div class="row ss_cnt_btn">
+                        <div class="col-sm-10">
+
                         </div>
-                
+                        <div class="col-sm-2">
+                            <button type="button" class="continue-1">Continue</button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="ss_step_3 fade">
@@ -272,90 +274,93 @@
                             <input asp-for="addressId2" id="hidden_field2" type="hidden" />
                         </div>
                     </div>
-                    
+
 
                     <div class="row pt-2">
                         <div class="col-md-3">
                             <button type="button" class="add_address_btn">Add New Address</button>
                         </div>
+                        <div>
+                            <span id="add_validation" class="text-danger">Please select address</span>
+                        </div>
                     </div>
 
                     <div class="row pt-2 ss_address_create justify-content-center fade">
-                        
-                            <div class="col-md-5 ">
-                                <div class="row pt-2">
-                                    <label>Street Name</label>
-                                </div>
-                                <div class="row pt-1">
-                                    <div class="col-sm-12">
-                                        <input asp-for="streetname" id="add_street" type="text" placeholder="Street Name" class="form-control" />
-                                        <div id="add_street_err" class="text-danger fade">
-                                            streetname required
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row pt-2">
-                                    <label>Postal Code</label>
-                                </div>
-                                <div class="row pt-1">
-                                    <div class="col-sm-12">
-                                        <input asp-for="postalCode" id="add_postal" type="text" placeholder="Postalcode" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
-
-                                    </div>
-                                </div>
-
-                                <div class="row pt-2">
-                                    <label>Phone number</label>
-                                </div>
-                                <div class="row pt-1">
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-12 input-group">
-                                            <span class="c_code align-items-center justify-content-center">+49</span>
-                                            <input type="text" asp-for="phoneno" class="form-control" id="add_mobile" placeholder="Mobile Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" pattern="[0-9]{10}" />
-
-                                        </div>
-                                        <div id="add_mobile_err" class="text-danger fade">
-                                            phonenumber required
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row pt-3">
-                                    <div class="col-md-3 d-flex mb-2">
-                                        <button type="button" class="save_address_btn">Save</button>
-                                        <button type="button" class="cancel_address_btn">Cancel</button>
+                        <div class="col-md-5 ">
+                            <div class="row pt-2">
+                                <label>Street Name</label>
+                            </div>
+                            <div class="row pt-1">
+                                <div class="col-sm-12">
+                                    <input asp-for="streetname" id="add_street" type="text" placeholder="Street Name" class="form-control" />
+                                    <div id="add_street_err" class="text-danger fade">
+                                        streetname required
                                     </div>
                                 </div>
                             </div>
 
+                            <div class="row pt-2">
+                                <label>Postal Code</label>
+                            </div>
+                            <div class="row pt-1">
+                                <div class="col-sm-12">
+                                    <input asp-for="postalCode" value="@HttpContextAccessor.HttpContext.Session.GetString("zipcode")" id="add_postal" type="text" placeholder="Postalcode" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" disabled />
 
-                            <div class="col-md-5">
-                                <div class="row pt-2">
-                                    <label>House number</label>
                                 </div>
-                                <div class="row pt-1">
-                                    <div class="col-sm-12">
-                                        <input asp-for="houseno" id="add_house" type="text" placeholder="House number" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
-                                        <div id="add_house_err" class="text-danger fade">
-                                            House number required
-                                        </div>
+                            </div>
+
+                            <div class="row pt-2">
+                                <label>Phone number</label>
+                            </div>
+                            <div class="row pt-1">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12 input-group">
+                                        <span class="c_code align-items-center justify-content-center">+49</span>
+                                        <input type="text" asp-for="phoneno" class="form-control" id="add_mobile" placeholder="Mobile Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" pattern="[0-9]{10}" />
+
                                     </div>
-                                </div>
-
-                                <div class="row pt-2">
-                                    <label>City</label>
-                                </div>
-                                <div class="row pt-1">
-                                    <div class="col-sm-12">
-                                        <input asp-for="cityname" id="add_city" type="text" placeholder="City" class="form-control"  />
-                                        <div id="add_city_err" class="text-danger fade">
-                                            city name required
-                                        </div>
+                                    <div id="add_mobile_err" class="text-danger fade">
+                                        phonenumber required
                                     </div>
                                 </div>
                             </div>
-                        
+
+                            <div class="row pt-3">
+                                <div class="col-md-3 d-flex mb-2">
+                                    <button type="button" class="save_address_btn">Save</button>
+                                    <button type="button" class="cancel_address_btn">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-5">
+                            <div class="row pt-2">
+                                <label>House number</label>
+                            </div>
+                            <div class="row pt-1">
+                                <div class="col-sm-12">
+                                    <input asp-for="houseno" id="add_house" type="text" placeholder="House number" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                    <div id="add_house_err" class="text-danger fade">
+                                        House number required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-2">
+                                <label>City</label>
+                            </div>
+                            <div class="row pt-1">
+                                <div class="col-sm-12">
+                                    <input asp-for="cityname" id="add_city" type="text" placeholder="City" class="form-control" />
+                                    <div id="add_city_err" class="text-danger fade">
+                                        city name required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row pt-2">
@@ -444,15 +449,17 @@
                     </div>
                     <div class="row pt-2 accept_3_policy">
                         <div class="col-md-1 pt-1">
-                            <input asp-for="checkPolicy" type="checkbox"  id="terms-book" class="check_box" />
-                            <div asp-validation-summary="ModelOnly">
+                            <input type="checkbox" id="terms-book" name="policy_check" class="check_box" required>
 
-                            </div>
                         </div>
                         <div class="col-md-11">
                             <label class="check_label_book">I accept <a href="#">terms and conditions </a>, the <a href="#">Cancellation Policy </a> and the <a href="#"> privacy policy</a>. I confirm that Helperland starts to execute the contract before the expiry of the withdrawal period and I loose my right of withdrawal as a consumer with full performance of the contract. </label>
                         </div>
                     </div>
+                    <div class="row">
+                        <span id="terms-book-err" class="text-danger">Please Accept Terms & Conditions</span>
+                    </div>
+                    
                     <div class="row pt-2">
                         <hr class="seperator">
                     </div>
@@ -461,7 +468,7 @@
 
                         </div>
                         <div class="col-md-3">
-                            <button type="submit" class="complete_booking_btn">Complete Booking</button>
+                            <button type="submit" id="complete_booking_btn" class="complete_booking_btn">Complete Booking</button>
                         </div>
 
                     </div>
@@ -687,7 +694,7 @@
             </div>
             <div class="modal-body">
                 <div class="col-lg-4">
-                    
+
                     <div class="row ps_container justify-content-center">
                         <div class="row pt-4 ps_p_tag">
                             <div class="d-flex">
@@ -697,7 +704,7 @@
                                 <p class="ps_time_meredian">PM</p>
                             </div>
                         </div>
-                        
+
                         <div class="row pt-3">
                             <label>Duration</label>
                         </div>

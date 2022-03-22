@@ -27,6 +27,7 @@
             <ul class="nav flex-column nav-pills">
                 <li id="v-pills-nsr-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-nsr"><a href="#" class="nav-link">New Service Requests</a></li>
                 <li id="v-pills-us-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-us"><a href="#" class="nav-link">Upcoming Services</a></li>
+                <li id="v-pills-ss-nav" class="nav-item" data-bs-toggle="pill" data-bs-target="#v-pills-ss"><a href="#" class="nav-link">Service Schedule</a></li>
                 <li id="v-pills-sh-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-sh"><a href="#" class="nav-link">Service History</a></li>
                 <li id="v-pills-mr-nav" class="nav-item " data-bs-toggle="pill" data-bs-target="#v-pills-mr"><a href="#" class="nav-link">My Ratings</a></li>
                 <li id="v-pills-bc-nav" class="nav-item" data-bs-toggle="pill" data-bs-target="#v-pills-bc"><a href="#" class="nav-link">Block Customer</a></li>
@@ -131,7 +132,7 @@
                                         </td>
 
                                         <td class="col-md-3 text-center">
-                                            <div class="">
+                                            <div class="" data-bs-toggle="modal" data-bs-target="@("#servicedetailModal"+ser.service_id)">
                                                 <p>
                                                     <img src="/asset/calendar2.png"> <b>@date</b><br>
                                                     <img src="/asset/layer-14.png">@start - @end
@@ -388,7 +389,7 @@
                                         </td>
 
                                         <td class="col-md-3 text-center">
-                                            <div class="">
+                                            <div class="" data-bs-toggle="modal" data-bs-target="@("#serviceacceptcancelModal"+ser.service_id)">
                                                 <p>
                                                     <img src="/asset/calendar2.png"> <b>@date</b><br>
                                                     <img src="/asset/layer-14.png">@start - @end
@@ -549,6 +550,28 @@
                 </table>
             </div>
 
+            <div id="v-pills-ss" class="tab-pane fade">
+                <div id="calendar">
+
+                </div>
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                            </div>
+                            <div class="modal-body">
+                                <p id="pDetails"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" data-bs-dismiss="modal">close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="tab-pane fade" id="v-pills-sh" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                 <div class="row mt-2">
                     <div class="col-md-5 sh_title">
@@ -570,7 +593,7 @@
                             <th class="text-center">
                                 <p>Service Date</p>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <p>Customer Details</p>
                             </th>
                         </tr>
@@ -641,7 +664,7 @@
                                             <div class="row">
 
                                                 
-                                                <div class="col-sm-8 spsh_address">
+                                                <div class="col-sm-12 text-center spsh_address">
                                                     <div class="row">
                                                         <pre>       @ser.cust_name</pre>
                                                     </div>
@@ -745,31 +768,31 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="d-flex spmr_stars">
-                                                            @for (int i = 0; i < rate_int; i++)
+                                                            @for (int i = 0; i < rate_int+1; i++)
                                                             {
                                                                 <img src="/asset/star1.png">
                                                             }
-                                                            @for (int i = rate_int; i < 5; i++)
+                                                            @for (int i = rate_int+1; i < 5; i++)
                                                             {
                                                                 <img src="/asset/star2.png">
                                                             }
-                                                            @if (rate_int == 1)
+                                                            @if (rate_int+1 == 1)
                                                             {
                                                                 <pre>      Poor</pre>
                                                             }
-                                                            @if (rate_int == 2)
+                                                            @if (rate_int+1 == 2)
                                                             {
                                                                 <pre>      Average</pre>
                                                             }
-                                                            @if (rate_int == 3)
+                                                            @if (rate_int+1 == 3)
                                                             {
                                                                 <pre>      Good</pre>
                                                             }
-                                                            @if (rate_int == 4)
+                                                            @if (rate_int+1 == 4)
                                                             {
                                                                 <pre>      Very Good</pre>
                                                             }
-                                                            @if (rate_int == 5)
+                                                            @if (rate_int+1 == 5)
                                                             {
                                                                 <pre>      Excellent</pre>
                                                             }
@@ -784,6 +807,10 @@
                                             <div class="row">
                                                 <p><b>Customer Comments : </b>@ser.cust_feedback</p>
                                             </div>
+                                            
+						  		            <div class="row spaceunder">
+						  			
+						  		            </div>
                                         </td>
 
                                     </tr>
@@ -855,7 +882,7 @@
             </div>
 
 
-            <div class="tab-pane fade show active" id="v-pills-mySetting" role="tabpanel" area-labelledby="v-pills-mySetting-tab">
+            <div class="tab-pane fade show active myDetail_form" id="v-pills-mySetting" role="tabpanel" area-labelledby="v-pills-mySetting-tab">
                 <!-- Pills navs -->
                 <ul class="row mySetting_header nav nav-pills">
                     <li id="ms_head_1" class="nav-item col-lg-3 active" data-bs-toggle="pill" data-bs-target="#spmyDetails"><a href="#" class="nav-link">My Details</a></li>
@@ -865,7 +892,7 @@
 
                 <!-- Pills content -->
                 <!-- -----------------------mydetails content---------------- -->
-                <form asp-action="spMydetail" asp-controller="Home" class="tab-pane fade show active" id="spmyDetails" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                <form asp-action="spMydetail" asp-controller="Home" class="tab-pane fade show active myDetail_form" id="spmyDetails" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                     @if (Model != null)
                     {
                         <div class="row pt-3">
@@ -923,7 +950,8 @@
                                     <label>First Name</label>
                                 </div>
                                 <div class="row pt-1">
-                                    <input asp-for="Firsname" value="@Model.Firsname" class="form-control" type="text" placeholder="Firstname" />
+                                    <input asp-for="detailViewModel.Firsname" value="@Model.detailViewModel.Firsname" class="form-control" type="text" placeholder="Firstname" />
+                                    <span asp-validation-for="detailViewModel.Firsname" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -931,7 +959,8 @@
                                     <label>Last Name</label>
                                 </div>
                                 <div class="row pt-1">
-                                    <input asp-for="Lastname" value="@Model.Lastname" class="form-control" type="text" placeholder="Lastname" />
+                                    <input asp-for="detailViewModel.Lastname" value="@Model.detailViewModel.Lastname" class="form-control" type="text" placeholder="Lastname" />
+                                    <span asp-validation-for="detailViewModel.Lastname" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -952,8 +981,10 @@
                                 <div class="row pt-1">
                                     <div class="input-group">
                                         <span class="c_code align-items-center justify-content-center">+49</span>
-                                        <input asp-for="phone" value="@Model.phone" type="text" class="form-control" id="Phone number" placeholder="Mobile Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" pattern="[0-9]{10}" />
+                                        <input asp-for="detailViewModel.phone" value="@Model.detailViewModel.phone" type="text" class="form-control" id="Phone number" placeholder="Mobile Number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" pattern="[0-9]{10}" />
+
                                     </div>
+                                    <span asp-validation-for="detailViewModel.phone" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4 spDOB_select">
@@ -1163,7 +1194,8 @@
                                     <label>Street Name</label>
                                 </div>
                                 <div class="row pt-1">
-                                    <input asp-for="street" value="@Model.street" class="form-control" type="text" placeholder="Street name" />
+                                    <input asp-for="detailViewModel.street" value="@Model.detailViewModel.street" class="form-control" type="text" placeholder="Street name" />
+                                    <span asp-validation-for="detailViewModel.street" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -1171,7 +1203,8 @@
                                     <label>House Number</label>
                                 </div>
                                 <div class="row pt-1">
-                                    <input asp-for="house" value="@Model.house" class="form-control" type="text" placeholder="House number" />
+                                    <input asp-for="detailViewModel.house" value="@Model.detailViewModel.house" class="form-control" type="text" placeholder="House number" />
+                                    <span asp-validation-for="detailViewModel.house" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -1179,7 +1212,8 @@
                                     <label>Postal code</label>
                                 </div>
                                 <div class="row pt-1">
-                                    <input asp-for="postal" value="@Model.postal" class="form-control" type="text" placeholder="Postalcode" />
+                                    <input asp-for="detailViewModel.postal" value="@Model.detailViewModel.postal" class="form-control" type="text" placeholder="Postalcode" />
+                                    <span asp-validation-for="detailViewModel.postal" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -1187,7 +1221,8 @@
                                     <label>City</label>
                                 </div>
                                 <div class="row">
-                                    <input asp-for="city" value="@Model.city" class="form-control" type="text" placeholder="city" />
+                                    <input asp-for="detailViewModel.city" value="@Model.detailViewModel.city" class="form-control" type="text" placeholder="city" />
+                                    <span asp-validation-for="detailViewModel.city" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -1227,16 +1262,19 @@
                                 <label>New Password</label>
                             </div>
                             <div class="row pt-1">
-                                <input asp-for="new_pwd" type="password" id="password"  minlength="1" class="form-control" placeholder="Password" />
+                                <input asp-for="forgot.fpassword" type="password" id="password" class="form-control" placeholder="Password" />
+                                <span asp-validation-for="forgot.fpassword" class="text-danger"></span>
                             </div>
 
                             <div class="row pt-3">
                                 <label>Confirm Password</label>
                             </div>
                             <div class="row pt-1">
-                                <input type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" required>
-                                <span id='message'></span>
+                                <input type="password" asp-for="forgot.confirmPassword" id="confirm_password" class="form-control" placeholder="Confirm Password">
+                                <span asp-validation-for="forgot.confirmPassword" class="text-danger"></span>
+                                @*<span id='message'></span>*@
                             </div>
+
 
                             <div class="row pt-2 save_btn">
                                 <div class="col-sm-5">

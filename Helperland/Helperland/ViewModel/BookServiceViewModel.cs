@@ -18,8 +18,7 @@ namespace Helperland.ViewModel
         public string phoneno { get; set; }
         public string postalCode { get; set; }
         
-        [Required]
-        public bool checkPolicy { get; set; }
+        
 
         public int addressId { get; set; }
         public int addressId2 { get; set; }

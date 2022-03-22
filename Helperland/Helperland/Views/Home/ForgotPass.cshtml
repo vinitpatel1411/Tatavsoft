@@ -1,4 +1,4 @@
-﻿@model Helperland.ViewModel.LoginViewModel
+﻿@model Helperland.ViewModel.ForgotPasswordViewModel
 
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
@@ -15,12 +15,14 @@
         
         <div class="col-md-12">
             <label>New Password</label>
-            <input asp-for="Password" type="password" id="password" minlength="1" class="form-control" placeholder="Password" required>
+            <input asp-for="fpassword" type="password" id="password" class="form-control" placeholder="Password">
+            <span asp-validation-for="fpassword" class="text-danger"></span>
         </div>
         <div class="col-md-12">
             <label>Confirm Password</label>
-            <input type="password" id="confirm_password" name="ConfirmPassword" class="form-control" placeholder="Confirm Password" required>
-            <span id='message'></span>
+            <input type="password" id="confirm_password" asp-for="confirmPassword" class="form-control" placeholder="Confirm Password">
+            <span asp-validation-for="confirmPassword" class="text-danger"></span>
+            @*<span id='message'></span>*@
         </div>
         
         

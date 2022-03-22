@@ -269,13 +269,13 @@
                                                     <form asp-action="service_reschedule_admin" asp-controller="Home">
                                                         <div class="row">
                                                             <div class="col-md-6 date-container">
-                                                                <input asp-for="c_ser_date" type="text" id="@("service_date"+ser.ser_id)" value="@(date)"  class="form-control date_field" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="01/01/1111" />
+                                                                <input asp-for="c_ser_date" type="text" id="@("service_date"+ser.ser_id)" value="@(date)"  class="form-control date_field" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="01/01/1111" required>
                                                                 <span class="date-button">
                                                                     <img src="/asset/admin-calendar-blue.png">
                                                                 </span>
                                                             </div>
                                                             <div class="col-md-6 clock-container">
-                                                                <input asp-for="c_ser_time" id="@("service_time"+ser.ser_id)" type="time" placeholder="00:00" class="form-control" >
+                                                                <input asp-for="c_ser_time" id="@("service_time"+ser.ser_id)" type="time" placeholder="00:00" class="form-control" required>
                                                                 <span class="clock-button">
                                                                     <img src="/asset/clock-blue.png">
                                                                 </span>
@@ -292,10 +292,8 @@
                                                                 </div>
                                                                 <div class="row pt-1">
                                                                     <div class="col-sm-12">
-                                                                        <input asp-for="c_street" id="@("add_street"+ser.ser_id)" value="@(add[0]+" "+add[1])" type="text" placeholder="Street Name" class="form-control" />
-                                                                        <div id="add_street_err" class="text-danger fade">
-                                                                            streetname required
-                                                                        </div>
+                                                                        <input asp-for="adminServiceAddress.c_street" id="@("add_street"+ser.ser_id)" value="@(add[0]+" "+add[1])" type="text" placeholder="Street Name" class="form-control" />
+                                                                        <span class="text-danger" asp-validation-for="adminServiceAddress.c_street"></span>
                                                                     </div>
                                                                 </div>
 
@@ -304,8 +302,8 @@
                                                                 </div>
                                                                 <div class="row pt-1">
                                                                     <div class="col-sm-12">
-                                                                        <input asp-for="c_postal" id="@("add_postal"+ser.ser_id)" value="@(ser.pincode)" type="text" placeholder="Postalcode" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
-
+                                                                        <input asp-for="adminServiceAddress.c_postal" id="@("add_postal"+ser.ser_id)" value="@(ser.pincode)" type="text" placeholder="Postalcode" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                                                        <span class="text-danger" asp-validation-for="adminServiceAddress.c_postal"></span>
                                                                     </div>
                                                                 </div>
 
@@ -319,10 +317,8 @@
                                                                 </div>
                                                                 <div class="row pt-1">
                                                                     <div class="col-sm-12">
-                                                                        <input asp-for="c_hno" id="@("add_house"+ser.ser_id)" value="@(add[2])" type="text" placeholder="House number" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
-                                                                        <div id="add_house_err" class="text-danger fade">
-                                                                            House number required
-                                                                        </div>
+                                                                        <input asp-for="adminServiceAddress.c_hno" id="@("add_house"+ser.ser_id)" value="@(add[2])" type="text" placeholder="House number" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                                                        <span class="text-danger" asp-validation-for="adminServiceAddress.c_hno"></span>
                                                                     </div>
                                                                 </div>
 
@@ -331,10 +327,8 @@
                                                                 </div>
                                                                 <div class="row pt-1">
                                                                     <div class="col-sm-12">
-                                                                        <input asp-for="c_city" id="@("add_city"+ser.ser_id)" value="@(ser.city)" type="text" placeholder="City" class="form-control" name="cityname" />
-                                                                        <div id="add_city_err" class="text-danger fade">
-                                                                            city name required
-                                                                        </div>
+                                                                        <input asp-for="adminServiceAddress.c_city" id="@("add_city"+ser.ser_id)" value="@(ser.city)" type="text" placeholder="City" class="form-control" name="cityname" />
+                                                                        <span class="text-danger" asp-validation-for="adminServiceAddress.c_city"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>

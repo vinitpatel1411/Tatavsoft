@@ -13,7 +13,7 @@ namespace Helperland.ViewModel
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", ErrorMessage = "Invalid Email format")]
         [Required(ErrorMessage = "Please Enter Email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please Enter Password")]
         public string Password { get; set; }
         public bool remember { get; set; }
     }

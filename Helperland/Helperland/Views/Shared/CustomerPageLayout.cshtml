@@ -24,7 +24,7 @@
         <!-- desktop view nav start -->
         <nav class="serviceHistory-nav navbar navbar-expand-lg navbar-dark p-0 fixed-top " id="serHistoryNav">
             <div class="container-fluid">
-                <a class="navbar-brand px-15" href="#">
+                <a class="navbar-brand px-15" asp-action="Index" asp-controller="Home">
                     <img src="/asset/logo-small.png">
                 </a>
                 <div class="" id="navbarSupportedContent">
@@ -85,24 +85,6 @@
                                         </a>
                                     </li>
                                 }
-                                @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserTypeId") == 2)
-                                {
-                                    <li>
-                                        <a class="dropdown-item">
-                                            My Dashboard
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-action="spMySetting" asp-controller="Home">
-                                            My Settings
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home">
-                                            Logout
-                                        </a>
-                                    </li>
-                                }
 
 
                             </ul>
@@ -116,7 +98,7 @@
         <nav class="shSmallNav serviceHistory-nav fixed-top" id="smSerHistoryNav">
             <div class="container-fluid">
                 <div class="smallNavlogo">
-                    <a href="#"><img src="/asset/logo-small.png" alt=""></a>
+                    <a asp-action="Index" asp-controller="Home"><img src="/asset/logo-small.png" alt=""></a>
                 </div>
                 <div class="smallNavNofitify">
                     <a class="m-2" href="#">
@@ -132,7 +114,7 @@
                     <div class="secondPart">
                         <div class="uName">
                             Welcome,<br>
-                            <strong>Visvarajsinh</strong>
+                            <strong>@HttpContextAccessor.HttpContext.Session.GetString("UserName")</strong>
                         </div>
                         <hr class="smNavSeparator">
                         <div class="nav flex-column text-start dashNavSide" role="tablist" aria-orientation="vertical">
@@ -151,13 +133,6 @@
 
                             <a id="v-pills-favPro-tab" data-bs-toggle="pill" data-bs-target="#v-pills-fp" role="tab"
                                aria-controls="#v-pills-fp" aria-selected="false">Favourite Pros</a>
-
-                            <a id="v-pills-invoices-tab" data-bs-toggle="pill" data-bs-target="#v-pills-invoices"
-                               role="tab" aria-controls="v-pills-invoices" aria-selected="false">Invoices</a>
-
-                            <a id="v-pills-notification-tab" data-bs-toggle="pill"
-                               data-bs-target="#v-pills-notif" role="tab" aria-controls="#v-pills-notif"
-                               aria-selected="false">Notifications</a>
                         </div>
 
                         <div class="navItem"><a asp-action="mySetting" asp-controller="Home"> My Settings</a></div>
@@ -168,10 +143,10 @@
                             <div class="navItem"><a href="#">Book Now</a></div>
                         }
 
-                        <div class="navItem"><a href="#">Plans & Services</a></div>
+                        <div class="navItem"><a asp-action="Price" asp-controller="Home">Plans & Services</a></div>
                         <div class="navItem"><a href="#">Warranty</a></div>
                         <div class="navItem"><a href="#">Blog</a></div>
-                        <div class="navItem"><a href="#">Contact</a></div>
+                        <div class="navItem"><a asp-action="Contact" asp-controller="Home">Contact</a></div>
                         <hr class="smNavSeparator">
                         <div class="d-flex justify-content-center align-items-center  socialIcon">
                             <img class="fb-social" src="/asset/facebook-mobile-menu.png" alt="Facebook">
@@ -346,12 +321,16 @@
     @if (ViewBag.add_change != null)
     {
         <script>
-            $('#ms_head_2').click();
-            $('#myDetails').removeClass('show');
-            $('#myDetails').removeClass('active');
+            $(document).ready(function () {
 
-            $('#myAddresses').addClass('active');
-            $('#myAddresses').addClass('show');
+                $('#ms_head_2').click();
+                console.log("show address tab");
+                $('#myDetails').removeClass('show');
+                $('#myDetails').removeClass('active');
+
+                $('#myAddresses').addClass('active');
+                $('#myAddresses').addClass('show');
+            })
         </script>
     }
 
