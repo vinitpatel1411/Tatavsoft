@@ -64,9 +64,25 @@ namespace EmployeeManagement.Data.BaseRepository
         public int  GetDepartmentId(string name)
         {
             var result = _context.Departments.Where(a => a.Name == name).Select(a => a.Id).FirstOrDefault();
+            if(result == 0)
+            {
+                result = addDepartmentName(name);
+                return result;
+            }
+            else
+            {
+                return result;
+            }
+        }
+        int addDepartmentName(string name)
+        {
+            Department dept = new Department();
+            dept.Name = name;
+            _context.Departments.Add(dept);
+            _context.SaveChanges();
+            var result = _context.Departments.Where(a => a.Name == name).Select(a => a.Id).FirstOrDefault();
             return result;
         }
-
         public int GetEmployeeId(string name)
         {
             var result = _context.Employees.Where(a => a.EmpName == name).Select(a => a.Id).FirstOrDefault();

@@ -28,9 +28,9 @@ namespace EmployeeManagement.Data.Services
             emp.TotalSalary = employeeSalary.TotalSalary;
             emp.DepartmentId = _service.GetDepartmentId(employeeSalary.DepartmentName);
             _service.addEmployee(emp);
-            Department dept = new Department();
+            /*Department dept = new Department();
             dept.Name = employeeSalary.DepartmentName;
-            _service.addDepartment(dept);
+            _service.addDepartment(dept);*/
             Salary sal = new Salary();
             sal.EmpId = _service.GetEmployeeId(employeeSalary.EmpName);
             sal.TotalSalary = employeeSalary.TotalSalary;
