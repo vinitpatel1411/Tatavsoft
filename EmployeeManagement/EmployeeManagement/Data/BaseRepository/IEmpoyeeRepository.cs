@@ -15,7 +15,7 @@ namespace EmployeeManagement.Data.BaseRepository
         Employee GetById(int id);
         int GetDepartmentId(string name);
         int GetEmployeeId(string name);
-        void UpdateEmployeeDetails(int id, Employee emp);
+        void UpdateEmployeeDetails(Employee emp);
 
         void DeleteEmployee(Employee emp);
     }

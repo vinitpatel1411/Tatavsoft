@@ -51,19 +51,23 @@ namespace EmployeeManagement.Controllers
         {
             ViewBag.Deptlist = new List<string>() { "Development", "Testing", "QA", "Management", "Sales", "Finance" };
             var employeedetails = _service.GetById(id);
+            EmployeeEditViewModel employeeEditViewModel = new EmployeeEditViewModel
+            {
+                Id = employeedetails.Id,
+                EmpName = employeedetails.EmpName,
+                Designation = employeedetails.Designation,
+                DepartmentName = employeedetails.Department.Name,
+                TotalSalary = employeedetails.TotalSalary
+            };
             if (employeedetails == null)
                 return View("Not Found");
             else
-                return View(employeedetails);
+                return View(employeeEditViewModel);
         }
         [HttpPost]
-        public IActionResult Edit(int id, [Bind("EmpId,EmpName,Designation,Department,TotalSalary")] Employee emp)
+        public IActionResult Edit(EmployeeEditViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(emp);
-            }
-            _service.UpdateEmployeeDetails(id, emp);
+            _service.UpdateEmployeeDetails(model);
             return RedirectToAction(nameof(Details));
 
         }

@@ -54,9 +54,14 @@ namespace EmployeeManagement.Data.Services
             return Emp;
         }
 
-        public void UpdateEmployeeDetails(int id, Employee emp)
+        public void UpdateEmployeeDetails(EmployeeEditViewModel model)
         {
-            _service.UpdateEmployeeDetails(id, emp);
+            Employee employee = _service.GetById(model.Id);
+            employee.EmpName = model.EmpName;
+            employee.Designation = model.Designation;
+            employee.TotalSalary = model.TotalSalary;
+            employee.DepartmentId = _service.GetDepartmentId(model.DepartmentName);
+            _service.UpdateEmployeeDetails(employee);
         }
     }
 }

@@ -23,11 +23,11 @@ namespace EmployeeManagement.Data.BaseRepository
 
         public Employee GetById(int id)
         {
-            var result = _context.Employees.FirstOrDefault(n => n.Id == id);
+            var result = _context.Employees.Include(u=>u.Department).FirstOrDefault(n => n.Id == id);
             return result;
         }
 
-        public void UpdateEmployeeDetails(int id, Employee newemp)
+        public void UpdateEmployeeDetails(Employee newemp)
         {
             _context.Update(newemp);
             _context.SaveChanges();

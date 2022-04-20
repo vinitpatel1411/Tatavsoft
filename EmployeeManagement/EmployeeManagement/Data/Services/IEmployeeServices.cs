@@ -12,7 +12,7 @@ namespace EmployeeManagement.Data.Services
         void addEmployeeDetails(EmployeeSalaryViewModel employeeSalary);
         List<Employee> GetEmpDetails();
         
-        void UpdateEmployeeDetails(int id, Employee emp);
+        void UpdateEmployeeDetails(EmployeeEditViewModel model);
 
         void DeleteEmployee(Employee emp);
 
