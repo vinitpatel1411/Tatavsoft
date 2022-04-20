@@ -1,0 +1,80 @@
+﻿@model EmployeeManagement.ViewModels.EmployeeSalaryViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Employee</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Index">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="EmpName" class="control-label"></label>
+                        <input asp-for="EmpName" class="form-control" />
+                        <span asp-validation-for="EmpName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Designation" class="control-label"></label>
+                        <input asp-for="Designation" class="form-control" />
+                        <span asp-validation-for="Designation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="display:inline-block;">
+                        <label asp-for="Gender" class="form-check-label"></label>
+                        <div class="form-check">
+                            <input type="radio" name="Gender" value="Male" class="form-check-input" />
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Male
+                            </label>
+
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="Gender" value="Female" class="form-check-input" />
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Female
+                            </label>
+
+                        </div>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Age" class="control-label"></label>
+                        <input asp-for="Age" class="form-control" />
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TotalSalary" class="control-label"></label>
+                        <input asp-for="TotalSalary" class="form-control" />
+                        <span asp-validation-for="TotalSalary" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="JoinDate" class="control-label"></label>
+                        <input asp-for="JoinDate" class="datepicker form-control" />
+                        <span asp-validation-for="JoinDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DepartmentName" class="control-label"></label>
+                        <select asp-for="DepartmentName" asp-items="new SelectList(ViewBag.Deptlist)" class="form-control">
+                        </select>
+                        <span asp-validation-for="DepartmentName" class="text-danger"></span>
+                    </div>
+                    <footer>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                            <a class="btn btn-outline-secondary" asp-action="Details">Show Details</a>
+                        </div>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

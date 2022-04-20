@@ -1311,20 +1311,22 @@
         </script>
     }
     <script>
-        $(document).ready(function () {
+        
 
             var events = [];
             $.ajax({
                 type: "GET",
-                url: "/Home/GetEvents",
+                url: "/Home/GetServiceReqCalendar",
                 success: function (data) {
-                    $.each(data, function (i, v) {
+                    $.each(data, function (i) {
                         events.push({
-                            title: "Service Details",
-                            description: v.Comments,
-                            start: moment(v.ServiceStartDate),
-                            
+                            id: data[i].id,
+                            title: data[i].title,
+                            start: data[i].start,
+                            Date: data[i].start,
+                            text: data[i].addressline1
                         });
+                        console.log(data);
                     })
                     GenerateCalendar(events);
                 },
@@ -1341,22 +1343,22 @@
                     timeFormat: 'h(:mm)a',
                     header: {
                         left: 'prev,next title',
-                        right: 'month,basicWeek,basicDay,agenda'
+                        right: ''
                     },
                     eventLimit: true,
                     eventColor: '#378006',
                     events: events,
-                    eventClick: function (calEvent, jsEvent, view) {
-                        $('#myModal #eventTitle').text(calEvent.title);
+                    eventClick: function (calEvent) {
+                        $('#myModal #eventTitle').text("Time : "+calEvent.title);
                         var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.timeFormat("DD-MMM-YYYY HH:mm a")));
-                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-                        $('#myModal #pDetails').empty().html($description);
-                        $('#myModal').modal();
+                        $description.append($('<p/>').html('<b>Date:</b>' + calEvent.Date));
+                        $description.append($('<p/>').html('<b>Address:</b>' + calEvent.text));
+                        $('#myModal .modal-body').empty().html($description);
+                        $('#myModal').modal("show");
                     }
                 });
             }
-        })
+        
     </script>
 </body>
 </html>

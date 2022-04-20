@@ -160,9 +160,6 @@ F:\Tatvasoft_training\training_project\helperland\Helperland\Helperland\obj\Debu
 F:\Tatvasoft_training\training_project\helperland\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Shared\ServiceProviderPageLayout.cshtml.g.cs
 F:\Tatvasoft_training\training_project\helperland\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Home\Admin.cshtml.g.cs
 F:\Tatvasoft_training\training_project\helperland\Helperland\Helperland\obj\Debug\net5.0\Razor\Views\Shared\AdminPageLayout.cshtml.g.cs
-C:\Users\HOME\Downloads\Yaksh_Training-helperland (1)\Yaksh_Training-helperland\helperland\Helperland\Helperland\obj\Debug\net5.0\Helperland.dll
-C:\Users\HOME\Downloads\Yaksh_Training-helperland (1)\Yaksh_Training-helperland\helperland\Helperland\Helperland\obj\Debug\net5.0\ref\Helperland.dll
-C:\Users\HOME\Downloads\Yaksh_Training-helperland (1)\Yaksh_Training-helperland\helperland\Helperland\Helperland\obj\Debug\net5.0\Helperland.pdb
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\bin\Debug\net5.0\appsettings.Development.json
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\bin\Debug\net5.0\appsettings.json
 F:\Study Material\Tatavsoft(Training)\Helperland\Helperland\bin\Debug\net5.0\libman.json

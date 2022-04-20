@@ -395,6 +395,35 @@ h2{
 	border-top: none;
 }
 
+#myModal .modal-content {
+	max-width: 320px;
+}
+
+#myModal .login-btn {
+	text-align: center;
+}
+
+#myModal button {
+	color: white;
+	background-color: #6DA9B5;
+	padding: 5px 15px;
+	border: 1px solid transparent;
+	border-radius: 17px;
+}
+
+#myModal .modal-header {
+	border-bottom: none;
+}
+
+#myModal .modal-body {
+	text-align: center;
+	padding: 0 1rem;
+}
+
+#myModal .modal-footer {
+	border-top: none;
+}
+
 
 
 .delete_modal .modal-content {
@@ -2039,15 +2068,15 @@ table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.
 
 
 table.dataTable thead .sorting {
-	background-image: url("../images/sort.png")!important;
+	background-image: url("../asset/sort.png")!important;
 }
 
 table.dataTable thead .sorting_asc {
-	background-image: url("../images/sort_asc.png") !important;
+	background-image: url("../asset/sort_asc.png") !important;
 }
 
 table.dataTable thead .sorting_desc {
-	background-image: url("../images/sort_desc.png") !important;
+	background-image: url("../asset/sort_desc.png") !important;
 }
 
 

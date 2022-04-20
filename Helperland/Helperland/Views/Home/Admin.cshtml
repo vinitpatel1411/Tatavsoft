@@ -26,20 +26,40 @@
                         <form>
                             <div class="user_mng_search_form ">
                                 <div>
-                                    <input type="text" name="ServiceID" class="form-control" id="serviceID1" placeholder="Service ID">
+                                    <input type="text" name="ServiceID" class="form-control" id="searchServiceId" placeholder="Service ID">
                                 </div>
                                 <div>
-                                    <select class="form-control form-select">
-                                        <option disabled selected>Customer</option>
+                                    <select class="form-control form-select" id="customerSelect">
+                                        <option disabled selected value=" ">Customers</option>
+                                        @foreach (var data in Model.users)
+                                        {
+                                            @if (data.UserTypeId == 1)
+                                            {
+                                                var u_name = data.FirstName + " " + data.LastName;
+
+                                                <option value="@u_name">@u_name</option>
+                                            }
+                                        }
+
+
                                     </select>
                                 </div>
                                 <div>
-                                    <select class="form-control form-select">
-                                        <option disabled selected>Service Provider</option>
+                                    <select class="form-control form-select" id="spSelect">
+                                        <option disabled selected value="">Service Provider</option>
+                                        @foreach (var data in Model.users)
+                                        {
+                                            @if (data.UserTypeId == 2)
+                                            {
+                                                var u_name = data.FirstName + " " + data.LastName;
+
+                                                <option value="@u_name">@u_name</option>
+                                             }
+                                        }
                                     </select>
                                 </div>
                                 <div>
-                                    <select name="status" id="status1" class="form-control form-select">
+                                    <select name="status" id="reqStatusSelect" class="form-control form-select">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Active">Active</option>
                                         <option value="Completed">Completed</option>
@@ -51,7 +71,7 @@
                                 <div class="d-flex">
                                     <div>
                                         <div class="sd-container">
-                                            <input class="form-control" type="text" name="from_date" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                                            <input class="form-control" id="searchFromDate" type="text" name="from_date" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
                                             <span class="open-button">
                                                 <button type="button"><img src="/asset/admin-calendar-blue.png"></button>
                                             </span>
@@ -59,7 +79,7 @@
                                     </div>
                                     <div>
                                         <div class="sd-container">
-                                            <input class="form-control" type="text" name="to_date" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                                            <input class="form-control" id="searchToDate" type="text" name="to_date" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
                                             <span class="open-button">
                                                 <button type="button"><img src="/asset/admin-calendar-blue.png"></button>
                                             </span>
@@ -69,7 +89,7 @@
 
 
                                 <div>
-                                    <button class="form-control search_btn" id="search" type="submit" name="search">search</button>
+                                    <button class="form-control search_btn" id="searchBtn" type="button" name="search">search</button>
                                 </div>
                                 <div>
                                     <button class="form-control" type="submit" name="Clear">Clear</button>
@@ -396,24 +416,37 @@
                     <div>
                         <form>
                             <div class="user_mng_search_form ">
+
                                 <div>
-                                    <input type="text" name="User name" class="form-control" id="username" placeholder="User name">
+                                    <select class="form-control form-select" id="searchUN">
+                                        <option disabled selected value=" ">User name</option>
+                                        @foreach (var data in Model.users)
+                                        {
+
+                                            var u_name = data.FirstName + " " + data.LastName;
+
+                                            <option value="@u_name">@u_name</option>
+                                        }
+
+                                    </select>
                                 </div>
+
+
                                 <div>
                                     <input type="text" name="User role" class="form-control" id="userrole" placeholder="User Role">
                                 </div>
                                 <div>
                                     <div class="input-group">
                                         <span class="c_code align-items-center justify-content-center">+49</span>
-                                        <input type="text" name="Phonenumber" class="form-control" id="Phone number" placeholder="Phone Number">
+                                        <input type="tel" name="Phonenumber" class="form-control" id="searchPhone" placeholder="Phone Number">
                                     </div>
                                 </div>
                                 <div>
-                                    <input type="text" name="pincode" class="form-control" id="pincode" placeholder="Pincode">
+                                    <input type="text" name="pincode" class="form-control" id="searchPinCode" placeholder="Pincode">
                                 </div>
 
                                 <div>
-                                    <button class="form-control search_btn" type="submit" name="search">search</button>
+                                    <button class="form-control search_btn" id="searchB" type="button" name="search">search</button>
                                 </div>
                                 <div>
                                     <button class="form-control" type="submit" name="Clear">Clear</button>

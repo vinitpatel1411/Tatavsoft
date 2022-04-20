@@ -687,3 +687,51 @@ $(document).on('click', '.dashNavSide a', function () {
 })
 
 
+//--------------------------for date of birth--------------------
+$(document).ready(function () {
+
+    var mont = [4, 6, 9, 11];
+    var month_31 = [1, 3, 5, 7, 8, 10, 12];
+    var num_check = 0;
+    var feb_check = 0;
+    $(document).on('change', '#DOB_month', function () {
+        var dob_day = $("#DOB_day").val();
+        var dob_month = $("#DOB_month").val();
+        console.log("this month " + dob_month);
+        $.each(mont, function (index, value) {
+            if (feb_check == 1) {
+                $("#DOB_day option[value=31]").removeAttr('disabled');
+                $("#DOB_day option[value=30]").removeAttr('disabled');
+                $("#DOB_day option[value=29]").removeAttr('disabled');
+                feb_check = 0;
+            }
+            if (dob_month == value && num_check == 0) {
+                $("#DOB_day option[value=31]").remove();
+                num_check++;
+                console.log('not feb' + value + ' numcheck ' + num_check);
+            }
+        });
+        $.each(month_31, function (index, value) {
+            if (feb_check == 1) {
+                $("#DOB_day option[value=31]").removeAttr('disabled');
+                $("#DOB_day option[value=30]").removeAttr('disabled');
+                $("#DOB_day option[value=29]").removeAttr('disabled');
+                feb_check = 0;
+            }
+            if (dob_month == value && num_check != 0) {
+                $("#DOB_day").append('<option value=31>31</option>');
+                num_check = 0;
+            }
+        });
+
+        if (dob_month == 2 && feb_check == 0) {
+            $("#DOB_day option[value=31]").attr('disabled', 'disabled');
+            $("#DOB_day option[value=30]").attr('disabled', 'disabled');
+            $("#DOB_day option[value=29]").attr('disabled', 'disabled');
+            feb_check = 1;
+            console.log('feb');
+        }
+    })
+
+
+})

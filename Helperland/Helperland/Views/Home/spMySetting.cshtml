@@ -169,9 +169,9 @@
                                         </td>
                                         <td class="col-md-2">
                                             <div>
-                                                @if(ser.conflictId == null)
-                                                { 
-                                                    <button data-bs-toggle="modal" data-bs-target="@("#servicedetailModal"+ser.service_id)" class="spnsr_accept_btn">Accept</button>    
+                                                @if (ser.conflictId == null)
+                                                {
+                                                    <button data-bs-toggle="modal" data-bs-target="@("#servicedetailModal"+ser.service_id)" class="spnsr_accept_btn">Accept</button>
                                                 }
                                             </div>
                                         </td>
@@ -276,7 +276,7 @@
                                                         <div class="col-sm-3">
                                                             <button data-bs-dismiss="modal" class="service_accept_btn" type="submit"><img src="/asset/ic-check.png">Accept</button>
                                                         </div>
-                                                        
+
                                                     </form>
 
                                                 </div>
@@ -535,7 +535,7 @@
                                                                 <button data-bs-dismiss="modal" class="service_complete_btn" type="submit"><img src="/asset/ic-check.png"> Complete</button>
                                                             </form>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
 
@@ -554,23 +554,27 @@
                 <div id="calendar">
 
                 </div>
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+
+
+
+                <div class="modal fade" id="myModal" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered justify-content-center">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                            <div class="modal-header justify-content-center">
+                                <p class="modal-title"><span id="eventTitle"></span></p>
                             </div>
                             <div class="modal-body">
-                                <p id="pDetails"></p>
+
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn" data-bs-dismiss="modal">close</button>
+                            <div class="modal-footer justify-content-center login-btn">
+                                <button type="submit" data-bs-dismiss="modal">OK</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            
 
             <div class="tab-pane fade" id="v-pills-sh" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                 <div class="row mt-2">
@@ -600,10 +604,10 @@
                     </thead>
 
                     <tbody>
-                        @{ 
-                            if(Model.spServiceHistories != null)
+                        @{
+                            if (Model.spServiceHistories != null)
                             {
-                                foreach(var ser in Model.spServiceHistories)
+                                foreach (var ser in Model.spServiceHistories)
                                 {
                                     int duration_hr = 0;
                                     int duration_min = 0;
@@ -663,7 +667,7 @@
                                         <td class="col-md-5">
                                             <div class="row">
 
-                                                
+
                                                 <div class="col-sm-12 text-center spsh_address">
                                                     <div class="row">
                                                         <pre>       @ser.cust_name</pre>
@@ -683,7 +687,7 @@
                             }
                         }
 
-                        
+
 
                     </tbody>
                 </table>
@@ -768,31 +772,31 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="d-flex spmr_stars">
-                                                            @for (int i = 0; i < rate_int+1; i++)
+                                                            @for (int i = 0; i < rate_int + 1; i++)
                                                             {
                                                                 <img src="/asset/star1.png">
                                                             }
-                                                            @for (int i = rate_int+1; i < 5; i++)
+                                                            @for (int i = rate_int + 1; i < 5; i++)
                                                             {
                                                                 <img src="/asset/star2.png">
                                                             }
-                                                            @if (rate_int+1 == 1)
+                                                            @if (rate_int + 1 == 1)
                                                             {
                                                                 <pre>      Poor</pre>
                                                             }
-                                                            @if (rate_int+1 == 2)
+                                                            @if (rate_int + 1 == 2)
                                                             {
                                                                 <pre>      Average</pre>
                                                             }
-                                                            @if (rate_int+1 == 3)
+                                                            @if (rate_int + 1 == 3)
                                                             {
                                                                 <pre>      Good</pre>
                                                             }
-                                                            @if (rate_int+1 == 4)
+                                                            @if (rate_int + 1 == 4)
                                                             {
                                                                 <pre>      Very Good</pre>
                                                             }
-                                                            @if (rate_int+1 == 5)
+                                                            @if (rate_int + 1 == 5)
                                                             {
                                                                 <pre>      Excellent</pre>
                                                             }
@@ -807,10 +811,10 @@
                                             <div class="row">
                                                 <p><b>Customer Comments : </b>@ser.cust_feedback</p>
                                             </div>
-                                            
-						  		            <div class="row spaceunder">
-						  			
-						  		            </div>
+
+                                            <div class="row spaceunder">
+
+                                            </div>
                                         </td>
 
                                     </tr>
@@ -831,11 +835,11 @@
                 </div>
                 <table id="spbcTable" class="cell-border display">
                     <tbody class="row justify-content-center">
-                        @{ 
-                            if(Model.spBlockCustomers != null)
+                        @{
+                            if (Model.spBlockCustomers != null)
                             {
-                                foreach(var cust in Model.spBlockCustomers)
-                                { 
+                                foreach (var cust in Model.spBlockCustomers)
+                                {
                                     <tr class="col-md-4 spbc_cust_card justify-content-center">
                                         <td class="cust_td">
                                             <div class="cust_td">
@@ -856,7 +860,7 @@
                                                             <input asp-for="customer_id" type="hidden" value="@cust.cust_id" />
                                                             <button type="submit" class="cust_unblock_btn">Unblock</button>
                                                         </form>
-                                                     }
+                                                    }
                                                     else
                                                     {
                                                         <form asp-action="block_cust" asp-controller="Home" class="col-md-12 justify-content-center text-center">
@@ -864,17 +868,18 @@
                                                             <button type="submit" class="cust_block_btn">Block</button>
                                                         </form>
                                                     }
-                                                        
+
                                                 </div>
                                             </div>
                                         </td>
 
-                                    </tr>            
+                                    </tr>
+
                                 }
                             }
                         }
-                        
-                        
+
+
 
 
                     </tbody>
@@ -968,7 +973,7 @@
                                     <label>Email</label>
                                 </div>
                                 <div class="row pt-1">
-                                    <input asp-for="Email" value="@Model.Email" class="form-control" type="email" placeholder="E-mail" disabled/>
+                                    <input asp-for="Email" value="@Model.Email" class="form-control" type="email" placeholder="E-mail" disabled />
                                 </div>
                             </div>
                         </div>
