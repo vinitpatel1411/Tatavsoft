@@ -14,6 +14,7 @@ namespace EmployeeManagement.Data.BaseRepository
         List<Employee> GetEmpDetails();
         Employee GetById(int id);
         int GetDepartmentId(string name);
+        int GetDesigantionId(string name);
         int GetEmployeeId(string name);
         int  UpdateEmployeeDetails(Employee emp);
 
@@ -25,5 +26,7 @@ namespace EmployeeManagement.Data.BaseRepository
         void updateSalary(Salary sal);
 
         List<Department> GetDepartmentList();
+
+        List<Designation> GetDesignationList();
     }
 }

@@ -19,5 +19,7 @@ namespace EmployeeManagement.Data.Services
         Employee GetById(int id);
 
         List<Department> GetDepartmentList();
+
+        List<Designation> GetDesignationList();
     }
 }

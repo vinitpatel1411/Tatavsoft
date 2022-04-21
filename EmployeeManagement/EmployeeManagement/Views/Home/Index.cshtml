@@ -19,7 +19,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Designation" class="control-label"></label>
-                        <input asp-for="Designation" class="form-control" />
+                        <select class="form-control" id="desname" asp-for="Designation" asp-items="@(new SelectList(ViewBag.Deslist,"Id","Name"))">
+                        </select>
                         <span asp-validation-for="Designation" class="text-danger"></span>
                     </div>
                     <div class="form-group" style="display:inline-block;">
@@ -90,6 +91,10 @@
 
         $(function () {
             $("#deptname").chosen();
+        });
+
+        $(function () {
+            $("#desname").chosen();
         });
     </script>
 

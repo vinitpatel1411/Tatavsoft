@@ -21,7 +21,7 @@ namespace EmployeeManagement.Data.Services
         {
             Employee emp = new Employee();
             emp.EmpName = employeeSalary.EmpName;
-            emp.Designation = employeeSalary.Designation;
+            emp.DesignationId = Int32.Parse(employeeSalary.Designation);
             emp.Gender = employeeSalary.Gender;
             emp.JoinDate = employeeSalary.JoinDate;
             emp.Age = employeeSalary.Age;
@@ -54,6 +54,12 @@ namespace EmployeeManagement.Data.Services
             return Dept;
         }
 
+        public List<Designation> GetDesignationList()
+        {
+            List<Designation> Des = _repository.GetDesignationList();
+            return Des;
+        }
+
         public List<Employee> GetEmpDetails()
         {
             var Emp = _repository.GetEmpDetails();
@@ -64,9 +70,9 @@ namespace EmployeeManagement.Data.Services
         {
             Employee employee = _repository.GetById(model.Id);
             employee.EmpName = model.EmpName;
-            employee.Designation = model.Designation;
+            employee.DesignationId = model.DesId;
             employee.TotalSalary = model.TotalSalary;
-            employee.DepartmentId = _repository.GetDepartmentId(model.DepartmentName);
+            employee.DepartmentId = model.DeptId;
             var result =_repository.UpdateEmployeeDetails(employee);
             var salary = _repository.GetSalaryDetails(model.Id);
             if (!(salary == model.TotalSalary))

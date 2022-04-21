@@ -17,13 +17,13 @@ namespace EmployeeManagement.Data.BaseRepository
 
         public List<Employee> GetEmpDetails()
         {
-            List<Employee> emp = _context.Employees.Include(u=>u.Department).ToList();
+            List<Employee> emp = _context.Employees.Include(u=>u.Department).Include(u => u.Designation).ToList();
             return emp;
         }
 
         public Employee GetById(int id)
         {
-            var result = _context.Employees.Include(u=>u.Department).FirstOrDefault(n => n.Id == id);
+            var result = _context.Employees.Include(u=>u.Department).Include(u => u.Designation).FirstOrDefault(n => n.Id == id);
             return result;
         }
 
@@ -115,6 +115,18 @@ namespace EmployeeManagement.Data.BaseRepository
         {
             List<Department> Dept = _context.Departments.ToList();
             return Dept;
+        }
+
+        public List<Designation> GetDesignationList()
+        {
+            List<Designation> Des= _context.Designations.ToList();
+            return Des;
+        }
+
+        public int GetDesigantionId(string name)
+        {
+            var result = _context.Designations.Where(a => a.Name == name).Select(a => a.Id).FirstOrDefault();
+            return result;
         }
     }
 }

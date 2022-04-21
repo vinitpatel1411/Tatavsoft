@@ -26,7 +26,10 @@ namespace EmployeeManagement.Controllers
         {
             List<Department> Dept= _service.GetDepartmentList();
             Dept.Insert(0, new Department { Id = 0, Name = "---Select Department---" });
+            List<Designation> Des = _service.GetDesignationList();
+            Des.Insert(0, new Designation { Id = 0, Name = "---Select Designation---" });
             ViewBag.Deptlist = Dept;
+            ViewBag.Deslist = Des;
             return View();
         }
         [HttpPost]
@@ -50,16 +53,21 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult Edit(int id)
         {
-            ViewBag.Deptlist = new List<string>() { "Development", "Testing", "QA", "Management", "Sales", "Finance" };
             var employeedetails = _service.GetById(id);
             EmployeeEditViewModel employeeEditViewModel = new EmployeeEditViewModel
             {
                 Id = employeedetails.Id,
                 EmpName = employeedetails.EmpName,
-                Designation = employeedetails.Designation,
-                DepartmentName = employeedetails.Department.Name,
+                DesId =employeedetails.DesignationId,
+                DeptId = employeedetails.DepartmentId,
                 TotalSalary = employeedetails.TotalSalary
             };
+            List<Department> Dept = _service.GetDepartmentList();
+            Dept.Insert(0, new Department { Id = employeedetails.DepartmentId, Name = employeedetails.Department.Name });
+            List<Designation> Des = _service.GetDesignationList();
+            Des.Insert(0, new Designation { Id = employeedetails.DesignationId, Name = employeedetails.Designation.Name });
+            ViewBag.Deptlist = Dept;
+            ViewBag.Deslist = Des;
             if (employeedetails == null)
                 return View("Not Found");
             else

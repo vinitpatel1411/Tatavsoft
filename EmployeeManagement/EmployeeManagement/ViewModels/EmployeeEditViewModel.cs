@@ -9,6 +9,9 @@ namespace EmployeeManagement.ViewModels
 {
     public class EmployeeEditViewModel:EmployeeSalaryViewModel
     {
-      public int Id { get; set; }
+        public int Id { get; set; }
+        public int DesId { get; set; }
+        public int DeptId { get; set; }
+
     }
 }
