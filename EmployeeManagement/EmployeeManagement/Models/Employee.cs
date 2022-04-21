@@ -16,8 +16,11 @@ namespace EmployeeManagement.Models
         public string EmpName { get; set; }
         public string Gender { get; set; }
         
-        public string Designation { get; set; }
-        
+        public int DesignationId { get; set; }
+        [ForeignKey("DepartmentId")]
+
+        public virtual Designation Designation { get; set; }
+
         public int Age { get; set; }
         public DateTime JoinDate { get; set; }
         public int DepartmentId { get; set; }

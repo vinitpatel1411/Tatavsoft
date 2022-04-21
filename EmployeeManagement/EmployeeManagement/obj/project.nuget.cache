@@ -1,10 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "/uc4A7fbCtIEuc4V1z2cF81MIX1RUqrL6JX0GMEs+uEShHoXN7X2UqjX+5CwENMY9XazMGDrbdQP9uzR3FwECA==",
+  "dgSpecHash": "9cSZGMdrxRvlfhudt0qbvvWhVuA2iDennE7V8zivtTfLjaiFQ99sw0cM3ok5dZm3wPGaisVM6fEUpCMTxTE1zg==",
   "success": true,
   "projectFilePath": "F:\\Study Material\\Tatavsoft(Training)\\EmployeeManagement\\EmployeeManagement\\EmployeeManagement.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\HOME\\.nuget\\packages\\chosen\\1.2.0\\chosen.1.2.0.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\chosen.jquery\\1.2.0\\chosen.jquery.1.2.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\jquery\\1.4.4\\jquery.1.4.4.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\jquery.ui.core\\1.8.9\\jquery.ui.core.1.8.9.nupkg.sha512",
+    "C:\\Users\\HOME\\.nuget\\packages\\jquery.ui.widgets.datepicker\\1.8.9\\jquery.ui.widgets.datepicker.1.8.9.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\HOME\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

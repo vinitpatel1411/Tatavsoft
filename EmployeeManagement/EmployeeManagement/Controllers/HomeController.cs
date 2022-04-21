@@ -24,7 +24,9 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Deptlist = new List<string>() { "Development", "Testing", "QA", "Management", "Sales", "Finance" };
+            List<Department> Dept= _service.GetDepartmentList();
+            Dept.Insert(0, new Department { Id = 0, Name = "---Select Department---" });
+            ViewBag.Deptlist = Dept;
             return View();
         }
         [HttpPost]
@@ -34,7 +36,6 @@ namespace EmployeeManagement.Controllers
             {
                 return View();
             }
-            ViewBag.Deptlist = new List<string>() { "Development", "Testing", "QA", "Management", "Sales", "Finance" };
             _service.addEmployeeDetails(employeesalary);
             return RedirectToAction(nameof(Details));
 

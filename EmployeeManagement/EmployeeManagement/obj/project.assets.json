@@ -2,6 +2,16 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "chosen/1.2.0": {
+        "type": "package"
+      },
+      "chosen.jquery/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "chosen": "1.2.0",
+          "jquery": "1.4.1"
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -9,6 +19,21 @@
         },
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {}
+        }
+      },
+      "jQuery/1.4.4": {
+        "type": "package"
+      },
+      "jQuery.UI.Core/1.8.9": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "[1.4.4, 1.6.0)"
+        }
+      },
+      "jQuery.UI.Widgets.Datepicker/1.8.9": {
+        "type": "package",
+        "dependencies": {
+          "jQuery.UI.Core": "[1.8.9]"
         }
       },
       "Microsoft.CSharp/4.7.0": {
@@ -1523,6 +1548,33 @@
     }
   },
   "libraries": {
+    "chosen/1.2.0": {
+      "sha512": "nrcF57kN5LRb/drcnK43W+cDKuAxDXhVlTBI4wOmm2eTjQW1/nRjV/G9zs+xavsgtquTH7CeJbYDbZZOsMrABw==",
+      "type": "package",
+      "path": "chosen/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "chosen.1.2.0.nupkg.sha512",
+        "chosen.nuspec",
+        "content/Content/chosen-sprite.png",
+        "content/Content/chosen-sprite@2x.png",
+        "content/Content/chosen.css"
+      ]
+    },
+    "chosen.jquery/1.2.0": {
+      "sha512": "tTk253knlrgBY+xE2TmP91MDad5v3xnK3zDGaaRdB9o7hhnelX5U2jmZhKZyVjCE4q+olYXIhPoia8NXF4PbaQ==",
+      "type": "package",
+      "path": "chosen.jquery/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "chosen.jquery.1.2.0.nupkg.sha512",
+        "chosen.jquery.nuspec",
+        "content/Scripts/chosen.jquery.js",
+        "content/Scripts/chosen.jquery.min.js"
+      ]
+    },
     "Humanizer.Core/2.8.26": {
       "sha512": "OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
       "type": "package",
@@ -1537,6 +1589,46 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "jQuery/1.4.4": {
+      "sha512": "kexCeYIZehR5fRjo8CK1sngN5SZEQRFNfCYZHMS1RxwEEiSKetBw/gliYJcLJdJEBB+e9aHqleLCjuaSI7u23g==",
+      "type": "package",
+      "path": "jquery/1.4.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery-1.4.4-vsdoc.js",
+        "Content/Scripts/jquery-1.4.4.js",
+        "Content/Scripts/jquery-1.4.4.min.js",
+        "jquery.1.4.4.nupkg.sha512",
+        "jquery.nuspec"
+      ]
+    },
+    "jQuery.UI.Core/1.8.9": {
+      "sha512": "Sib0IXtCSVnA9wX6i0enHxHTZmBW0mLncfjtjjU3wWUMnQgmTxlenvOZBKUqpFjA0/nFQgsJqsANO74YphTc+g==",
+      "type": "package",
+      "path": "jquery.ui.core/1.8.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery.ui.core.js",
+        "Content/Scripts/jquery.ui.core.min.js",
+        "jquery.ui.core.1.8.9.nupkg.sha512",
+        "jquery.ui.core.nuspec"
+      ]
+    },
+    "jQuery.UI.Widgets.Datepicker/1.8.9": {
+      "sha512": "cA1RW6ms1azPhXg6OKFptRPljO1Pky8WsUo57AHfHVIUvVZZA1GZ7Iygu9Sc+y33Mq7wncX9+hruDgzUm34N7w==",
+      "type": "package",
+      "path": "jquery.ui.widgets.datepicker/1.8.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery.ui.datepicker.js",
+        "Content/Scripts/jquery.ui.datepicker.min.js",
+        "jquery.ui.widgets.datepicker.1.8.9.nupkg.sha512",
+        "jquery.ui.widgets.datepicker.nuspec"
       ]
     },
     "Microsoft.CSharp/4.7.0": {
@@ -5750,7 +5842,9 @@
     "net5.0": [
       "Microsoft.EntityFrameworkCore >= 5.0.16",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.16",
-      "Microsoft.EntityFrameworkCore.Tools >= 5.0.15"
+      "Microsoft.EntityFrameworkCore.Tools >= 5.0.15",
+      "chosen.jquery >= 1.2.0",
+      "jQuery.UI.Widgets.Datepicker >= 1.8.9"
     ]
   },
   "packageFolders": {
@@ -5812,6 +5906,14 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[5.0.15, )"
+          },
+          "chosen.jquery": {
+            "target": "Package",
+            "version": "[1.2.0, )"
+          },
+          "jQuery.UI.Widgets.Datepicker": {
+            "target": "Package",
+            "version": "[1.8.9, )"
           }
         },
         "imports": [

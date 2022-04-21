@@ -72,3 +72,4 @@ F:\Study Material\Tatavsoft(Training)\EmployeeManagement\EmployeeManagement\obj\
 F:\Study Material\Tatavsoft(Training)\EmployeeManagement\EmployeeManagement\obj\Debug\net5.0\ref\EmployeeManagement.dll
 F:\Study Material\Tatavsoft(Training)\EmployeeManagement\EmployeeManagement\obj\Debug\net5.0\EmployeeManagement.pdb
 F:\Study Material\Tatavsoft(Training)\EmployeeManagement\EmployeeManagement\obj\Debug\net5.0\EmployeeManagement.genruntimeconfig.cache
+F:\Study Material\Tatavsoft(Training)\EmployeeManagement\EmployeeManagement\bin\Debug\net5.0\libman.json

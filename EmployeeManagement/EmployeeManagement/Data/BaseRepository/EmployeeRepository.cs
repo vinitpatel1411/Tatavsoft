@@ -27,10 +27,12 @@ namespace EmployeeManagement.Data.BaseRepository
             return result;
         }
 
-        public void UpdateEmployeeDetails(Employee newemp)
+        public int UpdateEmployeeDetails(Employee newemp)
         {
             _context.Update(newemp);
             _context.SaveChanges();
+            var result = _context.Employees.Where(a => a.EmpName == newemp.EmpName).Select(a => a.Id).FirstOrDefault();
+            return result;
         }
 
         public void DeleteEmployee(Employee emp)
@@ -39,10 +41,12 @@ namespace EmployeeManagement.Data.BaseRepository
             _context.SaveChanges();
         }
 
-        public void addEmployee(Employee employee)
+        public int  addEmployee(Employee employee)
         {
             _context.Employees.Add(employee);
             _context.SaveChanges();
+            var result  = _context.Employees.Where(a => a.EmpName == employee.EmpName).Select(a => a.Id).FirstOrDefault();
+            return result;
         }
 
         public void addDepartment(Department Department)
@@ -87,6 +91,30 @@ namespace EmployeeManagement.Data.BaseRepository
         {
             var result = _context.Employees.Where(a => a.EmpName == name).Select(a => a.Id).FirstOrDefault();
             return result;
+        }
+
+        public decimal GetSalaryDetails(int id)
+        {
+            var result = _context.Salaries.Where(a => a.EmpId == id).Select(a => a.TotalSalary).FirstOrDefault();
+            return result;
+        }
+
+        public Salary GetSalarymodel(int id)
+        {
+           var result = _context.Salaries.Where(a => a.EmpId == id).FirstOrDefault();
+            return result;
+        }
+
+        public void updateSalary(Salary sal)
+        {
+            _context.Update(sal);
+            _context.SaveChanges();
+        }
+
+        public List<Department> GetDepartmentList()
+        {
+            List<Department> Dept = _context.Departments.ToList();
+            return Dept;
         }
     }
 }

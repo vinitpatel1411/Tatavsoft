@@ -10,11 +10,11 @@ namespace EmployeeManagement.Data.Services
 {
     public class EmployeeServices:IEmployeeServices
     {
-        private readonly IEmpoyeeRepository _service;
+        private readonly IEmpoyeeRepository _repository;
 
-        public EmployeeServices(IEmpoyeeRepository service)
+        public EmployeeServices(IEmpoyeeRepository repository)
         {
-            _service = service;
+            _repository = repository;
         }
 
         public void addEmployeeDetails(EmployeeSalaryViewModel employeeSalary)
@@ -26,42 +26,56 @@ namespace EmployeeManagement.Data.Services
             emp.JoinDate = employeeSalary.JoinDate;
             emp.Age = employeeSalary.Age;
             emp.TotalSalary = employeeSalary.TotalSalary;
-            emp.DepartmentId = _service.GetDepartmentId(employeeSalary.DepartmentName);
-            _service.addEmployee(emp);
+            emp.DepartmentId = Int32.Parse(employeeSalary.DepartmentName);
+            var empid = _repository.addEmployee(emp);
             /*Department dept = new Department();
             dept.Name = employeeSalary.DepartmentName;
             _service.addDepartment(dept);*/
             Salary sal = new Salary();
-            sal.EmpId = _service.GetEmployeeId(employeeSalary.EmpName);
+            sal.EmpId = empid;
             sal.TotalSalary = employeeSalary.TotalSalary;
-            _service.addSalary(sal);
+            _repository.addSalary(sal);
         }
 
         public void DeleteEmployee(Employee emp)
         {
-            _service.DeleteEmployee(emp);
+            _repository.DeleteEmployee(emp);
         }
 
         public Employee GetById(int id)
         {
-            var emp = _service.GetById(id);
+            var emp = _repository.GetById(id);
             return emp;
+        }
+
+        public List<Department> GetDepartmentList()
+        {
+            List<Department> Dept = _repository.GetDepartmentList();
+            return Dept;
         }
 
         public List<Employee> GetEmpDetails()
         {
-            var Emp = _service.GetEmpDetails();
+            var Emp = _repository.GetEmpDetails();
             return Emp;
         }
 
         public void UpdateEmployeeDetails(EmployeeEditViewModel model)
         {
-            Employee employee = _service.GetById(model.Id);
+            Employee employee = _repository.GetById(model.Id);
             employee.EmpName = model.EmpName;
             employee.Designation = model.Designation;
             employee.TotalSalary = model.TotalSalary;
-            employee.DepartmentId = _service.GetDepartmentId(model.DepartmentName);
-            _service.UpdateEmployeeDetails(employee);
+            employee.DepartmentId = _repository.GetDepartmentId(model.DepartmentName);
+            var result =_repository.UpdateEmployeeDetails(employee);
+            var salary = _repository.GetSalaryDetails(model.Id);
+            if (!(salary == model.TotalSalary))
+            {
+                Salary sal = _repository.GetSalarymodel(model.Id);
+                sal.TotalSalary = model.TotalSalary;
+                _repository.updateSalary(sal);
+
+            }
         }
     }
 }

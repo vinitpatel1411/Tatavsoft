@@ -17,5 +17,7 @@ namespace EmployeeManagement.Data.Services
         void DeleteEmployee(Employee emp);
 
         Employee GetById(int id);
+
+        List<Department> GetDepartmentList();
     }
 }
