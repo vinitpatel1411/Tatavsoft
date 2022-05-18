@@ -19,6 +19,41 @@ namespace EmployeeManagement.Migrations
                 .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("EmployeeManagement.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("EmployeeManagement.Models.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -56,7 +91,16 @@ namespace EmployeeManagement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Addressline")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<int>("DepartmentId")
@@ -74,14 +118,23 @@ namespace EmployeeManagement.Migrations
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("StateId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TotalSalary")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
+
                     b.HasIndex("DepartmentId");
 
                     b.HasIndex("DesignationId");
+
+                    b.HasIndex("StateId");
 
                     b.ToTable("Employees");
                 });
@@ -106,23 +159,78 @@ namespace EmployeeManagement.Migrations
                     b.ToTable("Salaries");
                 });
 
+            modelBuilder.Entity("EmployeeManagement.Models.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("States");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.City", b =>
+                {
+                    b.HasOne("EmployeeManagement.Models.State", "State")
+                        .WithMany("City")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("State");
+                });
+
             modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
                 {
+                    b.HasOne("EmployeeManagement.Models.City", "City")
+                        .WithMany("Employee")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeManagement.Models.Country", "Country")
+                        .WithMany("Employee")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("EmployeeManagement.Models.Department", "Department")
                         .WithMany("Employee")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EmployeeManagement.Models.Designation", "Designation")
                         .WithMany("Employee")
                         .HasForeignKey("DesignationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("EmployeeManagement.Models.State", "State")
+                        .WithMany("Employee")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
 
                     b.Navigation("Department");
 
                     b.Navigation("Designation");
+
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Salary", b =>
@@ -130,10 +238,33 @@ namespace EmployeeManagement.Migrations
                     b.HasOne("EmployeeManagement.Models.Employee", "Employee")
                         .WithMany("Salary")
                         .HasForeignKey("EmpId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.State", b =>
+                {
+                    b.HasOne("EmployeeManagement.Models.Country", "Country")
+                        .WithMany("State")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.City", b =>
+                {
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.Country", b =>
+                {
+                    b.Navigation("Employee");
+
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Department", b =>
@@ -149,6 +280,13 @@ namespace EmployeeManagement.Migrations
             modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
                 {
                     b.Navigation("Salary");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.State", b =>
+                {
+                    b.Navigation("City");
+
+                    b.Navigation("Employee");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,10 +13,23 @@ namespace EmployeeManagement.Data
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+            
+        }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Salary> Salaries { get; set; }
         public DbSet<Department> Departments { get; set; }
 
         public DbSet<Designation> Designations { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<State> States { get; set; }
+        public DbSet<City> Cities { get; set; }
     }
 }

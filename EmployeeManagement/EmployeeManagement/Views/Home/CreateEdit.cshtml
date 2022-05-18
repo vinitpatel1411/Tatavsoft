@@ -1,0 +1,219 @@
+﻿@model EmployeeManagement.ViewModels.EmployeeSalaryViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Employee</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="CreateEdit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" id="Id" />
+                    <div class="form-group">
+                        <label asp-for="EmpName" class="control-label"></label>
+                        <input asp-for="EmpName" class="form-control" id="EmployeeName" />
+                        <span asp-validation-for="EmpName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DesId" class="control-label"></label>
+                        <select class="form-control" id="desname" asp-for="DesId" asp-items="@(new SelectList(ViewBag.Deslist,"Id","Name"))">
+                        </select>
+                        <span asp-validation-for="DesId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="display:inline-block;">
+                        <label asp-for="Gender" class="form-check-label"></label>
+                        <div class="form-check">
+                            <input type="radio" name="Gender" value="Male" class="form-check-input" @(Model.Gender == "Male" ? "checked='true'" : "") />
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Male
+                            </label>
+
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="Gender" value="Female" class="form-check-input" @(Model.Gender == "Female" ? "checked='true'" : "") />
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Female
+                            </label>
+
+                        </div>
+                        <span asp-validation-for="Gender" id="spnError" style="display: none" class="text-danger">Please Select Gender</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Age" class="control-label"></label>
+                        <input asp-for="Age" class="form-control" id="Age"/>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TotalSalary" class="control-label"></label>
+                        <input asp-for="TotalSalary" class="form-control" id="Salary" />
+                        <span asp-validation-for="TotalSalary" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="JoinDate" class="control-label"></label>
+                        <input type="text" name="JoinDate" class="datepicker form-control" id="datetime" value='@(Model.JoinDate.ToString("dd/MM/yyyy"))' />
+                        <span asp-validation-for="JoinDate" id="spnError1" style="display: none" class="text-danger">Please Select Joining Date</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DeptId" class="control-label"></label>
+                        <select class="form-control" id="deptname" asp-for="DeptId" asp-items="@(new SelectList(ViewBag.Deptlist,"Id","Name"))">
+                        </select>
+                        <span asp-validation-for="DeptId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AddressLine" class="control-label"></label>
+                        <textarea class="form-control" asp-for="AddressLine"></textarea>
+                        <span asp-validation-for="AddressLine" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CountryId" class="control-label"></label>
+                        <select class="form-control" id="CountryList" asp-for="CountryId" asp-items="@(new SelectList(ViewBag.countrylist,"Id","Name"))">
+                        </select>
+                        <span asp-validation-for="CountryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StateId" class="control-label"></label>
+                        <select class="form-control" id="StateList" asp-for="StateId">
+                            @if (Model.StateId != 0)
+                            {
+                                foreach (var s in ViewBag.statelist)
+                                {
+                                    <option  value="@s.Id">@s.Name</option>
+
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="StateId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CityId" class="control-label"></label>
+                        <select class="form-control" id="CityList" asp-for="CityId">
+                            @if (Model.StateId != 0)
+                            {
+                                foreach (var s in ViewBag.citylist)
+                                {
+                                    <option value="@s.Id">@s.Name</option>
+
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="CityId" class="text-danger"></span>
+                    </div>
+                    <footer>
+                        <div class="form-group">
+                            <input type="submit" value="Save" id="btnSubmit" class="btn btn-outline-success float-right" />
+                            <a class="btn btn-outline-secondary" asp-action="Details">Show Details</a>
+                        </div>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/lib/jquery/chosen/chosen.jquery.min.js"></script>
+    <script src="~/lib/jquery/datepicker/datepicker.js"></script>
+    <link href="~/lib/jquery/datepicker/datepicker.css" rel="stylesheet" />
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#CountryList").on("change", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetState",
+                    data: { "CountryId": $("#CountryList").val() },
+                    success: function (response) {
+                        var items = '';
+                        $(response).each(function () {
+                            items += "<option value=" + this.value + ">" + this.text + "</option>";
+                        })
+                        $("#StateList").html(items);
+                        $("#CityList").empty();
+
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+  
+            })
+            $("#StateList").on("change", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetCity",
+                    data: { "StateId": $("#StateList").val() },
+                    success: function (response) {
+                        var items = '';
+                        $(response).each(function () {
+                            items += "<option value=" + this.value + ">" + this.text + "</option>";
+                        })
+                        $("#CityList").html(items);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            })
+        });
+        $(function () {
+            $('.datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/MM/yy'
+                
+            });
+        });
+
+        /* $(function () {
+             $("#deptname").chosen();
+         });
+
+         $(function () {
+             $("#desname").chosen();
+         });*/
+        $(function () {
+            var id = $('#Id').val();
+            console.log(id);
+            if (id <= 0) {
+                $('#datetime').attr("placeholder", "dd/MM/yyyy");
+                $('#datetime').removeAttr("value");
+                $('#EmployeeName').attr("placeholder", "Enter Employee Name");
+                $('#Age').attr("placeholder", "Enter Age");
+                $('#Age').removeAttr("value");
+                $('#Salary').attr("placeholder", "Enter Salary");
+                $('#Salary').removeAttr("value");
+            }
+        });
+
+        $("#btnSubmit").click(function () {
+            var isvalid = $("input[name=Gender]").is(":checked");
+            console.log(isvalid);
+            $("#spnError")[0].style.display = isvalid ? "none" : "block";
+        });
+
+        $("#btnSubmit").click(function () {
+            var value = $('#datetime').val()+0;
+            console.log(value);
+            if (value == 0) {
+                $("#spnError1")[0].style.display = "block";
+                console.log("Working");
+            }
+            console.log("Not Working");
+        })
+    </script>
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

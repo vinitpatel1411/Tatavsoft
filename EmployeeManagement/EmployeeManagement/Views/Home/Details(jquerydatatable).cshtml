@@ -1,0 +1,150 @@
+﻿@using EmployeeManagement.Models
+@model Employee
+
+@{
+    ViewBag.Title = "Details Of Employee";
+}
+-<div class="row">
+    <div class="col-md-8 offset-md-2">
+
+        <table class="table" id="Employee">
+            <thead class="table-header">
+                <tr>
+                    <th>Id<span class="arrow-icon"></span></th>
+                    <th>@Html.DisplayNameFor(model => model.EmpName)<span class="arrow-icon"></span></th>
+                    <th>@Html.DisplayNameFor(model => model.Designation)<span class="arrow-icon"></span></th>
+                    <th>@Html.DisplayNameFor(model => model.Department)<span class="arrow-icon"></span></th>
+                    <th>@Html.DisplayNameFor(model => model.TotalSalary)<span class="arrow-icon"></span></th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<a class="btn btn-outline-primary" asp-action="CreateEdit"><i class="bi bi-pencil-square"></i>Add Employee</a>
+<!--<a class="btn btn-outline-primary" asp-action="AddDepartment"><i class="bi bi-pencil-square"></i>Add Department</a>
+<a class="btn btn-outline-primary" asp-action="ShowDepartementList"><i class="bi bi-pencil-square"></i>Show  Department List</a>
+-->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">X</a>
+                <h3 class="modal-title">Delete Employee</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure ? You want to delete this. </h4>
+
+                <div style="text-align:center;display:none" id="loaderDiv">
+
+                    <img src="~/img/loading.gif" style="height:200px;width:200px" />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-success" onclick="DeleteEmployee()">Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+    <input type="hidden" id="hiddenEmployeeId" />
+</div>
+
+@section Scripts {
+    
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/chosen/chosen.jquery.min.js"></script>
+    <script src="~/lib/jquery/datepicker/datepicker.js"></script>
+    <link href="~/lib/jquery/datepicker/datepicker.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var otable=$("#Employee").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Home/GetEmployees",
+                    "type": "POST",
+                    "dataType": "json",
+                    
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                    { "orderable": false, "targets": 5 },
+                    { "orderable": false, "targets": 6 }
+                ],
+                "columns": [
+                    { "data": "id", "name": "Id", "autoWidth": true },
+                    { "data": "empName", "name": "EmpName","autoWidth": true },
+                    { "data": "designation.name", "name": "Designation.Name","autoWidth": true },
+                    { "data": "department.name", "name": "Department.Name","autoWidth": true },
+                    { "data": "totalSalary", "name": "TotalSalary","autoWidth": true },
+                    {
+                        "render": function (data, type, row, meta) { return '<a class="btn btn-info" href="/Home/CreateEdit/' + row.id + '">Edit</a>'; }
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return "<a href='#' class='btn btn-danger' onclick=ConfirmDelete('" + row.id + "'); >Delete</a>";
+                        }
+                    },
+                ]
+
+            });
+        });
+
+
+            var ConfirmDelete = function (EmployeeId) {
+
+                $("#hiddenEmployeeId").val(EmployeeId);
+                $("#myModal").modal('show');
+                console.log("Hello");
+
+            }
+
+            var DeleteEmployee = function () {
+
+                $("#loaderDiv").show();
+
+                var empId = $("#hiddenEmployeeId").val();
+
+                $.ajax({
+
+                    type: "DELETE",
+                    url: "/Home/Delete",
+                    data: { EmployeeId: empId },
+                    success: function (result) {
+                        $("#loaderDiv").hide();
+                        $("#myModal").modal("hide");
+                        location.reload();
+                    }
+
+                })
+
+            }
+        
+
+
+
+        
+
+       
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -10,6 +10,8 @@ namespace EmployeeManagement.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Designation Name")]
+        [Required(ErrorMessage = "Please Enter Designation Name")]
         public string Name { get; set; }
 
         public List<Employee> Employee { get; set; }

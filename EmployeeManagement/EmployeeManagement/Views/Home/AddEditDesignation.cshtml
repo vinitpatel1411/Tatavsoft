@@ -1,0 +1,29 @@
+﻿@model EmployeeManagement.Models.Designation
+
+@{
+    ViewData["Title"] = "EditDesignation";
+    Layout = null;
+}
+<h4>Designation</h4>
+<hr />
+
+<form asp-action="AddEditDesignation"  onsubmit="return jQueryAjaxPost1(this);">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="ShowDesignationList">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

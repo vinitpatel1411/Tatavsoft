@@ -1,5 +1,5 @@
 ﻿@using EmployeeManagement.Models
-@model Employee
+@model IEnumerable<Employee>
 
 @{
     ViewBag.Title = "Details Of Employee";
@@ -7,34 +7,62 @@
 
 <div class="row">
     <div class="col-md-8 offset-md-2">
-
-        <table class="table">
-            <thead>
-                <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.EmpName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Designation)</th>
-                    <th>@Html.DisplayNameFor(model => model.Department)</th>
-                    <th>@Html.DisplayNameFor(model => model.TotalSalary)</th>
-                </tr>
-            </thead>
-            @foreach (var employee in ViewBag.Employees)
-            {
-                <tr style="text-align:center;" id="row_@employee.Id">
-                    <td class="align-middle">@employee.EmpName</td>
-                    <td class="align-middle">@employee.Designation.Name</td>
-                    <td class="align-middle">@employee.Department.Name</td>
-                    <td class="align-middle">@employee.TotalSalary</td>
-                    <td class="align-middle">
-                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@employee.Id"><i class="bi bi-pencil-square"></i>Edit </a> |
-                        <a class="btn btn-danger text-white" onclick="ConfirmDelete(@employee.Id)"><i class="bi bi-trash"></i>Delete </a>
-                    </td>
-                </tr>
-            }
-        </table>
+        <form id="searchform"class="form-inline">
+            <div class="form-group" style="margin-bottom:10px;">
+                <input type="text" class="form-control EmpName" placeholder="Enter Employee Name" id="Name" />
+            </div>
+            <div class="form-group" style="margin-bottom:10px;">
+                <label class="control-label"></label>
+                <select class="form-control" id="deptname" asp-items="@(new SelectList(ViewBag.Deptlist,"Id","Name"))">
+                </select>
+                <select class="form-control" id="desname"  asp-items="@(new SelectList(ViewBag.Deslist,"Id","Name"))">
+                </select>
+                <select id="gender"class="form-control">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <select id="country" class="form-control"  asp-items="@(new SelectList(ViewBag.countrylist,"Id","Name"))">
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom:10px;">
+                <input type="button" class="btn btn-outline-primary" value="Search" style="margin-right:10px;" onclick="search()" />
+                <input type="button" value ="Cancel" class="btn btn-danger text-white" onclick="search1()"/>
+            </div>
+        </form>
+            <table class="table">
+                <thead class="table-header">
+                    <tr class="text-center">
+                        <th>@Html.DisplayNameFor(model => model.EmpName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Designation)</th>
+                        <th>@Html.DisplayNameFor(model => model.Department)</th>
+                        <th>@Html.DisplayNameFor(model => model.TotalSalary)</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeRow">
+                    @foreach (Employee employee in Model)
+                    {
+                        <tr style="text-align:center;" id="row_@employee.Id">
+                            <td class="align-middle">@employee.EmpName</td>
+                            <td class="align-middle">@employee.Designation.Name</td>
+                            <td class="align-middle">@employee.Department.Name</td>
+                            <td class="align-middle">@employee.TotalSalary</td>
+                            <td class="align-middle">
+                                <a class="btn btn-outline-primary" asp-action="CreateEdit" asp-route-id="@employee.Id"><i class="bi bi-pencil-square"></i>Edit </a>
+                            </td>
+                            <td class="align-middle">
+                                <a class="btn btn-danger text-white" onclick="ConfirmDelete(@employee.Id)"><i class="bi bi-trash"></i>Delete </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
     </div>
 </div>
 
-<a class="btn btn-outline-primary" asp-action="Index"><i class="bi bi-pencil-square"></i>Add Employee</a>
+<a class="btn btn-outline-primary" asp-action="CreateEdit"><i class="bi bi-pencil-square"></i>Add Employee</a>
 
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
@@ -65,36 +93,96 @@
 
 </div>
 <input type="hidden" id="hiddenEmployeeId" />
+@section Scripts {
+    <script>
+        var ConfirmDelete = function (EmployeeId) {
 
-<script>
+            $("#hiddenEmployeeId").val(EmployeeId);
+            $("#myModal").modal('show');
+            console.log("Hello");
 
-    var ConfirmDelete = function (EmployeeId) {
+        }
 
-        $("#hiddenEmployeeId").val(EmployeeId);
-        $("#myModal").modal('show');
+        var DeleteEmployee = function () {
 
-    }
+            $("#loaderDiv").show();
 
-    var DeleteEmployee = function () {
+            var empId = $("#hiddenEmployeeId").val();
 
-        $("#loaderDiv").show();
+            $.ajax({
 
-        var empId = $("#hiddenEmployeeId").val();
+                type: "DELETE",
+                url: "/Home/Delete",
+                data: { EmployeeId: empId },
+                success: function (result) {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                    location.reload();
+                }
 
-        $.ajax({
+            })
 
-            type: "DELETE",
-            url: "/Home/Delete",
-            data: { EmployeeId: empId },
-            success: function (result) {
-                $("#loaderDiv").hide();
-                $("#myModal").modal("hide");
-                $("#row_" + empId).remove();
+        }
+        function search () {
 
-            }
+            var searchtext = $("#Name").val();
+            var des = $("#desname").val();
+            var dept = $("#deptname").val();
+            var gender = $("#gender").val();
+            var country = $("#country").val();
+            console.log(des);
+            console.log(dept);
+            console.log(gender);
+            console.log(country);
+            $.ajax({
+                type: "Post",
+                url: "/Home/GetSearchRecord",
+                data: {
+                    SearchText: searchtext,
+                    des: des,
+                    dept: dept,
+                    gender: gender,
+                    country : country
+                },
+                success: function (response) {
+                    $("#employeeRow").html(response);
 
-        })
+                }
 
-    }
-</script>
+            })
 
+        }
+        function search1() {
+            $('#searchform')[0].reset();
+            var searchtext = $("#Name").val();
+            var des = $("#desname").val();
+            var dept = $("#deptname").val();
+            var gender = $("#gender").val();
+            var country = $("#country").val();
+            console.log(des);
+            console.log(dept);
+            console.log(gender);
+            console.log(country);
+            $.ajax({
+                type: "Post",
+                url: "/Home/GetSearchRecord",
+                data: {
+                    SearchText: searchtext,
+                    des: des,
+                    dept: dept,
+                    gender: gender,
+                    country: country
+                },
+                success: function (response) {
+                    $("#employeeRow").html(response);
+
+                }
+
+            })
+
+        }
+
+        
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

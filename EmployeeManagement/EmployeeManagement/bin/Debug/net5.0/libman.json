@@ -1,14 +1,23 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": [{
-  "library": "chosen@1.8.7",
-  "destination": "wwwroot/lib/jquery/chosen/"
-}
-,
+  "libraries": [
+    {
+      "library": "chosen@1.8.7",
+      "destination": "wwwroot/lib/jquery/chosen/"
+    },
+    {
+      "library": "datepicker@1.0.10",
+      "destination": "wwwroot/lib/jquery/datepicker/"
+    },
+    {
+      "library": "datatables.net@2.1.1",
+      "destination": "wwwroot/lib/datatables.net/"
+    }
+  ,
 {
-  "library": "datepicker@1.0.10",
-  "destination": "wwwroot/lib/jquery/datepicker/"
+  "library": "datatables@1.10.21",
+  "destination": "wwwroot/lib/datatables/"
 }
 ]
 }
