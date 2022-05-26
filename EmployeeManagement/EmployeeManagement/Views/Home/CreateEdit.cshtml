@@ -19,7 +19,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="DesId" class="control-label"></label>
-                        <select class="form-control" id="desname" asp-for="DesId" asp-items="@(new SelectList(ViewBag.Deslist,"Id","Name"))">
+                        <select class="form-control" id="desname" asp-for="DesId" asp-items="@(new SelectList(Model.Designation,"Value","Text"))">
+                            <option value="">---Select Designation---</option>
                         </select>
                         <span asp-validation-for="DesId" class="text-danger"></span>
                     </div>
@@ -58,7 +59,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="DeptId" class="control-label"></label>
-                        <select class="form-control" id="deptname" asp-for="DeptId" asp-items="@(new SelectList(ViewBag.Deptlist,"Id","Name"))">
+                        <select class="form-control" id="deptname" asp-for="DeptId" asp-items="@(new SelectList(Model.Department,"Value","Text"))">
+                            <option value="">---Select Department---</option>
                         </select>
                         <span asp-validation-for="DeptId" class="text-danger"></span>
                     </div>
@@ -69,7 +71,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="CountryId" class="control-label"></label>
-                        <select class="form-control" id="CountryList" asp-for="CountryId" asp-items="@(new SelectList(ViewBag.countrylist,"Id","Name"))">
+                        <select class="form-control" id="CountryList" asp-for="CountryId" asp-items="@(new SelectList(Model.Country,"Value","Text"))">
+                            <option value="">---Select Country---</option>
                         </select>
                         <span asp-validation-for="CountryId" class="text-danger"></span>
                     </div>
@@ -78,9 +81,9 @@
                         <select class="form-control" id="StateList" asp-for="StateId">
                             @if (Model.StateId != 0)
                             {
-                                foreach (var s in ViewBag.statelist)
+                                foreach (var s in Model.State)
                                 {
-                                    <option  value="@s.Id">@s.Name</option>
+                                    <option  value="@s.Value">@s.Text</option>
 
                                 }
                             }
@@ -90,11 +93,11 @@
                     <div class="form-group">
                         <label asp-for="CityId" class="control-label"></label>
                         <select class="form-control" id="CityList" asp-for="CityId">
-                            @if (Model.StateId != 0)
+                            @if (Model.CityId != 0)
                             {
-                                foreach (var s in ViewBag.citylist)
+                                foreach (var s in Model.City)
                                 {
-                                    <option value="@s.Id">@s.Name</option>
+                                    <option value="@s.Value">@s.Text</option>
 
                                 }
                             }

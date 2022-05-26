@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,5 +51,11 @@ namespace EmployeeManagement.Data.Services
         IQueryable<Designation> GetDesignationListByquery();
 
         IQueryable<Employee> GetEmpDetailsByquery();
+
+        IEnumerable<SelectListItem> GetDepartmentdropdownList();
+        IEnumerable<SelectListItem> GetDesignationdropdownList();
+        IEnumerable<SelectListItem> GetCountrydropdownList();
+        IEnumerable<SelectListItem> GetStatedropdownList(int CountryId);
+        IEnumerable<SelectListItem> GetCitydropdownList(int StateId);
     }
 }

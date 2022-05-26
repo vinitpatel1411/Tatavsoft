@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<EmployeeManagement.Models.Employee>
-
 @if (Model != null)
 {
     @foreach (Employee employee in Model)
@@ -13,7 +12,7 @@
                 <a class="btn btn-outline-primary" asp-action="CreateEdit" asp-route-id="@employee.Id"><i class="bi bi-pencil-square"></i>Edit </a>
             </td>
             <td class="align-middle">
-                <a class="btn btn-danger text-white" onclick="ConfirmDelete(@employee.Id)"><i class="bi bi-trash"></i>Delete </a>
+                <a class="btn btn-danger text-white" id="deleteemp" onclick="ConfirmDelete(@employee.Id)"><i class="bi bi-trash"></i>Delete </a>
             </td>
         </tr>
     }

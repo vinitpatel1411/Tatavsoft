@@ -1,9 +1,11 @@
 using EmployeeManagement.Data;
 using EmployeeManagement.Data.BaseRepository;
 using EmployeeManagement.Data.Services;
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,14 +32,17 @@ namespace EmployeeManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddNewtonsoftJson(
-          options => {
-              options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-          });
             services.AddControllersWithViews(); 
             services.AddScoped<IEmployeeServices, EmployeeServices>();
             services.AddScoped<IEmpoyeeRepository, EmployeeRepository>();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+            services.AddMvc().AddNewtonsoftJson(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,10 +60,12 @@ namespace EmployeeManagement
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
-
+            app.UseSession();
+            app.UseAuthentication();
             app.UseAuthorization();
+           
 
             app.UseEndpoints(endpoints =>
             {

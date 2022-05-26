@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext: IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -15,6 +16,7 @@ namespace EmployeeManagement.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;

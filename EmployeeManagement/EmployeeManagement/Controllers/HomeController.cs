@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Timers;
 //using System.Web.Mvc;
 
 namespace EmployeeManagement.Controllers
@@ -81,21 +83,20 @@ namespace EmployeeManagement.Controllers
                 throw;
             }
         }
+        [Authorize]
         [HttpGet]
         public IActionResult CreateEdit(int id)
         {
             if(id<=0)
             {
-                List<Country> country = _service.GetCountryList();
-                country.Insert(0, new Country { Id = 0, Name = "---Select Country---" });
-                List<Department> Dept = _service.GetDepartmentList();
-                Dept.Insert(0, new Department { Id = 0, Name = "---Select Department---" });
-                List<Designation> Des = _service.GetDesignationList();
-                Des.Insert(0, new Designation { Id = 0, Name = "---Select Designation---" });
-                ViewBag.Deptlist = Dept;
-                ViewBag.Deslist = Des;
-                ViewBag.countrylist = country;
-                return View("CreateEdit", new EmployeeSalaryViewModel());
+                IEnumerable<SelectListItem> Dept = _service.GetDepartmentdropdownList();
+                IEnumerable<SelectListItem> Des = _service.GetDesignationdropdownList();
+                IEnumerable<SelectListItem> Country = _service.GetCountrydropdownList();
+                EmployeeSalaryViewModel Emp = new EmployeeSalaryViewModel();
+                Emp.Department = Dept;
+                Emp.Designation = Des;
+                Emp.Country = Country;
+                return View("CreateEdit", Emp);
             }
             else
             {
@@ -113,24 +114,13 @@ namespace EmployeeManagement.Controllers
                     AddressLine = employeedetails.Addressline,
                     CountryId = employeedetails.CountryId,
                     StateId = employeedetails.StateId,
-                    CityId = employeedetails.CityId
+                    CityId = employeedetails.CityId,
+                    Department = _service.GetDepartmentdropdownList(),
+                    Designation = _service.GetDesignationdropdownList(),
+                    Country = _service.GetCountrydropdownList(),
+                    State = _service.GetStatedropdownList(employeedetails.CountryId),
+                    City = _service.GetCitydropdownList(employeedetails.StateId)
                 };
-                var CountryId = employeedetails.CountryId;
-                var stateId = employeedetails.StateId;
-                var CityId = employeedetails.CityId;
-                List<Country> country = _service.GetCountryList();
-                //country.Insert(0, new Country { Id = employeedetails.CountryId, Name = employeedetails.Country.Name });
-                List<Department> Dept = _service.GetDepartmentList();
-                //Dept.Insert(0, new Department { Id = employeedetails.DepartmentId, Name = employeedetails.Department.Name });
-                List<Designation> Des = _service.GetDesignationList();
-                //Des.Insert(0, new Designation { Id = employeedetails.DesignationId, Name = employeedetails.Designation.Name });
-                var StateList = _service.GetStateList(Convert.ToInt32(CountryId));
-                var CityList = _service.GetCityList(Convert.ToInt32(stateId));
-                ViewBag.Deptlist = Dept;
-                ViewBag.Deslist = Des;
-                ViewBag.countrylist = country;
-                ViewBag.statelist = StateList;
-                ViewBag.citylist = CityList;
                 if (employeedetails == null)
                     return View("Not Found");
                 else
@@ -226,6 +216,7 @@ namespace EmployeeManagement.Controllers
             
 
         }
+        [Authorize]
         public IActionResult Details()
         {
             List<Country> country = _service.GetCountryList();
@@ -240,13 +231,13 @@ namespace EmployeeManagement.Controllers
             var employee = _service.GetEmpDetails();
             return View(employee);
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult GetSearchRecord(string SearchText,int des,int dept,string gender,int country)
         {
             var list = _service.GetSearchEmpDetails(SearchText,des,dept,gender,country);
             return PartialView("SearchPartial", list);
         }
-
+        
         [HttpDelete]
         public void Delete(int EmployeeId)
         {
@@ -259,6 +250,7 @@ namespace EmployeeManagement.Controllers
         }
 
         // Departement CRUD Operation 
+        [Authorize]
         public IActionResult AddEditDepartment(int id)
         {
             if(id<=0)
@@ -330,7 +322,7 @@ namespace EmployeeManagement.Controllers
             }
             
         }*/
-
+        [Authorize]
         public IActionResult ShowDepartementList(string deptsearch,string sortingdept)
         {
             return View();
@@ -417,7 +409,7 @@ namespace EmployeeManagement.Controllers
             }
             
         }
-
+        [Authorize]
         public IActionResult AddEditDesignation(int id)
         {
             if (id <= 0)
@@ -519,6 +511,7 @@ namespace EmployeeManagement.Controllers
                 throw;
             }
         }
+        [Authorize]
         public IActionResult ShowDesignationList()
         {
             return View();

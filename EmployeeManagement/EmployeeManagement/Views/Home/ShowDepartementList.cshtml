@@ -1,4 +1,6 @@
-﻿@using EmployeeManagement.Models
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<User> UserManager;
+@using EmployeeManagement.Models
 @model Department
 
 @{
@@ -70,7 +72,6 @@
             $("#myModal1").modal('show');
         }
         var ConfirmDelete = function (DepartmentId) {
-
             $("#hiddenDepartmentId").val(DepartmentId);
             $("#myModal").modal('show');
 
@@ -156,4 +157,4 @@
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-        
+

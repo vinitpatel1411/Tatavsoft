@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -259,6 +260,61 @@ namespace EmployeeManagement.Data.BaseRepository
         {
            var list = (from emp in _context.Employees select emp);
             return list;
+        }
+
+        public IEnumerable<SelectListItem> GetDepartmentdropdownList()
+        {
+            IEnumerable<SelectListItem> Dept = _context.Departments.Select(n =>
+                        new SelectListItem
+                        {
+                            Value = n.Id.ToString(),
+                            Text = n.Name
+                        }).ToList();
+            return new SelectList(Dept, "Value", "Text");
+        }
+
+        public IEnumerable<SelectListItem> GetDesignationdropdownList()
+        {
+            IEnumerable<SelectListItem> Des = _context.Designations.Select(n =>
+                        new SelectListItem
+                        {
+                            Value = n.Id.ToString(),
+                            Text = n.Name
+                        }).ToList();
+            return new SelectList(Des, "Value", "Text");
+        }
+
+        public IEnumerable<SelectListItem> GetCountrydropdownList()
+        {
+            IEnumerable<SelectListItem> Country = _context.Countries.Select(n =>
+                        new SelectListItem
+                        {
+                            Value = n.Id.ToString(),
+                            Text = n.Name
+                        }).ToList();
+            return new SelectList(Country, "Value", "Text");
+        }
+
+        public IEnumerable<SelectListItem> GetStatedropdownList(int CountryId)
+        {
+            IEnumerable<SelectListItem> State = _context.States.Where(z => z.CountryId == CountryId).Select(n =>
+                        new SelectListItem
+                        {
+                            Value = n.Id.ToString(),
+                            Text = n.Name
+                        }).ToList();
+            return new SelectList(State, "Value", "Text");
+        }
+
+        public IEnumerable<SelectListItem> GetCitydropdownList(int StateId)
+        {
+            IEnumerable<SelectListItem> City = _context.Cities.Where(z => z.StateId == StateId).Select(n =>
+                        new SelectListItem
+                        {
+                            Value = n.Id.ToString(),
+                            Text = n.Name
+                        }).ToList();
+            return new SelectList(City, "Value", "Text");
         }
     }
 }

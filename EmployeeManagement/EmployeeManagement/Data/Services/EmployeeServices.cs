@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Data.BaseRepository;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,16 +118,34 @@ namespace EmployeeManagement.Data.Services
             return emp;
         }
 
+        public IEnumerable<SelectListItem> GetCitydropdownList(int StateId)
+        {
+            var City = _repository.GetCitydropdownList(StateId);
+            return City;
+        }
+
         public List<City> GetCityList(int id)
         {
             List<City> city = _repository.GetCityList(id);
             return city;
         }
 
+        public IEnumerable<SelectListItem> GetCountrydropdownList()
+        {
+            var Country = _repository.GetCountrydropdownList();
+            return Country;
+        }
+
         public List<Country> GetCountryList()
         {
             List<Country> country = _repository.GetCountryList();
             return country;
+        }
+
+        public IEnumerable<SelectListItem> GetDepartmentdropdownList()
+        {
+            IEnumerable<SelectListItem> Dept = _repository.GetDepartmentdropdownList();
+            return Dept;
         }
 
         public List<Department> GetDepartmentList()
@@ -145,6 +164,12 @@ namespace EmployeeManagement.Data.Services
         {
             var list = _repository.GetDepartmentListByquery();
             return list;
+        }
+
+        public IEnumerable<SelectListItem> GetDesignationdropdownList()
+        {
+            var Des = _repository.GetDesignationdropdownList();
+            return Des;
         }
 
         public List<Designation> GetDesignationList()
@@ -181,6 +206,12 @@ namespace EmployeeManagement.Data.Services
         {
             var list = _repository.GetSearchEmpDetails(SearchText, des, dept, gender, country);
             return list;
+        }
+
+        public IEnumerable<SelectListItem> GetStatedropdownList(int CountryId)
+        {
+            var State = _repository.GetStatedropdownList(CountryId);
+            return State;
         }
 
         public List<State> GetStateList(int id)

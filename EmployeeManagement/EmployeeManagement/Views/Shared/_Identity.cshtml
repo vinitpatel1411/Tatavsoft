@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<User> UserManager;
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" >
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item" style="float:right">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Registration"><i class="bi bi-film"></i> SignUp</a>
+            </li>
+            <li class="nav-item" style="float:right">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="float:right">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item" style="float:right">
+                <a class="nav-link text-dark"><i class="bi bi-film"></i>Hello @UserManager.GetUserName(User)</a>
+            </li>
+            <li class="nav-item" style="float:right">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">LogOut</a>
+            </li>
+        </ul>
+    </div>
+}
